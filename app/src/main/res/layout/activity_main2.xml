@@ -89,7 +89,7 @@
         app:layout_constraintStart_toStartOf="@+id/inputPassword"
         app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 
-    <EditText
+    <TextView
         android:id="@+id/inputprofileimage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -98,8 +98,8 @@
         android:drawableLeft="@drawable/ic_image"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Upload profile image"
-        android:inputType=""
+        android:text="Upload profile image"
+        android:textSize="16sp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
@@ -107,6 +107,7 @@
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/inputreenterpass"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/inputreenterpass"
         app:layout_constraintTop_toBottomOf="@+id/inputreenterpass" />
 
@@ -136,27 +137,28 @@
         app:layout_constraintStart_toStartOf="@+id/Registerbutton"
         app:layout_constraintTop_toBottomOf="@+id/Registerbutton" />
 
-    <Button
-        android:id="@+id/BSelectImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Upload Profile image"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/alreadyhaveacc"
-        app:layout_constraintStart_toStartOf="@+id/alreadyhaveacc"
-        app:layout_constraintTop_toBottomOf="@+id/alreadyhaveacc" />
 
     <ImageView
         android:id="@+id/IVPreviewImage"
         android:layout_width="100sp"
         android:layout_height="100sp"
         android:layout_below="@id/BSelectImage"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/BSelectImage"
-        app:layout_constraintStart_toStartOf="@+id/BSelectImage"
-        app:layout_constraintTop_toBottomOf="@+id/BSelectImage" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.567"
+        app:layout_constraintStart_toEndOf="@+id/register"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/BSelectImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/inputprofileimage"
+        app:layout_constraintTop_toTopOf="@+id/inputprofileimage"
+        app:srcCompat="@drawable/ic_cloud_upload"
+        tools:ignore="VectorDrawableCompat" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
