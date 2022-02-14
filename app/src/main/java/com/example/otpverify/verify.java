@@ -2,10 +2,12 @@ package com.example.otpverify;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,6 +20,8 @@ public class verify extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_verify);
 
         Button submitbuttononclick = findViewById(R.id.submitotp);
@@ -30,13 +34,14 @@ public class verify extends AppCompatActivity {
         inputnumber6 = findViewById(R.id.inputotp6);
 
         TextView textView = findViewById(R.id.showemail);
-        textView.setText(String.format(getIntent().getStringExtra("email")));
+        textView.setText(getIntent().getStringExtra("email"));
 
         submitbuttononclick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!inputnumber1.getText().toString().trim().isEmpty() && !inputnumber2.getText().toString().trim().isEmpty() && !inputnumber3.getText().toString().trim().isEmpty() && !inputnumber4.getText().toString().trim().isEmpty() && !inputnumber5.getText().toString().trim().isEmpty() && !inputnumber6.getText().toString().trim().isEmpty()) {
                     Toast.makeText(verify.this, "OTP verified", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(verify.this,MainActivity.class));
                 }
                 else {
                     Toast.makeText(verify.this, "Please enter 6 digit otp", Toast.LENGTH_SHORT).show();
