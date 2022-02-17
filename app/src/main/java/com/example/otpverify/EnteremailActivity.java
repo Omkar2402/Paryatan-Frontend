@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class main extends AppCompatActivity {
+public class EnteremailActivity extends AppCompatActivity {
 
 //    EditText enteremail;
 //    EditText verifybtn;
@@ -36,7 +36,7 @@ public class main extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else {
-                    Toast.makeText(main.this, "Enter email id", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EnteremailActivity.this, "Enter email id", Toast.LENGTH_SHORT).show();
                 }
 
             }
