@@ -8,14 +8,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+//    String[] profile = {"User", "Admin"};
 
     ImageButton BSelectImage;
 
@@ -33,6 +38,14 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main2);
 
+        Spinner spinner = findViewById(R.id.spinner);
+        //        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,profile);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.adminoruser, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
 
         final EditText inputPassword = findViewById(R.id.inputPassword);
         final EditText inputreenterpass = findViewById(R.id.inputreenterpass);
@@ -41,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
         Registerbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (inputPassword==inputreenterpass) {
+                if (inputPassword.getText().toString().equals(inputreenterpass.getText().toString())) {
                     Toast.makeText(MainActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this,MenuActivity.class));
                 }
                 else {
                     Toast.makeText(MainActivity.this, "Passwords don't match", Toast.LENGTH_SHORT).show();
@@ -109,5 +123,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (parent.getItemAtPosition(position).equals("Select Profile")) {
+            Toast.makeText(this,"Please select between User or Admin",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            String text = parent.getItemAtPosition(position).toString();
+            Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
 

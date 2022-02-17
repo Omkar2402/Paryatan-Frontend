@@ -7,6 +7,7 @@
     tools:context=".MainActivity"
     android:background="@color/lightblue">
 
+
     <TextView
         android:id="@+id/register"
         android:layout_width="wrap_content"
@@ -124,19 +125,46 @@
         app:layout_constraintTop_toBottomOf="@+id/inputprofileimage" />
 
     <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="You are an "
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/alreadyhaveacc"
+        app:layout_constraintEnd_toEndOf="@+id/Registerbutton"
+        app:layout_constraintStart_toStartOf="@+id/Registerbutton"
+        app:layout_constraintTop_toBottomOf="@+id/Registerbutton"
+        tools:ignore="MissingConstraints" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="24dp"
+        android:background="#FFFB00"
+        android:dropDownWidth="wrap_content"
+        android:entries="@array/adminoruser"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/Registerbutton"
+        tools:ignore="MissingConstraints" />
+
+
+    <TextView
         android:id="@+id/alreadyhaveacc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:shadowColor="@color/black"
         android:text="Already have an account?"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/Registerbutton"
-        app:layout_constraintStart_toStartOf="@+id/Registerbutton"
-        app:layout_constraintTop_toBottomOf="@+id/Registerbutton" />
-
+        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <ImageView
         android:id="@+id/IVPreviewImage"
@@ -159,6 +187,8 @@
         app:layout_constraintTop_toTopOf="@+id/inputprofileimage"
         app:srcCompat="@drawable/ic_cloud_upload"
         tools:ignore="VectorDrawableCompat" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
