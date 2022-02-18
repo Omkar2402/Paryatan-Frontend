@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.AdminInputs"
+    android:background="@drawable/background_admin">
+
+    <EditText
+        android:id="@+id/inputmonumentname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/input_bg"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Name of Monument"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:shadowColor="@color/black"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/inputmonumentimg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+        android:drawableLeft="@drawable/ic_image"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:text="Upload Monument image"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentname"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentname"
+        app:layout_constraintTop_toBottomOf="@+id/inputmonumentname" />
+
+    <ImageView
+        android:id="@+id/MPreviewImage"
+        android:layout_width="30dp"
+        android:layout_height="32dp"
+        android:layout_below="@id/MSelectImage"
+
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentname"
+        app:layout_constraintTop_toTopOf="@+id/inputmonumentname" />
+
+    <ImageButton
+        android:id="@+id/MSelectImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toTopOf="@+id/inputmonumentimg"
+        app:srcCompat="@drawable/ic_cloud_upload"
+        tools:ignore="VectorDrawableCompat" />
+
+    <EditText
+        android:id="@+id/inputmonumentcity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+        android:drawableLeft="@drawable/ic_city"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Monument City"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toBottomOf="@+id/inputmonumentimg" />
+
+    <EditText
+        android:id="@+id/inputaadharnumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Aadhar Number"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentcity"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentcity"
+        app:layout_constraintTop_toBottomOf="@+id/inputmonumentcity" />
+
+    <TextView
+        android:id="@+id/inputpoa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+        android:drawableLeft="@drawable/ic_image"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:text="Upload Power of Aatorney"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/inputaadharnumber"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/inputaadharnumber"
+        app:layout_constraintTop_toBottomOf="@+id/inputaadharnumber" />
+
+
+
+    <ImageButton
+        android:id="@+id/POASelectImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/inputpoa"
+        app:layout_constraintTop_toTopOf="@+id/inputpoa"
+        app:srcCompat="@drawable/ic_cloud_upload"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageView
+        android:id="@+id/POAPreviewImage"
+        android:layout_width="61dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/inputpoa"
+        app:layout_constraintTop_toBottomOf="@+id/inputpoa" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

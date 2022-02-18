@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.otpverify.R;
 
-public class AdminorUser extends AppCompatActivity {
+public class AdminInputs extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adminor_user);
+        setContentView(R.layout.activity_admin_inputs);
     }
 }

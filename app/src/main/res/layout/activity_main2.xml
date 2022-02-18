@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.13" />
 
     <EditText
-        android:id="@+id/inputemail"
+        android:id="@+id/inputname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -65,9 +65,9 @@
         android:paddingBottom="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/inputemail"
-        app:layout_constraintStart_toStartOf="@+id/inputemail"
-        app:layout_constraintTop_toBottomOf="@+id/inputemail" />
+        app:layout_constraintEnd_toEndOf="@+id/inputname"
+        app:layout_constraintStart_toStartOf="@+id/inputname"
+        app:layout_constraintTop_toBottomOf="@+id/inputname" />
 
     <EditText
         android:id="@+id/inputreenterpass"
@@ -91,26 +91,26 @@
         app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 
     <TextView
-        android:id="@+id/inputprofileimage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/input_bg"
-        android:drawableLeft="@drawable/ic_image"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:text="Upload profile image"
-        android:textSize="16sp"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/inputreenterpass"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/inputreenterpass"
-        app:layout_constraintTop_toBottomOf="@+id/inputreenterpass" />
+    android:id="@+id/inputprofileimage"
+    android:layout_width="347dp"
+    android:layout_height="45dp"
+    android:layout_marginTop="16dp"
+    android:background="@drawable/input_bg"
+    android:drawableLeft="@drawable/ic_image"
+    android:drawablePadding="10dp"
+    android:ems="10"
+    android:paddingLeft="20dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    android:text="Upload profile image"
+    android:textColor="@color/black"
+    android:textColorHint="@color/black"
+    android:textSize="16sp"
+    app:layout_constraintEnd_toEndOf="@+id/inputreenterpass"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="@+id/inputreenterpass"
+    app:layout_constraintTop_toBottomOf="@+id/inputreenterpass" />
 
     <Button
         android:id="@+id/Registerbutton"

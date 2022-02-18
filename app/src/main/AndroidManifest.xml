@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Otpverify">
         <activity
+            android:name=".Admin.AdminInputs"
+            android:exported="true" />
+        <activity
             android:name=".SplashScreen.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -19,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Admin.AdminorUser"
+            android:name=".Admin.Admin"
             android:exported="true" />
         <activity
             android:name=".MenuActivity"
@@ -35,9 +38,7 @@
             android:exported="true" />
         <activity
             android:name=".EnteremailActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>
