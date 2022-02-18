@@ -18,6 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.otpverify.Admin.Admin;
+import com.example.otpverify.Admin.AdminInputs;
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 //    String[] profile = {"User", "Admin"};
@@ -30,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     // constant to compare
     // the activity result code
     int SELECT_PICTURE = 200;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getItemAtPosition(position).equals("Select Profile")) {
             Toast.makeText(this,"Please select between User or Admin",Toast.LENGTH_SHORT).show();
+        }
+        if (parent.getItemAtPosition(position).equals("Admin")) {
+            startActivity(new Intent(MainActivity.this, Admin.class));
         }
         else {
             String text = parent.getItemAtPosition(position).toString();

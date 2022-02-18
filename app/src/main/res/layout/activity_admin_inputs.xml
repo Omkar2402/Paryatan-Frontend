@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:background="@drawable/input_bg"
@@ -58,15 +58,13 @@
 
     <ImageView
         android:id="@+id/MPreviewImage"
-        android:layout_width="30dp"
-        android:layout_height="32dp"
+        android:layout_width="61dp"
+        android:layout_height="57dp"
         android:layout_below="@id/MSelectImage"
 
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/inputmonumentname"
-        app:layout_constraintTop_toTopOf="@+id/inputmonumentname" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/MSelectImage"
@@ -89,7 +87,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Monument City"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
@@ -109,7 +107,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Aadhar Number"
-        android:inputType="textPassword"
+        android:inputType="number"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
@@ -119,6 +117,27 @@
         app:layout_constraintEnd_toEndOf="@+id/inputmonumentcity"
         app:layout_constraintStart_toStartOf="@+id/inputmonumentcity"
         app:layout_constraintTop_toBottomOf="@+id/inputmonumentcity" />
+
+    <EditText
+        android:id="@+id/inputweblink"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+        android:drawableLeft="@drawable/ic_link"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Website link (if any)"
+        android:inputType="textWebEmailAddress"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputaadharnumber"
+        app:layout_constraintStart_toStartOf="@+id/inputaadharnumber"
+        app:layout_constraintTop_toBottomOf="@+id/inputaadharnumber" />
 
     <TextView
         android:id="@+id/inputpoa"
@@ -133,14 +152,14 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        android:text="Upload Power of Aatorney"
+        android:text="Upload Power of Attorney"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/inputaadharnumber"
+        app:layout_constraintEnd_toEndOf="@+id/inputweblink"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/inputaadharnumber"
-        app:layout_constraintTop_toBottomOf="@+id/inputaadharnumber" />
+        app:layout_constraintStart_toStartOf="@+id/inputweblink"
+        app:layout_constraintTop_toBottomOf="@+id/inputweblink" />
 
 
 
@@ -162,6 +181,17 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="@+id/inputpoa"
         app:layout_constraintTop_toBottomOf="@+id/inputpoa" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:background="@drawable/btn_bg"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/POAPreviewImage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
