@@ -152,7 +152,7 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        android:text="Upload Power of Attorney"
+        android:text="Upload Power of \n    Attorney"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="16sp"
@@ -162,13 +162,13 @@
         app:layout_constraintTop_toBottomOf="@+id/inputweblink" />
 
 
-
     <ImageButton
         android:id="@+id/POASelectImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="@+id/inputpoa"
         app:layout_constraintTop_toTopOf="@+id/inputpoa"
         app:srcCompat="@drawable/ic_cloud_upload"
