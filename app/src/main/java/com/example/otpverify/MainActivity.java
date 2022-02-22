@@ -23,7 +23,7 @@ import com.example.otpverify.Admin.AdminInputs;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-//    String[] profile = {"User", "Admin"};
+//    String[] profile = {"VerifyEmailResponse", "Admin"};
 
     ImageButton BSelectImage;
 
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getItemAtPosition(position).equals("Select Profile")) {
-            Toast.makeText(this,"Please select between User or Admin",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Please select between VerifyEmailResponse or Admin",Toast.LENGTH_SHORT).show();
         }
         if (parent.getItemAtPosition(position).equals("Admin")) {
             startActivity(new Intent(MainActivity.this, Admin.class));

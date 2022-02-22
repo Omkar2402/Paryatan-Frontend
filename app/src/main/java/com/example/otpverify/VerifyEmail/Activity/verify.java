@@ -1,4 +1,4 @@
-package com.example.otpverify;
+package com.example.otpverify.VerifyEmail.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,9 +13,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.otpverify.MainActivity;
+import com.example.otpverify.R;
+import com.example.otpverify.VerifyEmail.Presenter.VerifyEmailResponse;
+import com.google.gson.Gson;
+
 public class verify extends AppCompatActivity {
 
     EditText inputnumber1, inputnumber2, inputnumber3, inputnumber4, inputnumber5, inputnumber6;
+    VerifyEmailResponse verifyEmailResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,11 @@ public class verify extends AppCompatActivity {
         inputnumber5 = findViewById(R.id.inputotp5);
         inputnumber6 = findViewById(R.id.inputotp6);
 
+        String getVerifyEmailResponse = getIntent().getStringExtra("verify_email_response");
+        Gson gson = new Gson();
+        verifyEmailResponse = gson.fromJson(getVerifyEmailResponse,VerifyEmailResponse.class);
+
+
         TextView textView = findViewById(R.id.showemail);
         textView.setText(getIntent().getStringExtra("email"));
 
@@ -40,8 +51,15 @@ public class verify extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!inputnumber1.getText().toString().trim().isEmpty() && !inputnumber2.getText().toString().trim().isEmpty() && !inputnumber3.getText().toString().trim().isEmpty() && !inputnumber4.getText().toString().trim().isEmpty() && !inputnumber5.getText().toString().trim().isEmpty() && !inputnumber6.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(verify.this, "OTP verified", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(verify.this,MainActivity.class));
+                    String otpentered = inputnumber1.getText().toString()+inputnumber2.getText().toString()+inputnumber3.getText().toString()+inputnumber4.getText().toString()+inputnumber5.getText().toString()+inputnumber6.getText().toString();
+                    if (otpentered.equals(verifyEmailResponse.getOtp())) {
+                        Toast.makeText(verify.this, "OTP verified", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(verify.this, MainActivity.class));
+                    }
+                    else {
+                        Toast.makeText(verify.this,"Incorrect OTP", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
                 else {
                     Toast.makeText(verify.this, "Please enter 6 digit otp", Toast.LENGTH_SHORT).show();

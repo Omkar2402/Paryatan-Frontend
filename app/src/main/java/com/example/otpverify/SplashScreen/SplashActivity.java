@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
-import com.example.otpverify.EnteremailActivity;
+import com.example.otpverify.VerifyEmail.Activity.EnteremailActivity;
 import com.example.otpverify.R;
 
 public class SplashActivity extends AppCompatActivity {

@@ -7,7 +7,7 @@
     android:overScrollMode="never"
     android:scrollbars="none"
     android:background="@color/lightblue"
-    tools:context=".verify">
+    tools:context=".VerifyEmail.Activity.verify">
 
     <LinearLayout
         android:layout_width="match_parent"
