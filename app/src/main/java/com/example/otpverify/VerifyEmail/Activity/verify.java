@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -15,13 +16,21 @@ import android.widget.Toast;
 
 import com.example.otpverify.MainActivity;
 import com.example.otpverify.R;
+import com.example.otpverify.VerifyEmail.Presenter.VerifyEmailContract;
+import com.example.otpverify.VerifyEmail.Presenter.VerifyEmailPresenter;
 import com.example.otpverify.VerifyEmail.Presenter.VerifyEmailResponse;
 import com.google.gson.Gson;
 
-public class verify extends AppCompatActivity {
+public class verify extends AppCompatActivity implements VerifyEmailContract.View{
 
     EditText inputnumber1, inputnumber2, inputnumber3, inputnumber4, inputnumber5, inputnumber6;
     VerifyEmailResponse verifyEmailResponse;
+    TextView showemail;
+    VerifyEmailPresenter verifyEmailPresenter;
+    String getVerifyEmailResponse;
+    Gson gson;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +38,8 @@ public class verify extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_verify);
+
+        verifyEmailPresenter = new VerifyEmailPresenter(this);
 
         Button submitbuttononclick = findViewById(R.id.submitotp);
 
@@ -39,13 +50,28 @@ public class verify extends AppCompatActivity {
         inputnumber5 = findViewById(R.id.inputotp5);
         inputnumber6 = findViewById(R.id.inputotp6);
 
-        String getVerifyEmailResponse = getIntent().getStringExtra("verify_email_response");
-        Gson gson = new Gson();
+        getVerifyEmailResponse = getIntent().getStringExtra("verify_email_response");
+        gson = new Gson();
         verifyEmailResponse = gson.fromJson(getVerifyEmailResponse,VerifyEmailResponse.class);
 
+        //resendotp();
 
         TextView textView = findViewById(R.id.showemail);
         textView.setText(getIntent().getStringExtra("email"));
+
+        TextView resend = findViewById(R.id.resend_otp);
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("Resend OTP", "onClick: ");
+                getVerifyEmailResponse = getIntent().getStringExtra("verify_email_response");
+                //gson = new Gson();
+
+                verifyEmailResponse = gson.fromJson(getVerifyEmailResponse,VerifyEmailResponse.class);
+                Toast.makeText(verify.this, verifyEmailResponse.getOtp(), Toast.LENGTH_SHORT).show();
+                verifyEmailPresenter.requestotp(getIntent().getStringExtra("email"));
+            }
+        });
 
         submitbuttononclick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +96,19 @@ public class verify extends AppCompatActivity {
         otpnumbermove();
 
 
+
+    }
+
+    private void resendotp() {
+
+    }
+
+    public void getotp(VerifyEmailResponse verifyEmailResponse) {
+
+    }
+
+
+    public void onResponseFailure(String errStr) {
 
     }
 
