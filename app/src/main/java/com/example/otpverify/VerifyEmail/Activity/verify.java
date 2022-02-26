@@ -63,12 +63,12 @@ public class verify extends AppCompatActivity implements VerifyEmailContract.Vie
         resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Resend OTP", "onClick: ");
-                getVerifyEmailResponse = getIntent().getStringExtra("verify_email_response");
+//                Log.e("Resend OTP", "onClick: ");
+//                getVerifyEmailResponse = getIntent().getStringExtra("verify_email_response");
                 //gson = new Gson();
 
-                verifyEmailResponse = gson.fromJson(getVerifyEmailResponse,VerifyEmailResponse.class);
-                Toast.makeText(verify.this, verifyEmailResponse.getOtp(), Toast.LENGTH_SHORT).show();
+//                verifyEmailResponse = gson.fromJson(getVerifyEmailResponse,VerifyEmailResponse.class);
+//                Toast.makeText(verify.this, verifyEmailResponse.getOtp(), Toast.LENGTH_SHORT).show();
                 verifyEmailPresenter.requestotp(getIntent().getStringExtra("email"));
             }
         });
@@ -99,18 +99,11 @@ public class verify extends AppCompatActivity implements VerifyEmailContract.Vie
 
     }
 
-    private void resendotp() {
-
-    }
-
-    public void getotp(VerifyEmailResponse verifyEmailResponse) {
-
-    }
+//    private void resendotp() {
+//
+//    }
 
 
-    public void onResponseFailure(String errStr) {
-
-    }
 
     private void otpnumbermove() {
 
@@ -208,6 +201,16 @@ public class verify extends AppCompatActivity implements VerifyEmailContract.Vie
 
             }
         });
+
+    }
+
+    @Override
+    public void getotp(VerifyEmailResponse verifyEmailResponse) {
+        this.verifyEmailResponse = verifyEmailResponse;
+    }
+
+    @Override
+    public void onResponseFailure(String errStr) {
 
     }
 }

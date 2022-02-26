@@ -15,8 +15,6 @@ public interface VerifyEmailContract {
 
     interface View {
 
-
-
         void getotp(VerifyEmailResponse verifyEmailResponse);
 
         void onResponseFailure(String errStr);
