@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.example.sihfrontend.MainActivity;
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.register.RegisterActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -20,10 +21,10 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent splashIntent=new Intent(SplashActivity.this,
-                        MainActivity.class);
+                //Intent splashIntent=new Intent(SplashActivity.this,
+                  //      MainActivity.class);
                 //Intent is used to switch from one activity to another.
-
+                Intent splashIntent = new Intent(SplashActivity.this, RegisterActivity.class);
                 startActivity(splashIntent);
                 //invoke the SecondActivity.
 
