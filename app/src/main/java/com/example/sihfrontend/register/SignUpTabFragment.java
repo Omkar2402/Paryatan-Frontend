@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -59,6 +60,7 @@ public class SignUpTabFragment extends Fragment {
     private RadioGroup radioGroup;
     private RadioButton user;
     private RadioButton admin;
+    private ProgressBar progressBar;
 
     private  File file;
 
@@ -90,6 +92,7 @@ public class SignUpTabFragment extends Fragment {
         user = root.findViewById(R.id.radio_user);
         admin = root.findViewById(R.id.radio_admin);
         signup = root.findViewById(R.id.btnSignUp);
+        progressBar = root.findViewById(R.id.progressbar);
 
 
         etname.setTranslationX(800);
@@ -145,10 +148,13 @@ public class SignUpTabFragment extends Fragment {
                 Toast.makeText(getContext(),"Image upload clicked",Toast.LENGTH_SHORT).show();
                 Intent photo_picker_intent = new Intent(Intent.ACTION_PICK);
                 photo_picker_intent.setType("image/*");
+                progressBar.setVisibility(root.getRootView().VISIBLE);
                 startActivityForResult(Intent.createChooser(photo_picker_intent,"Complete action using...."),1);
                 String imagePath = registerActivity.getImagepath();
                 if(imagePath!=null){
                     file = new File(imagePath);
+                    Log.d("File Image path",imagePath);
+                    progressBar.setVisibility(root.getRootView().GONE);
                 }
             }
         });
@@ -181,8 +187,9 @@ public class SignUpTabFragment extends Fragment {
                                 .addFormDataPart("email",email)
                                 .addFormDataPart("password",password)
                                 .addFormDataPart("role",role)
-                                .addFormDataPart("profile-image",file.getName(),
-                                        RequestBody.create(MediaType.parse("image/*"), file))
+                                .addFormDataPart("profile-image", String.valueOf(R.drawable.splash))
+//                                .addFormDataPart("profile-image",email+".jpg",
+//                                        RequestBody.create(MediaType.parse("image/*"), file))
                                 .build();
                         Request request = new Request.Builder()
                                 .url("http://ec2-35-169-161-33.compute-1.amazonaws.com:8080/register")
@@ -195,6 +202,7 @@ public class SignUpTabFragment extends Fragment {
                             @Override
                             public void onFailure(Call call, IOException e) {
                                 e.printStackTrace();
+                                Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -209,12 +217,14 @@ public class SignUpTabFragment extends Fragment {
                                         Toast.makeText(getActivity().getApplication(), "Token:"+token,Toast.LENGTH_SHORT).show();
                                     } catch (JSONException e) {
                                         e.printStackTrace();
+                                        Toast.makeText(getContext(),"error1",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
                         });
                     }catch (Exception e){
                         e.printStackTrace();
+                        Toast.makeText(getContext(),"error2",Toast.LENGTH_SHORT).show();
                     }
                     //Toast.makeText(getContext(),"Registered successfully",Toast.LENGTH_SHORT).show();
                 }

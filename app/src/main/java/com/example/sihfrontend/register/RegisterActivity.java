@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.sihfrontend.R;
 import com.google.android.material.tabs.TabLayout;
 
-public class RegisterActivity extends AppCompatActivity implements FragmentInterface {
+public class RegisterActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
