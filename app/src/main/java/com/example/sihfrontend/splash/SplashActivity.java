@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
                 //Intent splashIntent=new Intent(SplashActivity.this,
                   //      MainActivity.class);
                 //Intent is used to switch from one activity to another.
-                Intent splashIntent = new Intent(SplashActivity.this, RegisterActivity.class);
+                Intent splashIntent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(splashIntent);
                 //invoke the SecondActivity.
 
