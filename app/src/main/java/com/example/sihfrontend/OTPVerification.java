@@ -87,6 +87,7 @@ public class OTPVerification extends AppCompatActivity {
                 }else{
                     String entered_otp = otpBox1.getText().toString()+otpBox2.getText().toString()+otpBox3.getText().toString()+otpBox4.getText().toString()+otpBox5.getText().toString()+otpBox6.getText().toString();
                     if(otp.equals(entered_otp)){
+
                         Intent registerIntent = new Intent(OTPVerification.this, RegisterActivity.class);
                         registerIntent.putExtra("email",email);
                         startActivity(registerIntent);

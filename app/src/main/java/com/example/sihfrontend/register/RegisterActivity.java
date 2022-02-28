@@ -3,6 +3,7 @@ package com.example.sihfrontend.register;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.sihfrontend.R;
@@ -12,13 +13,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-
+    String email="a@b";
     float v =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
+
+        //Intent intent = getIntent();
+        //email = intent.getStringExtra("email");
+
 
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
@@ -43,5 +48,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         tabLayout.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
 
+
+
+
+    }
+
+
+    public String getEmail(){
+        return email;
     }
 }
