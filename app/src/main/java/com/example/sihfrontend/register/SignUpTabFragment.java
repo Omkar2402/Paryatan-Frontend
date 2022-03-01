@@ -1,8 +1,11 @@
 package com.example.sihfrontend.register;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -141,20 +144,26 @@ public class SignUpTabFragment extends Fragment {
         imgUploadIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    Log.d("Before upload","before upload");
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+
+                    startActivityForResult(Intent.createChooser(intent, "Complete action using"), 2);
 //                Intent photo_picker_intent = new Intent(Intent.ACTION_PICK);
 //                photo_picker_intent.setType("image/*");
 //                startActivityForResult(photo_picker_intent,1);
-                Toast.makeText(getContext(),"Image upload clicked",Toast.LENGTH_SHORT).show();
-                Intent photo_picker_intent = new Intent(Intent.ACTION_PICK);
-                photo_picker_intent.setType("image/*");
-                progressBar.setVisibility(root.getRootView().VISIBLE);
-                startActivityForResult(Intent.createChooser(photo_picker_intent,"Complete action using...."),1);
-                String imagePath = registerActivity.getImagepath();
-                if(imagePath!=null){
-                    file = new File(imagePath);
-                    Log.d("File Image path",imagePath);
-                    progressBar.setVisibility(root.getRootView().GONE);
-                }
+//                Toast.makeText(getContext(),"Image upload clicked",Toast.LENGTH_SHORT).show();
+//                Intent photo_picker_intent = new Intent(Intent.ACTION_PICK);
+//                photo_picker_intent.setType("image/*");
+//                progressBar.setVisibility(root.getRootView().VISIBLE);
+//                startActivityForResult(Intent.createChooser(photo_picker_intent,"Complete action using...."),1);
+//                String imagePath = registerActivity.getImagepath();
+//                if(imagePath!=null){
+//                    file = new File(imagePath);
+//                    Log.d("File Image path",imagePath);
+//                    progressBar.setVisibility(root.getRootView().GONE);
+//                }
             }
         });
 
@@ -188,6 +197,63 @@ public class SignUpTabFragment extends Fragment {
         return root;
     }
 
+    public static String getPathFromCameraData(Intent data, Context context) {
+        Uri uri = data.getData();
+        String result = null;
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = context.getContentResolver( ).query( uri, proj, null, null, null );
+        if(cursor != null){
+            if ( cursor.moveToFirst( ) ) {
+                int column_index = cursor.getColumnIndexOrThrow( proj[0] );
+                result = cursor.getString( column_index );
+            }
+            cursor.close( );
+        }
+        if(result == null) {
+            result = "Not found";
+        }
+        return result;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("Request code",""+requestCode);
+        Toast.makeText(SignUpTabFragment.this.getActivity(), "Number 1", Toast.LENGTH_SHORT).show();
+        if(requestCode == 2){
+            Toast.makeText(SignUpTabFragment.this.getActivity(), "Number 2", Toast.LENGTH_SHORT).show();
+            if(resultCode == Activity.RESULT_OK) {
+                Toast.makeText(SignUpTabFragment.this.getActivity(), "Number 3", Toast.LENGTH_SHORT).show();
+                Log.d("data",""+data);
+                String path = getPathFromCameraData(data, SignUpTabFragment.this.getContext());
+                Toast.makeText(SignUpTabFragment.this.getActivity(), "Uploading", Toast.LENGTH_SHORT).show();
+                Log.d("path",""+path);
+                if (path != null) {
+                    setFullImageFromFilePath( path);
+                    Toast.makeText(SignUpTabFragment.this.getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+    public void setFullImageFromFilePath( String imgPath) {
+//        btn.setImageBitmap(BitmapFactory.decodeFile(imgPath));
+        getBitmap(imgPath);
+    }
+
+    public Bitmap getBitmap(String path) {
+        Bitmap bitmap = null;
+        try {
+            File f = new File(path);
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+//
+//            bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null, options);
+//            imageButton.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return bitmap;
+
+    }
 
 
 

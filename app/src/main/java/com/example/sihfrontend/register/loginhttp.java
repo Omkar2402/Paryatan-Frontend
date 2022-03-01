@@ -1,5 +1,11 @@
 package com.example.sihfrontend.register;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,6 +28,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class loginhttp {
+
+
+
     public void login(String email,String password,String role,String auth){
         try{
             OkHttpClient client=new OkHttpClient();

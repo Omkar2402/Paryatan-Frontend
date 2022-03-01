@@ -14,10 +14,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.sihfrontend.R;
 import com.google.android.material.tabs.TabLayout;
+
+import java.io.File;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -25,7 +28,6 @@ public class RegisterActivity extends AppCompatActivity {
     ViewPager viewPager;
     String email;
     float v =0;
-    private  String imagepath=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,36 +72,11 @@ public class RegisterActivity extends AppCompatActivity {
         return email;
     }
 
-    public  String getImagepath(){
-        return imagepath;
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if((requestCode==1) && (resultCode == RESULT_OK)){
-            Uri selectedImageUri = data.getData();
-            imagepath = getPath(selectedImageUri);
-            String img_extn = imagepath.substring(imagepath.lastIndexOf(".")+1);
-            if(!(img_extn.equals("jpg")||img_extn.equals("jpeg")||img_extn.equals("png"))){
-                imagepath = null;
-                Toast.makeText(getApplicationContext(),"Image format not accepted",Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
-    public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-    }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+
+
 }
