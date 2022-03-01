@@ -22,10 +22,9 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Intent splashIntent=new Intent(SplashActivity.this,
-                  //      MainActivity.class);
+                Intent splashIntent=new Intent(SplashActivity.this, MainActivity.class);
                 //Intent is used to switch from one activity to another.
-                Intent splashIntent = new Intent(SplashActivity.this, Test_Image.class);
+//                Intent splashIntent = new Intent(SplashActivity.this, Test_Image.class);
                 startActivity(splashIntent);
                 //invoke the SecondActivity.
 

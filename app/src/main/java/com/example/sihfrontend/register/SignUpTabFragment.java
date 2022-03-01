@@ -61,6 +61,7 @@ public class SignUpTabFragment extends Fragment {
     private RadioButton user;
     private RadioButton admin;
     private ProgressBar progressBar;
+    loginhttp loginHttp = new loginhttp();
 
     private  File file;
 
@@ -73,8 +74,6 @@ public class SignUpTabFragment extends Fragment {
 
         RegisterActivity registerActivity = (RegisterActivity) getActivity();
         String  email = registerActivity.getEmail();
-
-
 
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.signup_tab_fragment,container,false);
 
@@ -180,52 +179,7 @@ public class SignUpTabFragment extends Fragment {
                 }else if(!password.equals(confirm_password)){
                     Toast.makeText(getContext(),"Your password and confrm password don't match",Toast.LENGTH_SHORT).show();
                 }else{
-                    try{
-                        OkHttpClient client = new OkHttpClient();
-                        RequestBody formBody = new MultipartBody.Builder()
-                                .addFormDataPart("name",name)
-                                .addFormDataPart("email",email)
-                                .addFormDataPart("password",password)
-                                .addFormDataPart("role",role)
-                                .addFormDataPart("profile-image", String.valueOf(R.drawable.splash))
-//                                .addFormDataPart("profile-image",email+".jpg",
-//                                        RequestBody.create(MediaType.parse("image/*"), file))
-                                .build();
-                        Request request = new Request.Builder()
-                                .url("http://ec2-35-169-161-33.compute-1.amazonaws.com:8080/register")
-                                .post(formBody)
-                                .build();
-
-                        Log.d("Before Response",request.toString());
-
-                        client.newCall(request).enqueue(new Callback() {
-                            @Override
-                            public void onFailure(Call call, IOException e) {
-                                e.printStackTrace();
-                                Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onResponse(Call call, Response response) throws IOException {
-                                if(response.isSuccessful()){
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(response.body().string());
-                                        String message = jsonObject.getString("message");
-                                        String token = jsonObject.getString("token");
-                                        Log.d("message:",message);
-                                        Log.d("token",token);
-                                        Toast.makeText(getActivity().getApplication(), "Token:"+token,Toast.LENGTH_SHORT).show();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                        Toast.makeText(getContext(),"error1",Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }
-                        });
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        Toast.makeText(getContext(),"error2",Toast.LENGTH_SHORT).show();
-                    }
+                    loginHttp.register(name,email,password,role,file);
                     //Toast.makeText(getContext(),"Registered successfully",Toast.LENGTH_SHORT).show();
                 }
             }
