@@ -2,14 +2,17 @@ package com.example.sihfrontend;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +40,8 @@ public class Test_Image extends AppCompatActivity {
     Button btn_img;
     static String FILEPATH = "";
     static File file = new File(FILEPATH);
+    byte[] bytes;
+    String imageString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,14 +74,30 @@ public class Test_Image extends AppCompatActivity {
                                 try {
                                     JSONObject jsonObject = new JSONObject(response.body().string());
                                     String message = jsonObject.getString("message");
-                                    byte[] bytes = jsonObject.getString("profile_image").getBytes(StandardCharsets.UTF_8);
+                                    imageString = jsonObject.getString("profile_image");
+                                    bytes = Base64.decode(imageString, Base64.DEFAULT);
                                     Log.d("Success:",bytes.toString());
-                                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                    img.setImageBitmap(Bitmap.createScaledBitmap(bmp, 400, 400, false));
                                     Log.d("message:",message);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                Test_Image.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Log.d("in UI Thread", String.valueOf(bytes.length));
+                                        if(imageString!=null){
+                                            Log.d("in UI Thread", String.valueOf(imageString.length()));
+                                            Bitmap compressedBitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+//                                            Log.d("Compressed Bitmap",compressedBitmap.toString());
+                                            img.setImageBitmap(compressedBitmap);
+                                            Toast.makeText(getApplicationContext(),"ByteArray created..",Toast.LENGTH_SHORT).show();
+//                                            Intent verifyIntent = new Intent(getApplicationContext(), OTPVerification.class);
+//                                            verifyIntent.putExtra("email",email.getText().toString());
+//                                            verifyIntent.putExtra("otp",otp);
+//                                            startActivity(verifyIntent);
+                                        }
+                                    }
+                                });
                             }
                         }
                     });
