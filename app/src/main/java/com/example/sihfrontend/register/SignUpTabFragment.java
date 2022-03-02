@@ -216,6 +216,7 @@ public class SignUpTabFragment extends Fragment {
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         Log.d("Request code",""+requestCode);
         Toast.makeText(SignUpTabFragment.this.getActivity(), "Number 1", Toast.LENGTH_SHORT).show();
         if(requestCode == 2){

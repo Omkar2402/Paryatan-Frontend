@@ -20,6 +20,7 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -29,7 +30,47 @@ import okhttp3.Response;
 
 public class loginhttp {
 
+    public  void upload_image(String auth,String path){
+        try{
+            OkHttpClient client = new OkHttpClient();
+//            MultipartBody.Builder formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+//                    .addFormDataPart("profile-image", "img_name", RequestBody.create(MediaType.parse("image/*"), new File(path)));                 .build();
 
+            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("profile-image", "img_name", RequestBody.create(MediaType.parse("image/*"), new File(path)))
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url("http://ec2-35-169-161-33.compute-1.amazonaws.com:8080/upload-image")
+                    .addHeader("Authorization",auth)
+                    .post(formBody)
+                    .build();
+
+            Log.d("Before Response",request.toString());
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if(response.isSuccessful()){
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body().string());
+                            String message = jsonObject.getString("message");
+                            Log.d("message:",message);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public void login(String email,String password,String role,String auth){
         try{
