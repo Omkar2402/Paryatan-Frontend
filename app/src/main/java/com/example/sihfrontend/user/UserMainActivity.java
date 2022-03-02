@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 
 import com.example.sihfrontend.R;
 
@@ -23,4 +24,10 @@ public class UserMainActivity extends AppCompatActivity {
 
     //on Pause Method is called when app is closed .Then store
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_item,menu);
+        return true;
+    }
 }

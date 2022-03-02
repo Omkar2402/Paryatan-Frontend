@@ -16,6 +16,7 @@ package com.example.sihfrontend.register;
         import androidx.fragment.app.Fragment;
 
         import com.example.sihfrontend.R;
+        import com.example.sihfrontend.user.UserMainActivity;
 
         import org.json.JSONException;
         import org.json.JSONObject;
@@ -86,6 +87,8 @@ public class LoginTabFragment extends Fragment {
                 String auth=null;
                 loginHttp.login(email.getText().toString(),password.getText().toString(),"admin",auth);
                 Log.d("Stop","Left Login");
+
+                startActivity(new Intent(LoginTabFragment.this.getActivity(), UserMainActivity.class));
             }
         });
 
