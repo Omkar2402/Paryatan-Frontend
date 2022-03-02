@@ -171,6 +171,7 @@ public class loginhttp {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
+                    wait = false;
                     e.printStackTrace();
                 }
 
@@ -195,6 +196,7 @@ public class loginhttp {
             });
         }catch (Exception e){
 //            map.put("token",null);
+            wait = false;
             e.printStackTrace();
         }
 

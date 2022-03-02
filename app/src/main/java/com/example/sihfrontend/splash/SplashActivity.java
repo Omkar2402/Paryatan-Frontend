@@ -25,6 +25,23 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
+                SharedPreferences sh = SplashActivity.this.getSharedPreferences("SIH", Context.MODE_PRIVATE);
+                String  role = sh.getString("role",null);
+                String token = sh.getString("token",null);
+                Log.d("token",""+token);
+                if(role!=null && token!=null){
+
+                    if(role.equals("user")){
+                        Intent intent = new Intent(SplashActivity.this, UserMainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Intent intent = new Intent(SplashActivity.this, AdminMainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
                 Intent splashIntent=new Intent(SplashActivity.this, MainActivity.class);
                 //Intent is used to switch from one activity to another.
 //                Intent splashIntent = new Intent(SplashActivity.this, Test_Image.class);
@@ -40,23 +57,22 @@ public class SplashActivity extends AppCompatActivity {
     // Because this is what will be called
     // when the app opens again
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences sh = SplashActivity.this.getSharedPreferences("SIH", Context.MODE_PRIVATE);
-        String  role = sh.getString("role",null);
-        String token = sh.getString("token",null);
-        Log.d("token",""+token);
-        if(role!=null && token!=null){
-            if(role.equals("user")){
-                Intent intent = new Intent(SplashActivity.this, UserMainActivity.class);
-                startActivity(intent);
-                finish();
-            }else{
-                Intent intent = new Intent(SplashActivity.this, AdminMainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }
-    }
+//    protected void onResume() {
+//        super.onResume();
+//        SharedPreferences sh = SplashActivity.this.getSharedPreferences("SIH", Context.MODE_PRIVATE);
+//        String  role = sh.getString("role",null);
+//        String token = sh.getString("token",null);
+//        Log.d("token",""+token);
+//        if(role!=null && token!=null){
+//            if(role.equals("user")){
+//                Intent intent = new Intent(SplashActivity.this, UserMainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }else{
+//                Intent intent = new Intent(SplashActivity.this, AdminMainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        }
+//    }
 }
