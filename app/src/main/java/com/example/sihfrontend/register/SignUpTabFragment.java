@@ -1,26 +1,18 @@
 package com.example.sihfrontend.register;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,24 +21,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.sihfrontend.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.example.sihfrontend.admin.AdminMainActivity;
+import com.example.sihfrontend.user.UserMainActivity;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.Map;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 // Inflater: convert xml file into a view
 //View Group : Adding fragment to activity parent class for all views
@@ -55,10 +34,7 @@ public class SignUpTabFragment extends Fragment {
     private EditText etname;
     private EditText etpassword;
     private EditText etconfirmPassword;
-    private TextView tvupload;
     private TextView tvrole;
-    private ImageView imgUploadIcon;
-    private Spinner spinner;
     private Button signup;
     private RadioGroup radioGroup;
     private RadioButton user;
@@ -87,9 +63,7 @@ public class SignUpTabFragment extends Fragment {
         etname = root.findViewById(R.id.etName);
         etpassword = root.findViewById(R.id.etPassword);
         etconfirmPassword = root.findViewById(R.id.etConfirmPassword);
-        tvupload = root.findViewById(R.id.txtUpload);
         tvrole = root.findViewById(R.id.txtFile);
-        imgUploadIcon = root.findViewById(R.id.imgUpload);
         radioGroup = root.findViewById(R.id.radio_group);
         user = root.findViewById(R.id.radio_user);
         admin = root.findViewById(R.id.radio_admin);
@@ -100,26 +74,20 @@ public class SignUpTabFragment extends Fragment {
         etname.setTranslationX(800);
         etpassword.setTranslationX(800);
         etconfirmPassword.setTranslationX(800);
-        tvupload.setTranslationX(800);
         tvrole.setTranslationX(800);
-        imgUploadIcon.setTranslationX(800);
         radioGroup.setTranslationX(800);
         signup.setTranslationX(800);
 
         etname.setAlpha(v);
         etpassword.setAlpha(v);
         etconfirmPassword.setAlpha(v);
-        tvupload.setAlpha(v);
         tvrole.setAlpha(v);
-        imgUploadIcon.setAlpha(v);
         radioGroup.setAlpha(v);
         signup.setAlpha(v);
 
         etname.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(200).start();
         etpassword.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(400).start();
         etconfirmPassword.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(400).start();
-        tvupload.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(600).start();
-        imgUploadIcon.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(600).start();
         tvrole.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(800).start();
         radioGroup.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(800).start();
         signup.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(1000).start();
@@ -141,31 +109,7 @@ public class SignUpTabFragment extends Fragment {
             }
         });
 
-        imgUploadIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    Log.d("Before upload","before upload");
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
 
-                    startActivityForResult(Intent.createChooser(intent, "Complete action using"), 2);
-//                Intent photo_picker_intent = new Intent(Intent.ACTION_PICK);
-//                photo_picker_intent.setType("image/*");
-//                startActivityForResult(photo_picker_intent,1);
-//                Toast.makeText(getContext(),"Image upload clicked",Toast.LENGTH_SHORT).show();
-//                Intent photo_picker_intent = new Intent(Intent.ACTION_PICK);
-//                photo_picker_intent.setType("image/*");
-//                progressBar.setVisibility(root.getRootView().VISIBLE);
-//                startActivityForResult(Intent.createChooser(photo_picker_intent,"Complete action using...."),1);
-//                String imagePath = registerActivity.getImagepath();
-//                if(imagePath!=null){
-//                    file = new File(imagePath);
-//                    Log.d("File Image path",imagePath);
-//                    progressBar.setVisibility(root.getRootView().GONE);
-//                }
-            }
-        });
 
 
         signup.setOnClickListener(new View.OnClickListener() {
@@ -174,86 +118,75 @@ public class SignUpTabFragment extends Fragment {
                 String name = etname.getText().toString();
                 String password = etpassword.getText().toString();
                 String confirm_password = etconfirmPassword.getText().toString();
-                Log.d("name:",name);
-                Log.d("password:",password);
-                Log.d("confirm_password:",confirm_password);
-                Log.d("email:",email);
-                if(role==null){
-                    Toast.makeText(getContext(),"Please specify your role",Toast.LENGTH_SHORT).show();
+                Log.d("name:", name);
+                Log.d("password:", password);
+                Log.d("confirm_password:", confirm_password);
+                Log.d("email:", email);
+                if (role == null) {
+                    Toast.makeText(getContext(), "Please specify your role", Toast.LENGTH_SHORT).show();
 
-                }else if(name.isEmpty()){
-                    Toast.makeText(getContext(),"Please specify your name",Toast.LENGTH_SHORT).show();
-                }else if(password.isEmpty() || confirm_password.isEmpty()){
-                    Toast.makeText(getContext(),"Please specify your password",Toast.LENGTH_SHORT).show();
-                }else if(!password.equals(confirm_password)){
-                    Toast.makeText(getContext(),"Your password and confrm password don't match",Toast.LENGTH_SHORT).show();
-                }else{
-                    loginHttp.register(name,email,password,role,file);
-                    //Toast.makeText(getContext(),"Registered successfully",Toast.LENGTH_SHORT).show();
+                } else if (name.isEmpty()) {
+                    Toast.makeText(getContext(), "Please specify your name", Toast.LENGTH_SHORT).show();
+                } else if (password.isEmpty() || confirm_password.isEmpty()) {
+                    Toast.makeText(getContext(), "Please specify your password", Toast.LENGTH_SHORT).show();
+                } else if (!password.equals(confirm_password)) {
+                    Toast.makeText(getContext(), "Your password and confrm password don't match", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        progressBar.setVisibility(View.VISIBLE);
+                        while (loginHttp.wait){
+                            loginHttp.register(name, email, password, role, file);
+                        }
+                        progressBar.setVisibility(View.GONE);
+                        Log.d("token",""+loginHttp.getToken());
+                         Toast.makeText(getContext(), "User registered successfully!!", Toast.LENGTH_SHORT).show();
+                         Log.d("Before Shared Prefrences", "Before");
+                            SharedPreferences preferences = getActivity().getSharedPreferences("SIH", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("name", name);
+                            editor.putString("email", email);
+                            editor.putString("role", role);
+                            editor.putString("password", password);
+                            editor.putString("token", loginHttp.getToken());
+                            editor.apply();
+                            Log.d("After Shared Prefrences", "After");
+
+                            if (role.equals("user")) {
+                                Log.d("User Intent:", "Before");
+                                Intent intent = new Intent(SignUpTabFragment.this.getActivity(), UserMainActivity.class);
+                                intent.putExtra("role", role);
+                                intent.putExtra("email", email);
+                                intent.putExtra("password", password);
+                                intent.putExtra("token", loginHttp.getToken());
+                                intent.putExtra("name",name);
+                                startActivity(intent);
+                                Log.d("User Intent:", "Before");
+                                SignUpTabFragment.this.getActivity().finish();
+                            } else {
+                                Log.d("Admin Intent:", "Before");
+                                Intent intent = new Intent(SignUpTabFragment.this.getActivity(), AdminMainActivity.class);
+                                intent.putExtra("role",role);
+                                intent.putExtra("email", email);
+                                intent.putExtra("password", password);
+                                intent.putExtra("token", loginHttp.getToken());
+                                intent.putExtra("name", name);
+                                startActivity(intent);
+                                Log.d("Admin Intent:", "Before");
+                                SignUpTabFragment.this.getActivity().finish();
+                            }
+
+                        //Toast.makeText(getContext(),"Registered successfully",Toast.LENGTH_SHORT).show();
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
                 }
-            }
-        });
+            }});
 
         return root;
-    }
-
-    public static String getPathFromCameraData(Intent data, Context context) {
-        Uri uri = data.getData();
-        String result = null;
-        String[] proj = { MediaStore.Images.Media.DATA };
-        Cursor cursor = context.getContentResolver( ).query( uri, proj, null, null, null );
-        if(cursor != null){
-            if ( cursor.moveToFirst( ) ) {
-                int column_index = cursor.getColumnIndexOrThrow( proj[0] );
-                result = cursor.getString( column_index );
-            }
-            cursor.close( );
-        }
-        if(result == null) {
-            result = "Not found";
-        }
-        return result;
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("Request code",""+requestCode);
-        Toast.makeText(SignUpTabFragment.this.getActivity(), "Number 1", Toast.LENGTH_SHORT).show();
-        if(requestCode == 2){
-            Toast.makeText(SignUpTabFragment.this.getActivity(), "Number 2", Toast.LENGTH_SHORT).show();
-            if(resultCode == Activity.RESULT_OK) {
-                Toast.makeText(SignUpTabFragment.this.getActivity(), "Number 3", Toast.LENGTH_SHORT).show();
-                Log.d("data",""+data);
-                String path = getPathFromCameraData(data, SignUpTabFragment.this.getContext());
-                Toast.makeText(SignUpTabFragment.this.getActivity(), "Uploading", Toast.LENGTH_SHORT).show();
-                Log.d("path",""+path);
-                if (path != null) {
-                    setFullImageFromFilePath( path);
-                    Toast.makeText(SignUpTabFragment.this.getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-    public void setFullImageFromFilePath( String imgPath) {
-//        btn.setImageBitmap(BitmapFactory.decodeFile(imgPath));
-        getBitmap(imgPath);
-    }
-
-    public Bitmap getBitmap(String path) {
-        Bitmap bitmap = null;
-        try {
-            File f = new File(path);
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//
-//            bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null, options);
-//            imageButton.setImageBitmap(bitmap);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return bitmap;
-
     }
 
 

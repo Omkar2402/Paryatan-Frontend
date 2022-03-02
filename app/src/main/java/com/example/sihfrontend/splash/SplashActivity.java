@@ -2,14 +2,17 @@ package com.example.sihfrontend.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.sihfrontend.MainActivity;
 import com.example.sihfrontend.R;
-import com.example.sihfrontend.Test_Image;
-import com.example.sihfrontend.register.RegisterActivity;
+import com.example.sihfrontend.admin.AdminMainActivity;
+import com.example.sihfrontend.user.UserMainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -32,5 +35,28 @@ public class SplashActivity extends AppCompatActivity {
                 //the current activity will get finished.
             }
         }, 2500);
+    }
+    // Fetch the stored data in onResume()
+    // Because this is what will be called
+    // when the app opens again
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sh = SplashActivity.this.getSharedPreferences("SIH", Context.MODE_PRIVATE);
+        String  role = sh.getString("role",null);
+        String token = sh.getString("token",null);
+        Log.d("token",""+token);
+        if(role!=null && token!=null){
+            if(role.equals("user")){
+                Intent intent = new Intent(SplashActivity.this, UserMainActivity.class);
+                startActivity(intent);
+                finish();
+            }else{
+                Intent intent = new Intent(SplashActivity.this, AdminMainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 }

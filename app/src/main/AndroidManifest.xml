@@ -15,6 +15,12 @@
         android:theme="@style/Theme.SIHFrontend"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".admin.AdminMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.UserMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".Test_Image"
             android:exported="false" />
         <activity

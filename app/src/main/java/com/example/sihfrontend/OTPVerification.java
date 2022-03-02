@@ -91,6 +91,7 @@ public class OTPVerification extends AppCompatActivity {
                         Intent registerIntent = new Intent(OTPVerification.this, RegisterActivity.class);
                         registerIntent.putExtra("email",email);
                         startActivity(registerIntent);
+
                     }else{
                         Toast.makeText(getApplicationContext(),"Please enter correct otp",Toast.LENGTH_SHORT).show();
                     }

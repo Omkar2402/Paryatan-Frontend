@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText email;
     private Button verify;
     private String otp = null;
+
+    float v=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
 
         email = findViewById(R.id.etInputMail);
         verify = findViewById(R.id.btnVerifyEmail);
+
+        email.setTranslationX(800);
+        verify.setTranslationX(800);
+
+        email.setAlpha(v);
+        verify.setAlpha(v);
+
+        email.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(300).start();
+        verify.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(600).start();
+
 
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                                                 verifyIntent.putExtra("email",email.getText().toString());
                                                 verifyIntent.putExtra("otp",otp);
                                                 startActivity(verifyIntent);
+
                                             }
                                         }
                                     });

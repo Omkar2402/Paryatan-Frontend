@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,6 +17,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -29,6 +32,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class loginhttp {
+
+    private String token;
+    public boolean wait = true;
 
     public  void upload_image(String auth,String path){
         try{
@@ -114,7 +120,12 @@ public class loginhttp {
         }
     }
     public void register(String name, String email, String password, String role, File file){
+//        Map<String,String> map = new HashMap<>();
         try{
+//            map.put("name",name);
+//            map.put("email",email);
+//            map.put("password",password);
+//            map.put("role",role);
             OkHttpClient client = new OkHttpClient();
             RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("name",name)
@@ -132,6 +143,31 @@ public class loginhttp {
 
             Log.d("Before Response",request.toString());
 
+            /*AsyncTask<Void, Void, String> asyncTask = new AsyncTask<Void, Void, String>() {
+                @Override
+                protected String doInBackground(Void... params) {
+                    try {
+                        Response response = client.newCall(request).execute();
+                        if (!response.isSuccessful()) {
+                            return null;
+                        }
+                        return response.body().string();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(String s) {
+                    super.onPostExecute(s);
+                    if (s != null) {
+                    }
+                }
+            };*/
+
+
+
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -144,17 +180,29 @@ public class loginhttp {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body().string());
                             String message = jsonObject.getString("message");
-                            String token = jsonObject.getString("token");
+                            token = jsonObject.getString("token");
                             Log.d("message:",message);
                             Log.d("token",token);
+                            wait = false;
+//                            map.put("token",token);
+
                         } catch (JSONException e) {
+//                            map.put("token",null);
                             e.printStackTrace();
                         }
                     }
                 }
             });
         }catch (Exception e){
+//            map.put("token",null);
             e.printStackTrace();
         }
+
     }
+
+
+    public  String getToken(){
+        return  token;
+    }
+
 }
