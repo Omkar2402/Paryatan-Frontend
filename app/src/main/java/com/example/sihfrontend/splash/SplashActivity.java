@@ -30,7 +30,9 @@ public class SplashActivity extends AppCompatActivity {
                 String  role = sh.getString("role",null);
                 String token = sh.getString("token",null);
                 Log.d("token",""+token);
+                Log.d("role",""+role);
                 if(role!=null && token!=null){
+
 
                     if(role.equals("user")){
                         Intent intent = new Intent(SplashActivity.this, UserMainActivity.class);
@@ -41,14 +43,16 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
-                }
-                Intent splashIntent=new Intent(SplashActivity.this, MainActivity.class);
-                //Intent is used to switch from one activity to another.
+                }else{
+                    Intent splashIntent=new Intent(SplashActivity.this, MainActivity.class);
+                    //Intent is used to switch from one activity to another.
 //                Intent splashIntent = new Intent(SplashActivity.this, Test_Image.class);
-                startActivity(splashIntent);
-                //invoke the SecondActivity.
+                    startActivity(splashIntent);
+                    //invoke the SecondActivity.
 
-                finish();
+                    finish();
+                }
+
                 //the current activity will get finished.
             }
         }, 2500);
