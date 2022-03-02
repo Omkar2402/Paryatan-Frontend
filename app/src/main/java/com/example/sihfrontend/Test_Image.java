@@ -76,9 +76,6 @@ public class Test_Image extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 performFileSearch();
-                Log.d("Before upload",":");
-                uploadImage();
-                Log.d("After upload",":");
             }
         });
 
@@ -103,6 +100,7 @@ public class Test_Image extends AppCompatActivity {
         intent.setType("image/*");
 
         startActivityForResult(intent, READ_REQUEST_CODE);
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -115,6 +113,9 @@ public class Test_Image extends AppCompatActivity {
                 Log.i(TAG, "Uri: " + uri.toString());
                 imagePreview.setImageURI(uri);
                 upload.setVisibility(View.VISIBLE);
+                Log.d("Before upload",":");
+                uploadImage();
+                Log.d("After upload",":");
             }
         }
     }
@@ -177,15 +178,17 @@ public class Test_Image extends AppCompatActivity {
     public void uploadImage(){
 
         if(uri == null){
+            Log.d("uri","null");
             return;
         }
 
         final File imageFile = new File(uriToFilename(uri));
         Uri uris = Uri.fromFile(imageFile);
+
         String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uris.toString());
         String mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension.toLowerCase());
         String imageName = imageFile.getName();
-
+        Log.d("ImageName",imageName);
         //Log.e(TAG, imageFile.getName()+" "+mime+" "+uriToFilename(uri));
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
