@@ -130,14 +130,16 @@ public class SignUpTabFragment extends Fragment {
                 } else if (password.isEmpty() || confirm_password.isEmpty()) {
                     Toast.makeText(getContext(), "Please specify your password", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(confirm_password)) {
-                    Toast.makeText(getContext(), "Your password and confrm password don't match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Your password and confirm password don't match", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         progressBar.setVisibility(View.VISIBLE);
+                        loginHttp.register(name, email, password, role, file);
                         while (loginHttp.wait){
-                            loginHttp.register(name, email, password, role, file);
+                            Log.d("Sending request","request");
                         }
                         progressBar.setVisibility(View.GONE);
+
                         Log.d("token",""+loginHttp.getToken());
                          Toast.makeText(getContext(), "User registered successfully!!", Toast.LENGTH_SHORT).show();
                          Log.d("Before Shared Prefrences", "Before");
@@ -154,22 +156,13 @@ public class SignUpTabFragment extends Fragment {
                             if (role.equals("user")) {
                                 Log.d("User Intent:", "Before");
                                 Intent intent = new Intent(SignUpTabFragment.this.getActivity(), UserMainActivity.class);
-                                intent.putExtra("role", role);
-                                intent.putExtra("email", email);
-                                intent.putExtra("password", password);
-                                intent.putExtra("token", loginHttp.getToken());
-                                intent.putExtra("name",name);
+
                                 startActivity(intent);
                                 Log.d("User Intent:", "Before");
                                 SignUpTabFragment.this.getActivity().finish();
                             } else {
                                 Log.d("Admin Intent:", "Before");
                                 Intent intent = new Intent(SignUpTabFragment.this.getActivity(), AdminMainActivity.class);
-                                intent.putExtra("role",role);
-                                intent.putExtra("email", email);
-                                intent.putExtra("password", password);
-                                intent.putExtra("token", loginHttp.getToken());
-                                intent.putExtra("name", name);
                                 startActivity(intent);
                                 Log.d("Admin Intent:", "Before");
                                 SignUpTabFragment.this.getActivity().finish();

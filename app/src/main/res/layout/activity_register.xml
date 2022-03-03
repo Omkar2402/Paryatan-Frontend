@@ -63,7 +63,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/constraint_layout"
         android:src="@drawable/heritage_logo"
-        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintHeight_percent="0.22"
         android:scaleType="centerCrop"
         app:flow_verticalBias="0"
         />

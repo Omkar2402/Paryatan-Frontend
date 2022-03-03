@@ -8,11 +8,27 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.sihfrontend.MainActivity;
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.admin.AdminMainActivity;
+import com.example.sihfrontend.register.LoginTabFragment;
+import com.example.sihfrontend.register.RegisterActivity;
 import com.example.sihfrontend.user.UserMainActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -31,6 +47,60 @@ public class SplashActivity extends AppCompatActivity {
                 String token = sh.getString("token",null);
                 Log.d("token",""+token);
                 Log.d("role",""+role);
+                try{
+                    OkHttpClient client=new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("http://ec2-35-169-161-33.compute-1.amazonaws.com:8080/refresh-token")
+                            .addHeader("Authorization", token)
+                            .addHeader("isRefreshToken", "true")
+                            .get()
+                            .build();
+
+                    Log.d("Before Response",request.toString());
+
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String message = "";
+                            if(response.isSuccessful()){
+                                try {
+
+                                    SharedPreferences.Editor editor = sh.edit();
+                                    JSONObject jsonObject = new JSONObject(response.body().string());
+                                    message = jsonObject.getString("message");
+                                    String token = jsonObject.getString("token");
+                                    Log.d("message:",message);
+                                    Log.d("token:",token);
+                                    editor.putString("token",token);
+                                    editor.apply();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+
+                                }
+                                String finalMessage = message;
+                                SplashActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(finalMessage.equals("Token refreshed successfully!!")){
+                                            Intent verifyIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                            startActivity(verifyIntent);
+                                        }
+                                        else{
+                                            Toast.makeText(SplashActivity.this,"Token not refreshed",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 if(role!=null && token!=null){
 
 

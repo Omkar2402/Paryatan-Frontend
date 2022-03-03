@@ -1,14 +1,6 @@
 package com.example.sihfrontend.register;
 
-import static android.app.Activity.RESULT_OK;
-
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.sihfrontend.R;
 
@@ -17,13 +9,10 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
-import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -36,8 +25,9 @@ public class loginhttp {
     private String token;
     public boolean wait = true;
 
-    public  void upload_image(String auth,String path){
+    public  void upload_image(String token,String path){
         try{
+            String auth = "Bearer "+token;
             OkHttpClient client = new OkHttpClient();
 //            MultipartBody.Builder formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
 //                    .addFormDataPart("profile-image", "img_name", RequestBody.create(MediaType.parse("image/*"), new File(path)));                 .build();
@@ -78,8 +68,9 @@ public class loginhttp {
         }
     }
 
-    public void login(String email,String password,String role,String auth){
+    public void login(String email,String password,String role,String token){
         try{
+            String auth = "Bearer "+token;
             OkHttpClient client=new OkHttpClient();
             RequestBody requestBody = new FormBody.Builder()
                     .add("email",email)
@@ -88,7 +79,7 @@ public class loginhttp {
                     .build();
             Request request = new Request.Builder()
                     .url("http://ec2-35-169-161-33.compute-1.amazonaws.com:8080/login")
-                    .addHeader("Authorization","Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlQGEiLCJleHAiOjE2NDYyMTc4NDEsImlhdCI6MTY0NjEzMTQ0MX0.2r5ccTIZkAqFQsLsGdvPCF_lLmXbTz4AM12FencYeUk")
+                    .addHeader("Authorization", auth)
                     .post(requestBody)
                     .build();
 
@@ -109,9 +100,11 @@ public class loginhttp {
                             String token = jsonObject.getString("token");
                             Log.d("message:",message);
                             Log.d("token:",token);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                     }
                 }
             });
@@ -189,6 +182,7 @@ public class loginhttp {
 
                         } catch (JSONException e) {
 //                            map.put("token",null);
+                            wait = false;
                             e.printStackTrace();
                         }
                     }

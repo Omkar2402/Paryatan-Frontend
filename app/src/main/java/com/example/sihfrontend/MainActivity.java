@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
 
 
         email = findViewById(R.id.etInputMail);
@@ -66,9 +66,6 @@ public class MainActivity extends AppCompatActivity {
                         //map.put("email",email.getText().toString());
 
                         OkHttpClient client = new OkHttpClient();
-
-
-
                         RequestBody formBody = new FormBody.Builder()
                                 .add("email", email.getText().toString())
                                 .build();
@@ -113,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
                                                 verifyIntent.putExtra("otp",otp);
                                                 startActivity(verifyIntent);
 
+                                            }
+                                            else{
+                                                Toast.makeText(MainActivity.this,"OTP not sent",Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });

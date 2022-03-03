@@ -1,6 +1,8 @@
 package com.example.sihfrontend.register;
 
+        import android.content.Context;
         import android.content.Intent;
+        import android.content.SharedPreferences;
         import android.os.Bundle;
         import android.util.Log;
         import android.view.LayoutInflater;
@@ -16,6 +18,10 @@ package com.example.sihfrontend.register;
         import androidx.fragment.app.Fragment;
 
         import com.example.sihfrontend.R;
+
+        import com.example.sihfrontend.admin.AdminMainActivity;
+        import com.example.sihfrontend.splash.SplashActivity;
+
         import com.example.sihfrontend.user.UserMainActivity;
 
         import org.json.JSONException;
@@ -84,11 +90,19 @@ public class LoginTabFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("Clicked","Login BTN");
-                String auth=null;
-                loginHttp.login(email.getText().toString(),password.getText().toString(),"admin",auth);
+                SharedPreferences sh = getActivity().getSharedPreferences("SIH", Context.MODE_PRIVATE);
+                String token = sh.getString("token",null);
+                Log.d("token",""+token);
+                String role = sh.getString("role", null);
+
+                loginHttp.login(email.getText().toString(),password.getText().toString(),role,token);
                 Log.d("Stop","Left Login");
 
+
                 startActivity(new Intent(LoginTabFragment.this.getActivity(), UserMainActivity.class));
+
+
+
             }
         });
 
