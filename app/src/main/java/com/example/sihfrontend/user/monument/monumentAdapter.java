@@ -27,7 +27,7 @@ public class monumentAdapter extends RecyclerView.Adapter<monumentAdapter.Viewho
     @Override
     public monumentAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // to inflate the layout for each item of recycler view.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_user_main, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_monument, parent, false);
         return new Viewholder(view);
     }
 
