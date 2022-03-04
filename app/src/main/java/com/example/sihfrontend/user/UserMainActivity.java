@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.user.monument.MonumentInterface;
 import com.example.sihfrontend.user.monument.monumentAdapter;
 import com.example.sihfrontend.user.monument.monumentInfo;
 
@@ -34,12 +36,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class UserMainActivity extends AppCompatActivity {
+public class UserMainActivity extends AppCompatActivity implements MonumentInterface {
 
 
     private RecyclerView recyclerView;
     private ArrayList<monumentInfo> monumentInfoArrayList;
     private ProgressBar progressBar;
+    private  monumentAdapter monument_adapter;
     boolean wait = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +52,26 @@ public class UserMainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         progressBar = findViewById(R.id.progressBarMon);
 
+
         monumentInfoArrayList = new ArrayList<>();
 
 
         fetchData();
 
 
-        while (wait){
-            Log.d("Bad practice of code","...");
-        }
-        progressBar.setVisibility(View.GONE);
+//        while (wait){
+//            Log.d("Bad practice of code","...");
+//        }
 
         Log.d("Fetch Data","after" );
-        monumentAdapter monument_adapter = new monumentAdapter(UserMainActivity.this,monumentInfoArrayList);
+         monument_adapter = new monumentAdapter(UserMainActivity.this, monumentInfoArrayList,this) {
+
+        };
         recyclerView.setAdapter(monument_adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(UserMainActivity.this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+
 
 
 
@@ -89,7 +96,9 @@ public class UserMainActivity extends AppCompatActivity {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    wait = false;
+                    //wait = false;
+
+                    progressBar.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
 
@@ -106,16 +115,36 @@ public class UserMainActivity extends AppCompatActivity {
 
                             String monument_img = jsonArray.getJSONObject(i).getString("monumentImg");
                             byte[] bytes = Base64.decode(monument_img,Base64.DEFAULT);
+                            String monumentDesc = jsonArray.getJSONObject(i).getString("monumentDesc");
+                            String monumentLink = jsonArray.getJSONObject(i).getString("monumentLink");
+                            String monumentVideo = jsonArray.getJSONObject(i).getString("monumentVideo");
+                            byte[] video = Base64.decode(monumentVideo,Base64.DEFAULT);
+                            String startTime = jsonArray.getJSONObject(i).getString("startTime");
+                            String closeTime = jsonArray.getJSONObject(i).getString("closeTime");
+                            double indian_adult = jsonArray.getJSONObject(i).getDouble("indian_adult");
+                            double indian_child = jsonArray.getJSONObject(i).getDouble("indian_child");
+                            double foreign_adult = jsonArray.getJSONObject(i).getDouble("foreign_adult");
+                            double foreign_child = jsonArray.getJSONObject(i).getDouble("foreign_child");
+                            String location = jsonArray.getJSONObject(i).getString("location");
                             Log.d("monumnet_name",monument_name);
                             Log.d("monument_img",""+bytes);
-                            monumentInfo obj = new monumentInfo(bytes,monument_name);
+                            monumentInfo obj = new monumentInfo(monument_name,bytes,monumentDesc,location,foreign_child,foreign_adult,indian_child,indian_adult,closeTime,monumentLink,startTime,video);
                             monumentInfoArrayList.add(obj);
                         }
-                        wait = false;
+                        UserMainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.GONE);
+                                monument_adapter.notifyDataSetChanged();
+                            }
+                        });
+                        //wait = false;
 
 
                     } catch (JSONException e) {
-                        wait = false;
+
+                        progressBar.setVisibility(View.GONE);
+                        //wait = false;
                         e.printStackTrace();
                     }
 
@@ -124,7 +153,9 @@ public class UserMainActivity extends AppCompatActivity {
             });
 
         }catch (Exception e){
-            wait = false;
+            //wait = false;
+
+            progressBar.setVisibility(View.GONE);
             e.printStackTrace();
         }
 
@@ -138,5 +169,10 @@ public class UserMainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_item,menu);
         return true;
+    }
+
+    @Override
+    public void onCardClicked(monumentInfo mInfo) {
+        Toast.makeText(getApplicationContext(),"Monument clicked:"+mInfo.getMonumentName(),Toast.LENGTH_SHORT).show();
     }
 }
