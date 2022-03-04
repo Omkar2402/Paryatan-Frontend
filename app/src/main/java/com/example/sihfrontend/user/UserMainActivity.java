@@ -8,8 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.user.monument.monumentAdapter;
@@ -36,6 +39,7 @@ public class UserMainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ArrayList<monumentInfo> monumentInfoArrayList;
+    private ProgressBar progressBar;
     boolean wait = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +47,25 @@ public class UserMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_main);
 
         recyclerView = findViewById(R.id.recycler_view);
+        progressBar = findViewById(R.id.progressBarMon);
+
         monumentInfoArrayList = new ArrayList<>();
 
+
         fetchData();
+
+
         while (wait){
-            Log.d("In wait","...");
+            Log.d("Bad practice of code","...");
         }
+        progressBar.setVisibility(View.GONE);
 
         Log.d("Fetch Data","after" );
         monumentAdapter monument_adapter = new monumentAdapter(UserMainActivity.this,monumentInfoArrayList);
         recyclerView.setAdapter(monument_adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(UserMainActivity.this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
+
 
 
     }
@@ -93,11 +104,15 @@ public class UserMainActivity extends AppCompatActivity {
 
                             String monument_name = jsonArray.getJSONObject(i).getString("monumentName");
 
-                            byte[] monument_img_url = jsonArray.getJSONObject(i).getString("monumentImg").getBytes(StandardCharsets.UTF_8);
-                            monumentInfo obj = new monumentInfo(monument_img_url,monument_name);
+                            String monument_img = jsonArray.getJSONObject(i).getString("monumentImg");
+                            byte[] bytes = Base64.decode(monument_img,Base64.DEFAULT);
+                            Log.d("monumnet_name",monument_name);
+                            Log.d("monument_img",""+bytes);
+                            monumentInfo obj = new monumentInfo(bytes,monument_name);
                             monumentInfoArrayList.add(obj);
                         }
                         wait = false;
+
 
                     } catch (JSONException e) {
                         wait = false;
