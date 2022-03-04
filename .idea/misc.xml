@@ -8,7 +8,6 @@
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/drawable/backgroundbox.xml" value="0.195" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/drawable/view_background.xml" value="0.195" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_main.xml" value="0.1334853090172239" />
-        <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_monument_description.xml" value="0.2" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_otp_verification.xml" value="0.1334853090172239" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_register.xml" value="0.10005065856129686" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_user_main.xml" value="0.15579710144927536" />
@@ -23,6 +22,7 @@
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/drawable/view_background.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_admin_main.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_monument_description.xml" value="0.4" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_otp_verification.xml" value="0.536" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_splash.xml" value="0.14375" />

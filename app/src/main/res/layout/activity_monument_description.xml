@@ -71,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDescription"
         app:layout_constraintLeft_toRightOf="@id/tvStartTime"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="Closed On: \nSaturday"
+        android:text="Closed On: \nNot passed"
         android:textSize="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="25dp"
