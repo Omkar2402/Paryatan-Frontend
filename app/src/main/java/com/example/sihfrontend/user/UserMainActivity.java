@@ -113,7 +113,6 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
                         for(int i=0;i<jsonArray.length();i++){
 
                             String monument_name = jsonArray.getJSONObject(i).getString("monumentName");
-
                             String monument_img = jsonArray.getJSONObject(i).getString("monumentImg");
                             byte[] bytes = Base64.decode(monument_img,Base64.DEFAULT);
                             String monumentDesc = jsonArray.getJSONObject(i).getString("monumentDesc");
@@ -177,6 +176,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
     public void onCardClicked(monumentInfo mInfo) {
         Toast.makeText(getApplicationContext(),"Monument clicked:"+mInfo.getMonumentName(),Toast.LENGTH_SHORT).show();
         Intent monumentExpand = new Intent(UserMainActivity.this, MonumentDescription.class);
+        monumentExpand.putExtra("monumentName",mInfo.getMonumentName());
         monumentExpand.putExtra("location",mInfo.getLocation());
         monumentExpand.putExtra("close_time",mInfo.getCloseTime());
         monumentExpand.putExtra("start_time",mInfo.getSartTime());

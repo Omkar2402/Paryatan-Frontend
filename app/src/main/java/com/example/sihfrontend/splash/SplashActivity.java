@@ -11,11 +11,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.sihfrontend.MainActivity;
-import com.example.sihfrontend.MonumentDescription;
+import com.example.sihfrontend.user.MonumentBookTickets;
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.admin.AdminMainActivity;
-import com.example.sihfrontend.register.LoginTabFragment;
-import com.example.sihfrontend.register.RegisterActivity;
 import com.example.sihfrontend.user.UserMainActivity;
 
 import org.json.JSONException;
@@ -25,10 +23,8 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class SplashActivity extends AppCompatActivity {
@@ -115,7 +111,7 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
                     }
                 }else{
-                    Intent splashIntent=new Intent(SplashActivity.this, MonumentDescription.class);
+                    Intent splashIntent=new Intent(SplashActivity.this, MainActivity.class);
                     //Intent is used to switch from one activity to another.
 //                Intent splashIntent = new Intent(SplashActivity.this, Test_Image.class);
                     startActivity(splashIntent);
