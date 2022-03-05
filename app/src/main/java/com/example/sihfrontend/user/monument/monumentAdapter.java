@@ -16,15 +16,17 @@ import com.example.sihfrontend.user.UserMainActivity;
 
 import java.util.ArrayList;
 
-public class monumentAdapter extends RecyclerView.Adapter<monumentAdapter.Viewholder> {
+public  class monumentAdapter extends RecyclerView.Adapter<monumentAdapter.Viewholder> {
 
     private Context context;
     private static ArrayList<monumentInfo> monumentInfoArrayList;
+    public  MonumentInterface monumentInterface;
 
     // Constructor
-    public monumentAdapter(Context context, ArrayList<monumentInfo> courseModelArrayList) {
+    public monumentAdapter(Context context, ArrayList<monumentInfo> courseModelArrayList,MonumentInterface monumentInterface) {
         this.context = context;
         this.monumentInfoArrayList = courseModelArrayList;
+        this.monumentInterface = monumentInterface;
     }
 
 
@@ -35,6 +37,13 @@ public class monumentAdapter extends RecyclerView.Adapter<monumentAdapter.Viewho
     public monumentAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // to inflate the layout for each item of recycler view.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_monument, parent, false);
+        Viewholder viewholder = new Viewholder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                monumentInterface.onCardClicked(monumentInfoArrayList.get(viewholder.getAdapterPosition()));
+            }
+        });
         return new Viewholder(view);
     }
 
@@ -88,10 +97,19 @@ public class monumentAdapter extends RecyclerView.Adapter<monumentAdapter.Viewho
         private ImageView monumentimg;
         private TextView monumentname;
 
+
+
         public Viewholder(@NonNull View itemView) {
             super(itemView);
             monumentimg = itemView.findViewById(R.id.imgMonumentImage);
             monumentname = itemView.findViewById(R.id.txtMonumentName);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    monumentInterface.onCardClicked(monumentInfoArrayList.get(getAdapterPosition()));
+                }
+            });
         }
     }
 }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.sihfrontend.MainActivity;
+import com.example.sihfrontend.MonumentDescription;
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.admin.AdminMainActivity;
 import com.example.sihfrontend.register.LoginTabFragment;
@@ -114,7 +115,7 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
                     }
                 }else{
-                    Intent splashIntent=new Intent(SplashActivity.this, MainActivity.class);
+                    Intent splashIntent=new Intent(SplashActivity.this, MonumentDescription.class);
                     //Intent is used to switch from one activity to another.
 //                Intent splashIntent = new Intent(SplashActivity.this, Test_Image.class);
                     startActivity(splashIntent);
