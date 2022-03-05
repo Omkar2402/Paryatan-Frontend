@@ -15,6 +15,9 @@
         android:theme="@style/Theme.SIHFrontend"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".TicketQR"
+            android:exported="false" />
+        <activity
             android:name=".user.MonumentBookTickets"
             android:exported="false" />
         <activity
