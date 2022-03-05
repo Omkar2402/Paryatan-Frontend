@@ -143,7 +143,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
 
                     } catch (JSONException e) {
 
-                        progressBar.setVisibility(View.GONE);
+                        //progressBar.setVisibility(View.GONE);
                         //wait = false;
                         e.printStackTrace();
                     }

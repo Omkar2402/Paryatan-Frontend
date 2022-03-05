@@ -144,21 +144,22 @@ public class MonumentDescription extends AppCompatActivity {
                     OutputStream outputStream = new FileOutputStream(String.valueOf(R.raw.sample_video2));
                     try {
 
-                        File outputFile = File.createTempFile("file", "mp3", getCacheDir());
-                        outputFile.deleteOnExit();
-                        FileOutputStream fileoutputstream = new FileOutputStream(String.valueOf(R.raw.sample_video2));
-                        fileoutputstream.write(video);
-                        fileoutputstream.close();
+                        outputStream.write(video);
+//                        File outputFile = File.createTempFile("file", "mp3", getCacheDir());
+//                        outputFile.deleteOnExit();
+//                        FileOutputStream fileoutputstream = new FileOutputStream(String.valueOf(R.raw.sample_video2));
+//                        fileoutputstream.write(video);
+//                        fileoutputstream.close();
 
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    byte data[] = new byte[4096];
-                    int count;
-                    while ((count = inputStream.read(data)) != -1) {
-                        Log.d("in while loop","while loop");
-                        outputStream.write(data, 0, count);
-                    }
+//                    byte data[] = new byte[4096];
+//                    int count;
+//                    while ((count = inputStream.read(data)) != -1) {
+//                        Log.d("in while loop","while loop");
+//                        outputStream.write(data, 0, count);
+//                    }
 
                  }catch (Exception e){
                     e.printStackTrace();
@@ -168,7 +169,7 @@ public class MonumentDescription extends AppCompatActivity {
                     @Override
                     public void run() {
                         try{
-                            String path = "android.resource://" + getPackageName() + "/" + R.raw.sample_video;
+                            String path = "android.resource://" + getPackageName() + "/" + R.raw.sample_video2;
                             videoView.setVideoURI(Uri.parse(path));
                             videoView.start();
                         }catch (Exception e){

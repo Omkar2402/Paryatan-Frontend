@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
                     OkHttpClient client=new OkHttpClient();
                     Request request = new Request.Builder()
                             .url("http://ec2-35-169-161-33.compute-1.amazonaws.com:8080/refresh-token")
-                            .addHeader("Authorization", token)
+                            .addHeader("Authorization", "Bearer "+token)
                             .addHeader("isRefreshToken", "true")
                             .get()
                             .build();
