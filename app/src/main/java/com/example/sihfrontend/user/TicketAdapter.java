@@ -29,7 +29,10 @@ public  class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Viewholde
         this.TicketInfoArrayList = courseModelArrayList;
         this.ticketInterface1 = ticketInterface1;
     }
-
+    public void updateTicketList(ArrayList<ticketInfo> arr){
+        this.TicketInfoArrayList.clear();
+        this.TicketInfoArrayList.addAll(arr);
+    }
     @NonNull
     @Override
     public TicketAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -115,5 +118,6 @@ public  class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Viewholde
                 }
             });
         }
+
     }
 }
