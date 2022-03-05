@@ -64,7 +64,10 @@ public class MonumentDescription extends AppCompatActivity {
         try{
             String path = "android.resource://" + getPackageName() + "/" + R.raw.sample_video2;
             videoView.setVideoURI(Uri.parse(path));
+
             videoView.start();
+            progressBar.setVisibility(View.VISIBLE);
+            fetchVideo();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -94,8 +97,7 @@ public class MonumentDescription extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-        progressBar.setVisibility(View.VISIBLE);
-//        fetchVideo();
+
 
         Intent intent = getIntent();
         monument_Name = intent.getStringExtra("name");
@@ -113,6 +115,7 @@ public class MonumentDescription extends AppCompatActivity {
 
     private void fetchVideo() {
 
+        Log.d("In fetch","fetch");
         SharedPreferences sharedPreferences = MonumentDescription.this.getSharedPreferences("SIH", Context.MODE_PRIVATE);
 
         String token = sharedPreferences.getString("token",null);
@@ -121,7 +124,7 @@ public class MonumentDescription extends AppCompatActivity {
 
 
         Request request = new Request.Builder()
-                .url("http://ec2-35-169-161-33.compute-1.amazonaws.com:8080/monument/"+monument_Name)
+                .url("http://ec2-52-1-44-125.compute-1.amazonaws.com:8080/monument/"+monument_Name)
                 .addHeader("Authorization","Bearer "+token)
                 .get()
                 .build();
@@ -136,6 +139,7 @@ public class MonumentDescription extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
+                    Log.d("In Response","response");
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String monumentVideo = jsonObject.getString("monumentVideo");
                     byte[] video = Base64.decode(monumentVideo,Base64.DEFAULT);
@@ -150,6 +154,7 @@ public class MonumentDescription extends AppCompatActivity {
 //                        FileOutputStream fileoutputstream = new FileOutputStream(String.valueOf(R.raw.sample_video2));
 //                        fileoutputstream.write(video);
 //                        fileoutputstream.close();
+                        Log.d("In try","try");
 
                     } catch (IOException ex) {
                         ex.printStackTrace();
@@ -163,7 +168,7 @@ public class MonumentDescription extends AppCompatActivity {
 
                  }catch (Exception e){
                     e.printStackTrace();
-                    progressBar.setVisibility(View.GONE);
+                    //progressBar.setVisibility(View.GONE);
                 }
                 MonumentDescription.this.runOnUiThread(new Runnable() {
                     @Override
