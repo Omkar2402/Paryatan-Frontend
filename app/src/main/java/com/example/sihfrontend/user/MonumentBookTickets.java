@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MonumentBookTickets extends AppCompatActivity implements ticketInterface{
-    private ArrayList<ticketInfo> ticketInfoArrayList = new ArrayList<>();
+    private ArrayList<ticketInfo> ticketInfoArrayList;
     private RecyclerView recyclerView;
     private TicketAdapter ticket_adapter;
     String monumentName;
@@ -29,7 +29,9 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
     String gender;
     String age;
     String nationality;
-
+    RadioGroup g;
+    RadioGroup a;
+    RadioGroup n;
     RadioButton male;
     RadioButton female;
     RadioButton child;
@@ -49,14 +51,23 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
         visitorName = findViewById(R.id.etTicketName);
         male = findViewById(R.id.rdoTicketGenderMale);
         female = findViewById(R.id.rdoTicketGenderFemale);
-        child = findViewById(R.id.rdoTicketGenderChild);
-        adult = findViewById(R.id.rdoTicketGenderAdult);
+        child = findViewById(R.id.rdoTicketChild);
+        adult = findViewById(R.id.rdoTicketAdult);
         indian = findViewById(R.id.rdoTicketIndian);
         foreign = findViewById(R.id.rdoTicketForeign);
         addToList = findViewById(R.id.btnAddTicket);
 
-        recyclerView = findViewById(R.id.ticket_recycler_view);
+        g = findViewById(R.id.rdoTicketGender);
+        a = findViewById(R.id.rdoTicketAge);
+        n = findViewById(R.id.rdoTicketNationality);
+        ticketInfoArrayList = new ArrayList<>();
+        ticket_adapter = new TicketAdapter(MonumentBookTickets.this, ticketInfoArrayList, this) {
 
+        };
+        recyclerView = findViewById(R.id.ticket_recycler_view);
+        recyclerView.setAdapter(ticket_adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MonumentBookTickets.this,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(linearLayoutManager);
         male.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -104,23 +115,25 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
                 nationality="foreign";
             }
         });
-        ticket_adapter = new TicketAdapter(MonumentBookTickets.this, ticketInfoArrayList, this) {
 
-        };
 
         addToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Date dateofvisit = new Date(2022, 04, 03);
+                try{
+                    Date dateofvisit = new Date(2022, 04, 03);
 
-                ticketInfo ticketInfoobj = new ticketInfo(monumentName, dateofvisit, verificationId.getText().toString(), gender, age, nationality, visitorName.getText().toString());
-                ticketInfoArrayList.add(ticketInfoobj);
-                ticket_adapter.notifyDataSetChanged();
+                    ticketInfo ticketInfoobj = new ticketInfo(monumentName, dateofvisit, verificationId.getText().toString(), gender, age, nationality, visitorName.getText().toString());
+                    ticketInfoArrayList.add(ticketInfoobj);
+//                    ticket_adapter.updateTicketList(ticketInfoArrayList);
+                    ticket_adapter.notifyDataSetChanged();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
         });
-        recyclerView.setAdapter(ticket_adapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MonumentBookTickets.this,LinearLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager(linearLayoutManager);
+
     }
 
 }

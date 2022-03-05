@@ -86,7 +86,7 @@ public class MonumentDescription extends AppCompatActivity {
                 }
 
         progressBar.setVisibility(View.VISIBLE);
-        fetchVideo();
+//        fetchVideo();
 
         Intent intent = getIntent();
         monument_Name = intent.getStringExtra("name");

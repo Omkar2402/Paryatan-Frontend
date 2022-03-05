@@ -44,7 +44,6 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
     private ArrayList<monumentInfo> monumentInfoArrayList;
     private ProgressBar progressBar;
     private  monumentAdapter monument_adapter;
-    boolean wait = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
