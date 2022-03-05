@@ -21,9 +21,17 @@ public class monumentInfo {
     private  String  monumentLink;
     private String sartTime;
     private  byte[] monumentVideo;
+    private String closedDay;
 
+    public String getClosedDay() {
+        return closedDay;
+    }
 
-    public monumentInfo(String monumentName, byte[] monumentImage, String monumentDesc, String location, double foreign_child, double foreign_adult, double indian_child, double indian_adult, String closeTime, String monumentLink, String sartTime, byte[] monumentVideo) {
+    public void setClosedDay(String closedDay) {
+        this.closedDay = closedDay;
+    }
+
+    public monumentInfo(String monumentName, byte[] monumentImage, String monumentDesc, String location, double foreign_child, double foreign_adult, double indian_child, double indian_adult, String closeTime, String monumentLink, String sartTime, byte[] monumentVideo, String closedDay) {
         this.monumentName = monumentName;
         this.monumentImage = monumentImage;
         this.monumentDesc = monumentDesc;
@@ -36,6 +44,7 @@ public class monumentInfo {
         this.monumentLink = monumentLink;
         this.sartTime = sartTime;
         this.monumentVideo = monumentVideo;
+        this.closedDay = closedDay;
     }
 
     public  monumentInfo(byte[] monumentImage, String monumentName){

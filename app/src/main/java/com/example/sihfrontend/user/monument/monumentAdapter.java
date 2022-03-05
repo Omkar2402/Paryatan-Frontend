@@ -29,9 +29,6 @@ public  class monumentAdapter extends RecyclerView.Adapter<monumentAdapter.Viewh
         this.monumentInterface = monumentInterface;
     }
 
-
-
-
     @NonNull
     @Override
     public monumentAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
