@@ -45,6 +45,8 @@ public class MonumentDescription extends AppCompatActivity {
     private Button monLocation;
     private ProgressBar progressBar;
 
+    private OutputStream outputStream;
+
     private String monument_Name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +147,13 @@ public class MonumentDescription extends AppCompatActivity {
                     byte[] video = Base64.decode(monumentVideo,Base64.DEFAULT);
 
                     InputStream inputStream = new ByteArrayInputStream(video);
-                    OutputStream outputStream = new FileOutputStream(String.valueOf(R.raw.sample_video2));
+                    //OutputStream outputStream = new FileOutputStream(String.valueOf(R.raw.sample_video2));
+                    String path = "android.resource://" + getPackageName() + "/" + R.raw.sample_video2;
+                    File  file = new File(path);
+                    if(!file.exists()){
+                        file.createNewFile();
+                    }
+                    outputStream = new FileOutputStream(file);
                     try {
 
                         outputStream.write(video);
@@ -175,7 +183,7 @@ public class MonumentDescription extends AppCompatActivity {
                     public void run() {
                         try{
                             String path = "android.resource://" + getPackageName() + "/" + R.raw.sample_video2;
-                            videoView.setVideoURI(Uri.parse(path));
+                            videoView.setVideoPath(path);
                             videoView.start();
                         }catch (Exception e){
                             e.printStackTrace();
