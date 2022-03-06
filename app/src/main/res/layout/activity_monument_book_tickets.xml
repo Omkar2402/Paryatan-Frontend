@@ -165,6 +165,14 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="20dp"
         android:text="Add ticket"/>
+    <Button
+        android:id="@+id/btnProceed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/etAadharNumber"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="20dp"
+        android:text="Proceed"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ticket_recycler_view"
