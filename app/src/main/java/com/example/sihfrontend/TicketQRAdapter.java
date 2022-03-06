@@ -107,6 +107,5 @@ public  class TicketQRAdapter extends RecyclerView.Adapter<TicketQRAdapter.Viewh
             gender = itemView.findViewById(R.id.tvGenderQR);
             nationality = itemView.findViewById(R.id.tvNationalityQR);
         }
-
     }
 }

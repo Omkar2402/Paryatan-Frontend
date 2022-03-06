@@ -84,8 +84,13 @@ public class SplashActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         if(finalMessage.equals("Token refreshed successfully!!")){
-                                            Intent verifyIntent = new Intent(getApplicationContext(), MainActivity.class);
-                                            startActivity(verifyIntent);
+                                            if(role.equals("user")){
+                                                Intent verifyIntent = new Intent(getApplicationContext(), UserMainActivity.class);
+                                                startActivity(verifyIntent);
+                                            }else{
+                                                Intent verifyIntent = new Intent(getApplicationContext(), AdminMainActivity.class);
+                                                startActivity(verifyIntent);
+                                            }
                                         }
                                         else{
                                             Toast.makeText(SplashActivity.this,"Token not refreshed",Toast.LENGTH_SHORT).show();
