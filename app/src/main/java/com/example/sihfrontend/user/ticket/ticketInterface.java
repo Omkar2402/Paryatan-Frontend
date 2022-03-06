@@ -5,14 +5,11 @@ import com.example.sihfrontend.user.ticket.ticketInfo;
 public interface ticketInterface {
 
 
-    static void onEditButtonClicked(ticketInfo ticketInfo) {
-    }
+    public  void onEditButtonClicked(ticketInfo ticketInfo);
 
 
 
-    static void onDeleteButtonClick(ticketInfo tInfo){
-
-    }
+    public void onDeleteButtonClick(ticketInfo tInfo);
 
 
 }

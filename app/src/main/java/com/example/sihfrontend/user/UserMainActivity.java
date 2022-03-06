@@ -117,6 +117,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
                             String startTime = jsonArray.getJSONObject(i).getString("startTime");
                             String closeTime = jsonArray.getJSONObject(i).getString("closeTime");
                             double indian_adult = jsonArray.getJSONObject(i).getDouble("indian_adult");
+                            Log.d("indian_adult",""+indian_adult);
                             double indian_child = jsonArray.getJSONObject(i).getDouble("indian_child");
                             double foreign_adult = jsonArray.getJSONObject(i).getDouble("foreign_adult");
                             double foreign_child = jsonArray.getJSONObject(i).getDouble("foreign_child");

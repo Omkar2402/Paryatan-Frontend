@@ -103,14 +103,14 @@ public  class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Viewholde
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ticketInterface.onEditButtonClicked(TicketInfoArrayList.get(getAdapterPosition()));
+                    ticketInterface1.onEditButtonClicked(TicketInfoArrayList.get(getAdapterPosition()));
                 }
             });
 
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ticketInterface.onDeleteButtonClick(TicketInfoArrayList.get(getAdapterPosition()));
+                    ticketInterface1.onDeleteButtonClick(TicketInfoArrayList.get(getAdapterPosition()));
                 }
             });
         }
