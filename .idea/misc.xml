@@ -28,21 +28,25 @@
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/drawable/view_background.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_admin_main.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_monument_book_tickets.xml" value="0.1480978260869565" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_monument_description.xml" value="0.4" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_otp_verification.xml" value="0.536" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_splash.xml" value="0.14375" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_test.xml" value="0.128125" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_test_image.xml" value="0.23107569721115537" />
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_ticket_qr.xml" value="0.264" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_user_main.xml" value="0.159375" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_verify_email.xml" value="0.2" />
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/item_ticket_list.xml" value="0.536" />
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/item_ticket_qr.xml" value="0.2" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/login_tab_fragment.xml" value="0.264" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/regiester_tab_fragment.xml" value="0.264" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/signup_tab_fragment.xml" value="0.264" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

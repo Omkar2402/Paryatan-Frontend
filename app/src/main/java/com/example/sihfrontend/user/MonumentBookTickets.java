@@ -11,10 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.TicketQR;
 import com.example.sihfrontend.user.monument.monumentAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -40,6 +43,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
     RadioButton foreign;
     EditText visitorName;
     Button addToList;
+    Button proceed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
         g = findViewById(R.id.rdoTicketGender);
         a = findViewById(R.id.rdoTicketAge);
         n = findViewById(R.id.rdoTicketNationality);
+        proceed = findViewById(R.id.btnProceed);
         ticketInfoArrayList = new ArrayList<>();
         ticket_adapter = new TicketAdapter(MonumentBookTickets.this, ticketInfoArrayList, this) {
 
@@ -131,6 +136,22 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
                     e.printStackTrace();
                 }
 
+            }
+        });
+
+        proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ticketInfoArrayList.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Please Add ticket first",Toast.LENGTH_LONG).show();
+                }else{
+                    Intent intent = new Intent(MonumentBookTickets.this, TicketQR.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("arrayList",(Serializable) ticketInfoArrayList);
+                    intent.putExtra("bundle",bundle);
+                    intent.putExtra("monumentName",monumentName);
+                    startActivity(intent);
+                }
             }
         });
 

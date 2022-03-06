@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Base64;
@@ -19,6 +20,7 @@ import com.example.sihfrontend.user.MonumentBookTickets;
 import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,6 +45,8 @@ public class MonumentDescription extends AppCompatActivity {
     private Button monLocation;
     private ProgressBar progressBar;
 
+    private OutputStream outputStream;
+
     private String monument_Name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,16 @@ public class MonumentDescription extends AppCompatActivity {
         monLocation = findViewById(R.id.btnMonumentLocation);
         progressBar = findViewById(R.id.progressBarVideo);
 
+        try{
+            String path = "android.resource://" + getPackageName() + "/" + R.raw.sample_video2;
+            videoView.setVideoURI(Uri.parse(path));
+
+            videoView.start();
+            progressBar.setVisibility(View.VISIBLE);
+            fetchVideo();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         try {
 
             Intent intent = getIntent();
@@ -85,8 +99,7 @@ public class MonumentDescription extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-        progressBar.setVisibility(View.VISIBLE);
-//        fetchVideo();
+
 
         Intent intent = getIntent();
         monument_Name = intent.getStringExtra("name");
@@ -104,6 +117,7 @@ public class MonumentDescription extends AppCompatActivity {
 
     private void fetchVideo() {
 
+        Log.d("In fetch","fetch");
         SharedPreferences sharedPreferences = MonumentDescription.this.getSharedPreferences("SIH", Context.MODE_PRIVATE);
 
         String token = sharedPreferences.getString("token",null);
@@ -112,7 +126,7 @@ public class MonumentDescription extends AppCompatActivity {
 
 
         Request request = new Request.Builder()
-                .url("http://ec2-35-169-161-33.compute-1.amazonaws.com:8080/monument/"+monument_Name)
+                .url("http://ec2-52-1-44-125.compute-1.amazonaws.com:8080/monument/"+monument_Name)
                 .addHeader("Authorization","Bearer "+token)
                 .get()
                 .build();
@@ -127,24 +141,57 @@ public class MonumentDescription extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
+                    Log.d("In Response","response");
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String monumentVideo = jsonObject.getString("monumentVideo");
                     byte[] video = Base64.decode(monumentVideo,Base64.DEFAULT);
 
                     InputStream inputStream = new ByteArrayInputStream(video);
-                    OutputStream outputStream = new FileOutputStream("video");
-                    byte data[] = new byte[4096];
-                    int count;
-                    while ((count = inputStream.read(data)) != -1) {
-                        outputStream.write(data, 0, count);
+                    //OutputStream outputStream = new FileOutputStream(String.valueOf(R.raw.sample_video2));
+                    String path = "android.resource://" + getPackageName() + "/" + R.raw.sample_video2;
+                    File  file = new File(path);
+                    if(!file.exists()){
+                        file.createNewFile();
                     }
+                    outputStream = new FileOutputStream(file);
+                    try {
+
+                        outputStream.write(video);
+//                        File outputFile = File.createTempFile("file", "mp3", getCacheDir());
+//                        outputFile.deleteOnExit();
+//                        FileOutputStream fileoutputstream = new FileOutputStream(String.valueOf(R.raw.sample_video2));
+//                        fileoutputstream.write(video);
+//                        fileoutputstream.close();
+                        Log.d("In try","try");
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+//                    byte data[] = new byte[4096];
+//                    int count;
+//                    while ((count = inputStream.read(data)) != -1) {
+//                        Log.d("in while loop","while loop");
+//                        outputStream.write(data, 0, count);
+//                    }
 
                  }catch (Exception e){
                     e.printStackTrace();
-                    progressBar.setVisibility(View.GONE);
+                    //progressBar.setVisibility(View.GONE);
                 }
-
+                MonumentDescription.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            String path = "android.resource://" + getPackageName() + "/" + R.raw.sample_video2;
+                            videoView.setVideoPath(path);
+                            videoView.start();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
+
         });
 
     }

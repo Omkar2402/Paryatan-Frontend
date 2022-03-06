@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tvNameQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tvAgeQR"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        />
+    <TextView
+        android:id="@+id/tvAgeQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adult"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tvNameQR"
+        app:layout_constraintRight_toLeftOf="@+id/tvGenderQR"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        />
+    <TextView
+        android:id="@+id/tvGenderQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/tvAgeQR"
+        app:layout_constraintRight_toLeftOf="@id/tvNationalityQR"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        />
+    <TextView
+        android:id="@+id/tvNationalityQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Indian"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tvGenderQR"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
