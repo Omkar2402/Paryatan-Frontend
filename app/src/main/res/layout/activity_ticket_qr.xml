@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TicketQR">
+    <ProgressBar
+        android:id="@+id/ProgressBarQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        />
     <ImageView
         android:id="@+id/imgQRCode"
         android:layout_width="wrap_content"
@@ -41,10 +51,20 @@
         app:layout_constraintTop_toBottomOf="@id/tvMonumentNameQR"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnDownloadDetails"
         android:layout_margin="15dp"
         tools:listitem="@layout/item_ticket_qr"
         tools:itemCount="5"
         />
-
+    <Button
+        android:id="@+id/btnDownloadDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="20dp"
+        android:text="Download Details"
+        android:background="@drawable/custom_button"
+        android:textAllCaps="false"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
