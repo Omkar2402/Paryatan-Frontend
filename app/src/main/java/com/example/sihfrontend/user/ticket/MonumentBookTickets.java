@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +47,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
     String gender;
     String age;
     String nationality;
+    String date_of_visit;
     RadioGroup g;
     RadioGroup a;
     RadioGroup n;
@@ -86,7 +88,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
         indian_child = intent.getDoubleExtra("indian_child",0.0);
         foreign_adult = intent.getDoubleExtra("foreign_adult",0.0);
         foreign_child = intent.getDoubleExtra("foreign_child",0.0);
-
+        date_of_visit = intent.getStringExtra("date_of_visit");
 
           //calendar = Calendar.getInstance();
 //        int date = calendar.get(Calendar.DAY_OF_MONTH);
@@ -222,9 +224,15 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
                         Toast.makeText(getApplicationContext(),"Please Add ticket first",Toast.LENGTH_LONG).show();
                     }else{
                         Intent intent = new Intent(MonumentBookTickets.this, TicketQR.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("arrayList",(Serializable) ticketInfoArrayList);
-                        intent.putExtra("bundle",bundle);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putParcelableArrayList("arrayList", (ArrayList<? extends Parcelable>) ticketInfoArrayList);
+//                        intent.putExtras(bundle);
+//                        bundle.putSerializable("arrayList",(Serializable) ticketInfoArrayList);
+//                        intent.putExtra("bundle",bundle);
+//                        Log.d("Before","...");
+                        intent.putExtra("arrayList",ticketInfoArrayList);
+//                        Log.d("After","...");
+                        intent.putExtra("date_of_visit",date_of_visit);
                         intent.putExtra("monumentName",monumentName);
                         startActivity(intent);
                     }

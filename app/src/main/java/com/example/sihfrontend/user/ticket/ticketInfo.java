@@ -1,8 +1,9 @@
 package com.example.sihfrontend.user.ticket;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ticketInfo {
+public class ticketInfo implements Serializable {
     String monumentName;
     Date dateOfVisit;
     String verificationId;

@@ -133,7 +133,7 @@ public class MonumentDescription extends AppCompatActivity {
                         @Override
                         public void onDateSet(DatePicker arg0, int year, int month, int day_of_month) {
                             calendar.set(Calendar.YEAR, year);
-                            calendar.set(Calendar.MONTH, (month+1));
+                            calendar.set(Calendar.MONTH, (month));
                             calendar.set(Calendar.DAY_OF_MONTH, day_of_month);
                             String myFormat = "dd/MM/yyyy";
                             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
@@ -155,7 +155,7 @@ public class MonumentDescription extends AppCompatActivity {
             public void onClick(View view) {
 
                if(selectDate.getText().toString().equalsIgnoreCase("Select Date")){
-                   Toast.makeText(getApplicationContext(),"Pleease Select date",Toast.LENGTH_LONG).show();
+                   Toast.makeText(getApplicationContext(),"Please Select date",Toast.LENGTH_LONG).show();
                }else {
                    try {
                        Log.d("Book tickets clicked","null");
@@ -165,6 +165,7 @@ public class MonumentDescription extends AppCompatActivity {
                        in.putExtra("indian_child",indian_child);
                        in.putExtra("foreign_adult",foreign_adult);
                        in.putExtra("foreign_child",foreign_child);
+                       in.putExtra("date_of_visit",selectDate.getText().toString());
                        startActivity(in);
                    }
                    catch (Exception e){
