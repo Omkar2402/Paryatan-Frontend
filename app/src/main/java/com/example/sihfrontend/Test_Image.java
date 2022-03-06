@@ -261,7 +261,7 @@ public class Test_Image extends AppCompatActivity {
             @Override
             public void onFailure(Call call, IOException e) {
                 String mMessage = e.getMessage().toString();
-                //Toast.makeText(ChatScreen.this, "Error uploading file", Toast.LENGTH_LONG).show();
+                //Toast.maText(ChatScreen.this, "Error uploading file", Toast.LENGTH_LONG).show();
                 Log.e("failure Response", mMessage);
             }
 

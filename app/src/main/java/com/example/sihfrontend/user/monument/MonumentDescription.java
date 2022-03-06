@@ -1,4 +1,4 @@
-package com.example.sihfrontend;
+package com.example.sihfrontend.user.monument;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,11 +11,13 @@ import android.util.Log;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import com.example.sihfrontend.user.MonumentBookTickets;
+import com.example.sihfrontend.R;
+import com.example.sihfrontend.user.ticket.MonumentBookTickets;
 
 import org.json.JSONObject;
 
@@ -45,7 +47,10 @@ public class MonumentDescription extends AppCompatActivity {
     private Button monLocation;
     private ProgressBar progressBar;
 
+
     private OutputStream outputStream;
+
+
 
     private String monument_Name;
     @Override
@@ -68,8 +73,8 @@ public class MonumentDescription extends AppCompatActivity {
             videoView.setVideoURI(Uri.parse(path));
 
             videoView.start();
-            progressBar.setVisibility(View.VISIBLE);
-            fetchVideo();
+            //progressBar.setVisibility(View.VISIBLE);
+            //fetchVideo();
         }catch (Exception e){
             e.printStackTrace();
         }

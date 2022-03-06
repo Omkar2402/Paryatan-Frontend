@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TicketQR">
+    tools:context=".user.ticket.TicketQR">
     <ProgressBar
         android:id="@+id/ProgressBarQR"
         android:layout_width="wrap_content"

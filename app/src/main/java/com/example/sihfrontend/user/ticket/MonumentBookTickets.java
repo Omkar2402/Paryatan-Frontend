@@ -1,29 +1,36 @@
-package com.example.sihfrontend.user;
+package com.example.sihfrontend.user.ticket;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.sihfrontend.R;
-import com.example.sihfrontend.TicketQR;
-import com.example.sihfrontend.user.monument.monumentAdapter;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MonumentBookTickets extends AppCompatActivity implements ticketInterface{
     private ArrayList<ticketInfo> ticketInfoArrayList;
     private RecyclerView recyclerView;
+    private Calendar calendar;
     private TicketAdapter ticket_adapter;
     String monumentName;
     Button dateOfVisit;
@@ -66,6 +73,32 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
         n = findViewById(R.id.rdoTicketNationality);
         proceed = findViewById(R.id.btnProceed);
         ticketInfoArrayList = new ArrayList<>();
+
+          //calendar = Calendar.getInstance();
+//        int date = calendar.get(Calendar.DAY_OF_MONTH);
+//        int month = calendar.get(Calendar.MONTH);
+//        int year = calendar.get(Calendar.YEAR);
+
+        //DatePickerDialog datePickerDialog = new DatePickerDialog(MonumentBookTickets.this);
+
+
+
+//        DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
+//
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int day) {
+//
+//                calendar.set(Calendar.YEAR, year);
+//                calendar.set(Calendar.MONTH,month);
+//                calendar.set(Calendar.DAY_OF_MONTH,day);
+//                updateLabel();
+//            }
+//        };
+
+
+
+
+
         ticket_adapter = new TicketAdapter(MonumentBookTickets.this, ticketInfoArrayList, this) {
 
         };
@@ -121,6 +154,33 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
             }
         });
 
+        dateOfVisit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //new  DatePickerDialog(MonumentBookTickets.this,date,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
+                try {
+                    final Calendar calendar = Calendar.getInstance();
+                    DatePickerDialog dialog = new DatePickerDialog(MonumentBookTickets.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker arg0, int year, int month, int day_of_month) {
+                            calendar.set(Calendar.YEAR, year);
+                            calendar.set(Calendar.MONTH, (month+1));
+                            calendar.set(Calendar.DAY_OF_MONTH, day_of_month);
+                            String myFormat = "dd/MM/yyyy";
+                            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+                            dateOfVisit.setText(sdf.format(calendar.getTime()));
+                        }
+                    },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                    dialog.getDatePicker().setMinDate(calendar.getTimeInMillis());// TODO: used to hide previous date,month and year
+                    calendar.add(Calendar.YEAR, 0);
+                    dialog.getDatePicker().setMaxDate(calendar.getTimeInMillis()+(1000*60*60*24*7));// TODO: used to hide future date,month and year
+                    dialog.show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         addToList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,19 +202,29 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ticketInfoArrayList.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Please Add ticket first",Toast.LENGTH_LONG).show();
-                }else{
-                    Intent intent = new Intent(MonumentBookTickets.this, TicketQR.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("arrayList",(Serializable) ticketInfoArrayList);
-                    intent.putExtra("bundle",bundle);
-                    intent.putExtra("monumentName",monumentName);
-                    startActivity(intent);
+                try{
+                    if(ticketInfoArrayList.isEmpty()){
+                        Toast.makeText(getApplicationContext(),"Please Add ticket first",Toast.LENGTH_LONG).show();
+                    }else{
+                        Intent intent = new Intent(MonumentBookTickets.this, TicketQR.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("arrayList",(Serializable) ticketInfoArrayList);
+                        intent.putExtra("bundle",bundle);
+                        intent.putExtra("monumentName",monumentName);
+                        startActivity(intent);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });
-
     }
+
+    private void updateLabel() {
+        String myFormat="MM/dd/yy";
+        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
+        dateOfVisit.setText(dateFormat.format(calendar.getTime()));
+    }
+
 
 }

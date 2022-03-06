@@ -15,26 +15,22 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.sihfrontend.MonumentDescription;
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.user.monument.MonumentDescription;
 import com.example.sihfrontend.user.monument.MonumentInterface;
 import com.example.sihfrontend.user.monument.monumentAdapter;
 import com.example.sihfrontend.user.monument.monumentInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class UserMainActivity extends AppCompatActivity implements MonumentInterface {

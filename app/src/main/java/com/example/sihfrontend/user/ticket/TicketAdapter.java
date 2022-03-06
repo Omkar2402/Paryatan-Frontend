@@ -1,6 +1,4 @@
-package com.example.sihfrontend;
-
-
+package com.example.sihfrontend.user.ticket;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,24 +6,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sihfrontend.user.ticketInfo;
-import com.example.sihfrontend.user.ticketInterface;
+import com.example.sihfrontend.R;
 
 import java.util.ArrayList;
 
-public  class TicketQRAdapter extends RecyclerView.Adapter<TicketQRAdapter.Viewholder> {
+public  class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Viewholder> {
 
     private Context context;
     private static ArrayList<ticketInfo> TicketInfoArrayList;
+    public ticketInterface ticketInterface1;
 
     // Constructor
-    public TicketQRAdapter(Context context, ArrayList<ticketInfo> courseModelArrayList) {
+    public TicketAdapter(Context context, ArrayList<ticketInfo> courseModelArrayList,ticketInterface ticketInterface1) {
         this.context = context;
         this.TicketInfoArrayList = courseModelArrayList;
+        this.ticketInterface1 = ticketInterface1;
     }
     public void updateTicketList(ArrayList<ticketInfo> arr){
         this.TicketInfoArrayList.clear();
@@ -33,9 +31,9 @@ public  class TicketQRAdapter extends RecyclerView.Adapter<TicketQRAdapter.Viewh
     }
     @NonNull
     @Override
-    public TicketQRAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TicketAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // to inflate the layout for each item of recycler view.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ticket_qr, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ticket_list, parent, false);
 //        Viewholder viewholder = new Viewholder(view);
 //        view.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -43,20 +41,17 @@ public  class TicketQRAdapter extends RecyclerView.Adapter<TicketQRAdapter.Viewh
 //                ticketInterface.onCardClicked(monumentInfoArrayList.get(viewholder.getAdapterPosition()));
 //            }
 //        });
-        return new TicketQRAdapter.Viewholder(view);
+        return new Viewholder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TicketQRAdapter.Viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull TicketAdapter.Viewholder holder, int position) {
         // to set data to textview and imageview of each card layout
         ticketInfo model = TicketInfoArrayList.get(position);
         try{
             Log.d("Success:","bytes.toString()");
             String name = model.getVisitorName();
             holder.visitorName.setText(name);
-            holder.age.setText(model.getAge());
-            holder.gender.setText(model.getGender());
-            holder.nationality.setText(model.getNationality());
 
         }catch (Exception e){
             e.printStackTrace();
@@ -94,18 +89,31 @@ public  class TicketQRAdapter extends RecyclerView.Adapter<TicketQRAdapter.Viewh
     // your views such as TextView and Imageview.
     public class Viewholder extends RecyclerView.ViewHolder {
         private TextView visitorName;
-        private TextView age;
-        private TextView gender;
-        private TextView nationality;
+        private Button edit;
+        private Button delete;
 
 
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
-            visitorName = itemView.findViewById(R.id.tvNameQR);
-            age = itemView.findViewById(R.id.tvAgeQR);
-            gender = itemView.findViewById(R.id.tvGenderQR);
-            nationality = itemView.findViewById(R.id.tvNationalityQR);
+            visitorName = itemView.findViewById(R.id.tvVisitorName);
+            edit = itemView.findViewById(R.id.btnTicketEdit);
+            delete = itemView.findViewById(R.id.btnTicketDelete);
+
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ticketInterface.onEditButtonClicked(TicketInfoArrayList.get(getAdapterPosition()));
+                }
+            });
+
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ticketInterface.onDeleteButtonClick(TicketInfoArrayList.get(getAdapterPosition()));
+                }
+            });
         }
+
     }
 }

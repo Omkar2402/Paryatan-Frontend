@@ -1,6 +1,6 @@
-package com.example.sihfrontend.user;
+package com.example.sihfrontend.user.ticket;
 
-import com.example.sihfrontend.user.monument.monumentInfo;
+import com.example.sihfrontend.user.ticket.ticketInfo;
 
 public interface ticketInterface {
 

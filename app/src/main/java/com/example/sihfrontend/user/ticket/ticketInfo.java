@@ -1,4 +1,4 @@
-package com.example.sihfrontend.user;
+package com.example.sihfrontend.user.ticket;
 
 import java.util.Date;
 
