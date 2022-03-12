@@ -115,10 +115,10 @@ public class TicketQR extends AppCompatActivity {
 
 
 
-        RequestBody requestBody = new Request.Builder()
-                .addHeader("Authorization","Bearer "+token)
-                .post()
-                .build();
+//        RequestBody requestBody = new Request.Builder()
+//                .addHeader("Authorization","Bearer "+token)
+//                .post()
+//                .build();
 
         //Not calculated bill yet
         //monument_name,fare,no_of_tickets,indian_adult,foreign_adult,indian_child,foreign_child,males,females,date_of_visit

@@ -76,6 +76,7 @@ public class VideoHelper extends AppCompatActivity {
                 ctlr.setMediaPlayer(videoView);
                 videoView.setMediaController(ctlr);
                 videoView.requestFocus();
+                new GetYoutubeFile().start();
             }
         }catch (Exception e){
             e.printStackTrace();
