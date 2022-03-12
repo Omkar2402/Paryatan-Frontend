@@ -82,7 +82,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
             String token = sharedPreferences.getString("token",null);
 
             Request request = new Request.Builder()
-                    .url("http://ec2-3-87-3-167.compute-1.amazonaws.com:8080/monuments")
+                    .url("http://ec2-3-86-84-66.compute-1.amazonaws.com:8080/monuments")
                     .addHeader("Authorization","Bearer "+token)
                     .get()
                     .build();
@@ -94,7 +94,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
                 public void onFailure(Call call, IOException e) {
                     //wait = false;
 
-                    progressBar.setVisibility(View.GONE);
+                    //progressBar.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
 

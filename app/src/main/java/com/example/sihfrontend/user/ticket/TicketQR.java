@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.example.sihfrontend.R;
 import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class TicketQR extends AppCompatActivity {
 
@@ -31,6 +34,8 @@ public class TicketQR extends AppCompatActivity {
     private  String date_of_visit;
     private Button downloadDetails;
     private ProgressBar progressBar;
+    ArrayList<ticketInfo>  ticketInfoArrayList;
+    private  double fare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +53,9 @@ public class TicketQR extends AppCompatActivity {
 
         Intent intent = getIntent();
 //        Bundle args = intent.getBundleExtra("bundle");
-        ArrayList<ticketInfo>  ticketInfoArrayList = (ArrayList<ticketInfo>) intent.getSerializableExtra("arrayList");
+        ticketInfoArrayList = (ArrayList<ticketInfo>) intent.getSerializableExtra("arrayList");
         monumentName = intent.getStringExtra("monumentName");
+        fare = intent.getDoubleExtra("fare",0.0);
         date_of_visit = intent.getStringExtra("date_of_visit");
 
         Toast.makeText(getApplicationContext(),"ArrayList len:"+ticketInfoArrayList.size(),Toast.LENGTH_LONG);
@@ -58,6 +64,7 @@ public class TicketQR extends AppCompatActivity {
         ticketQRAdapter = new TicketQRAdapter(TicketQR.this,ticketInfoArrayList){
 
         };
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TicketQR.this,LinearLayoutManager.VERTICAL,false);
         recyclerViewQR.setLayoutManager(linearLayoutManager);
@@ -89,9 +96,32 @@ public class TicketQR extends AppCompatActivity {
     }
 
     private void fetchQRImage() {
+        int males=0,females =0,indian_adult=0,indian_child=0,foreign_adult=0,foreign_child=0;
+
+        for(int i=0;i<ticketInfoArrayList.size();i++){
+            if(ticketInfoArrayList.get(i).getGender().equalsIgnoreCase("male")) males++;
+            else females++;
+            if(ticketInfoArrayList.get(i).getAge().equalsIgnoreCase("adult") && ticketInfoArrayList.get(i).getNationality().equalsIgnoreCase("indian")) indian_adult++;
+            else if(ticketInfoArrayList.get(i).getAge().equalsIgnoreCase("child") && ticketInfoArrayList.get(i).getNationality().equalsIgnoreCase("indian")) indian_child++;
+            else if(ticketInfoArrayList.get(i).getAge().equalsIgnoreCase("adult") && ticketInfoArrayList.get(i).getNationality().equalsIgnoreCase("foreign")) foreign_adult++;
+            else foreign_child++;
+        }
+
+
+        SharedPreferences sh = TicketQR.this.getSharedPreferences("SIH",MODE_PRIVATE);
+        String token = sh.getString("token",null);
 
         OkHttpClient client = new OkHttpClient();
+
+
+
+        RequestBody requestBody = new Request.Builder()
+                .addHeader("Authorization","Bearer "+token)
+                .post()
+                .build();
+
         //Not calculated bill yet
+        //monument_name,fare,no_of_tickets,indian_adult,foreign_adult,indian_child,foreign_child,males,females,date_of_visit
 
     }
 }
