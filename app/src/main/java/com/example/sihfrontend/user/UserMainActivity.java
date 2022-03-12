@@ -15,26 +15,22 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.sihfrontend.MonumentDescription;
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.user.monument.MonumentDescription;
 import com.example.sihfrontend.user.monument.MonumentInterface;
 import com.example.sihfrontend.user.monument.monumentAdapter;
 import com.example.sihfrontend.user.monument.monumentInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class UserMainActivity extends AppCompatActivity implements MonumentInterface {
@@ -86,7 +82,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
             String token = sharedPreferences.getString("token",null);
 
             Request request = new Request.Builder()
-                    .url("http://ec2-52-1-44-125.compute-1.amazonaws.com:8080/monuments")
+                    .url("http://ec2-3-87-3-167.compute-1.amazonaws.com:8080/monuments")
                     .addHeader("Authorization","Bearer "+token)
                     .get()
                     .build();
@@ -121,6 +117,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
                             String startTime = jsonArray.getJSONObject(i).getString("startTime");
                             String closeTime = jsonArray.getJSONObject(i).getString("closeTime");
                             double indian_adult = jsonArray.getJSONObject(i).getDouble("indian_adult");
+                            Log.d("indian_adult",""+indian_adult);
                             double indian_child = jsonArray.getJSONObject(i).getDouble("indian_child");
                             double foreign_adult = jsonArray.getJSONObject(i).getDouble("foreign_adult");
                             double foreign_child = jsonArray.getJSONObject(i).getDouble("foreign_child");

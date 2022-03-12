@@ -16,13 +16,13 @@
         android:theme="@style/Theme.SIHFrontend"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".TicketQR"
+            android:name=".user.ticket.TicketQR"
             android:exported="false" />
         <activity
-            android:name=".user.MonumentBookTickets"
+            android:name=".user.ticket.MonumentBookTickets"
             android:exported="false" />
         <activity
-            android:name=".MonumentDescription"
+            android:name=".user.monument.MonumentDescription"
             android:exported="false" />
         <activity
             android:name=".admin.AdminBankDetails"

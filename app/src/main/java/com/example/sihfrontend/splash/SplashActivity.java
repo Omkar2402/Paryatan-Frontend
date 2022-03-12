@@ -11,7 +11,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.sihfrontend.MainActivity;
-import com.example.sihfrontend.user.MonumentBookTickets;
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.admin.AdminMainActivity;
 import com.example.sihfrontend.user.UserMainActivity;
@@ -47,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
                 try{
                     OkHttpClient client=new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("http://ec2-52-1-44-125.compute-1.amazonaws.com:8080/refresh-token")
+                            .url("http://ec2-3-87-3-167.compute-1.amazonaws.com:8080/refresh-token")
                             .addHeader("Authorization", "Bearer "+token)
                             .addHeader("isRefreshToken", "true")
                             .get()
@@ -84,8 +83,13 @@ public class SplashActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         if(finalMessage.equals("Token refreshed successfully!!")){
-                                            Intent verifyIntent = new Intent(getApplicationContext(), MainActivity.class);
-                                            startActivity(verifyIntent);
+                                            if(role.equals("user")){
+                                                Intent verifyIntent = new Intent(getApplicationContext(), UserMainActivity.class);
+                                                startActivity(verifyIntent);
+                                            }else{
+                                                Intent verifyIntent = new Intent(getApplicationContext(), AdminMainActivity.class);
+                                                startActivity(verifyIntent);
+                                            }
                                         }
                                         else{
                                             Toast.makeText(SplashActivity.this,"Token not refreshed",Toast.LENGTH_SHORT).show();
