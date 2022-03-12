@@ -231,6 +231,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
 //                        intent.putExtra("bundle",bundle);
 //                        Log.d("Before","...");
                         intent.putExtra("arrayList",ticketInfoArrayList);
+                        intent.putExtra("fare",fare);
 //                        Log.d("After","...");
                         intent.putExtra("date_of_visit",date_of_visit);
                         intent.putExtra("monumentName",monumentName);

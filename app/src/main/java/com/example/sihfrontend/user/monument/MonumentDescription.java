@@ -199,7 +199,7 @@ public class MonumentDescription extends AppCompatActivity {
 
 
         Request request = new Request.Builder()
-                .url("http://ec2-52-1-44-125.compute-1.amazonaws.com:8080/monument/"+monument_Name)
+                .url("http://ec2-3-86-84-66.compute-1.amazonaws.com:8080/monument/"+monument_Name)
                 .addHeader("Authorization","Bearer "+token)
                 .get()
                 .build();
