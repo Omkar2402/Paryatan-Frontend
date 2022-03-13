@@ -223,6 +223,10 @@ public class MonumentDescription extends AppCompatActivity {
                    Toast.makeText(getApplicationContext(),"Please Select date",Toast.LENGTH_LONG).show();
                }else {
                    try {
+                       String date = selectDate.getText().toString();
+                       String year = date.substring(6);
+                       String month = date.substring(3,5);
+                       String day = date.substring(0,2);
                        Log.d("Book tickets clicked","null");
                        Intent in = new Intent(MonumentDescription.this, MonumentBookTickets.class);
                        in.putExtra("monumentName",name.getText().toString());
@@ -230,7 +234,10 @@ public class MonumentDescription extends AppCompatActivity {
                        in.putExtra("indian_child",indian_child);
                        in.putExtra("foreign_adult",foreign_adult);
                        in.putExtra("foreign_child",foreign_child);
-                       in.putExtra("date_of_visit",selectDate.getText().toString());
+                       Log.d("year",year);
+                       Log.d("month",month);
+                       Log.d("day",day);
+                       in.putExtra("date_of_visit",year+"-"+month+"-"+day);
                        startActivity(in);
                    }
                    catch (Exception e){

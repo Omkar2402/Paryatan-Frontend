@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class ticketInfo implements Serializable {
     String monumentName;
-    Date dateOfVisit;
+    String dateOfVisit;
     String verificationId;
     String gender;
     String age;
@@ -15,7 +15,7 @@ public class ticketInfo implements Serializable {
     public ticketInfo() {
     }
 
-    public ticketInfo(String monumentName, Date dateOfVisit, String verificationId, String gender, String age, String nationality, String visitorName) {
+    public ticketInfo(String monumentName, String dateOfVisit, String verificationId, String gender, String age, String nationality, String visitorName) {
         this.monumentName = monumentName;
         this.dateOfVisit = dateOfVisit;
         this.verificationId = verificationId;
@@ -33,11 +33,11 @@ public class ticketInfo implements Serializable {
         this.monumentName = monumentName;
     }
 
-    public Date getDateOfVisit() {
+    public String getDateOfVisit() {
         return dateOfVisit;
     }
 
-    public void setDateOfVisit(Date dateOfVisit) {
+    public void setDateOfVisit(String dateOfVisit) {
         this.dateOfVisit = dateOfVisit;
     }
 
