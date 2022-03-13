@@ -137,7 +137,7 @@ public class TicketQR extends AppCompatActivity {
                 LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View content = layoutInflater.inflate(R.layout.activity_ticket_qr,null);
                 //createPdfFromView(content,date_of_visit,constraintLayout.getWidth(),constraintLayout.getHeight(),1);
-                scaledBitmap = Bitmap.createScaledBitmap(bmp,140,140,false);
+                scaledBitmap = Bitmap.createScaledBitmap(bmp,400,400,false);
                 if (checkPermission()) {
                     Toast.makeText(getApplicationContext(), "Permission Granted", Toast.LENGTH_SHORT).show();
                 } else {
@@ -190,7 +190,7 @@ public class TicketQR extends AppCompatActivity {
         // second parameter is position from left
         // third parameter is position from top and last
         // one is our variable for paint.
-        canvas.drawBitmap(scaledBitmap, 56, 40, paint);
+        canvas.drawBitmap(scaledBitmap, 200, 130, paint);
 
         // below line is used for adding typeface for
         // our text which we will be adding in our PDF file.
@@ -198,7 +198,7 @@ public class TicketQR extends AppCompatActivity {
 
         // below line is used for setting text size
         // which we will be displaying in our PDF file.
-        title.setTextSize(15);
+        title.setTextSize(30);
 
         // below line is sued for setting color
         // of our text inside our PDF file.
@@ -208,19 +208,27 @@ public class TicketQR extends AppCompatActivity {
         // the first parameter is our text, second parameter
         // is position from start, third parameter is position from top
         // and then we are passing our variable of paint which is title.
-        canvas.drawText("A portal for IT professionals.", 209, 100, title);
-        canvas.drawText("Geeks for Geeks", 209, 80, title);
+        canvas.drawText("E-Ticket", 300, 100, title);
 
+        title.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        title.setColor(ContextCompat.getColor(TicketQR.this, R.color.black));
+        title.setTextSize(30);
+        canvas.drawText("Visitor Name\tVerification ID\tGender\tAge\tNationality", 10, 540, title);
         // similarly we are creating another text and in this
         // we are aligning this text to center of our PDF file.
         title.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         title.setColor(ContextCompat.getColor(TicketQR.this, R.color.purple_200));
-        title.setTextSize(15);
+        title.setTextSize(25);
 
         // below line is used for setting
         // our text to center of PDF.
-        title.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("This is sample document which we have created.", 396, 560, title);
+        //title.setTextAlign(Paint.Align.CENTER);
+        int x = 10;
+        int y = 550;
+        for (int i = 0; i<ticketInfoArrayList.size();i++) {
+            canvas.drawText(ticketInfoArrayList.get(i).getVisitorName()+"\t\t"+ticketInfoArrayList.get(i).getVerificationId()+"\t\t"+ticketInfoArrayList.get(i).getGender()+"\t\t"+ticketInfoArrayList.get(i).getAge()+"\t\t"+ticketInfoArrayList.get(i).getNationality(), x, y+30*(i+1), title);
+        }
+
 
         // after adding all attributes to our
         // PDF file we will be finishing our page.
@@ -228,7 +236,7 @@ public class TicketQR extends AppCompatActivity {
 
         // below line is used to set the name of
         // our PDF file and its path.
-        File file = new File(Environment.getExternalStorageDirectory(), "GFG.pdf");
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), date_of_visit+".pdf");
 
         try {
             // after creating a file name we will
