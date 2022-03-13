@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -20,6 +21,9 @@ import android.widget.Toast;
 
 import com.example.sihfrontend.R;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,6 +31,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MonumentBookTickets extends AppCompatActivity implements ticketInterface{
     private ArrayList<ticketInfo> ticketInfoArrayList;
@@ -223,19 +237,11 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
                     if(ticketInfoArrayList.isEmpty()){
                         Toast.makeText(getApplicationContext(),"Please Add ticket first",Toast.LENGTH_LONG).show();
                     }else{
-                        Intent intent = new Intent(MonumentBookTickets.this, TicketQR.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putParcelableArrayList("arrayList", (ArrayList<? extends Parcelable>) ticketInfoArrayList);
-//                        intent.putExtras(bundle);
-//                        bundle.putSerializable("arrayList",(Serializable) ticketInfoArrayList);
-//                        intent.putExtra("bundle",bundle);
-//                        Log.d("Before","...");
-                        intent.putExtra("arrayList",ticketInfoArrayList);
-                        intent.putExtra("fare",fare);
-//                        Log.d("After","...");
-                        intent.putExtra("date_of_visit",date_of_visit);
-                        intent.putExtra("monumentName",monumentName);
-                        startActivity(intent);
+                        for (int i = 0; i<ticketInfoArrayList.size(); i++) {
+                            addticketlist(ticketInfoArrayList.get(i),i);
+                        }
+
+
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -243,6 +249,62 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
             }
         });
     }
+
+    private void addticketlist(ticketInfo ticketInfo, int i) {
+        SharedPreferences sh = MonumentBookTickets.this.getSharedPreferences("SIH",MODE_PRIVATE);
+        String token = sh.getString("token",null);
+        OkHttpClient client = new OkHttpClient();
+
+
+        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("monument_name",ticketInfo.getMonumentName())
+                .addFormDataPart("date_of_visit", ""+ticketInfo.getDateOfVisit())
+                .addFormDataPart("verification_id",ticketInfo.getVerificationId())
+                .addFormDataPart("gender",ticketInfo.getGender())
+                .addFormDataPart("nationality",ticketInfo.getNationality())
+                .addFormDataPart("age", ticketInfo.getAge())
+                .build();
+
+        Request requestBody = new Request.Builder()
+                .url("http://ec2-3-86-84-66.compute-1.amazonaws.com:8080/add-ticket")
+                .addHeader("Authorization","Bearer "+token)
+                .post(formBody)
+                .build();
+        client.newCall(requestBody).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String message = jsonObject.getString("message");
+                    Log.d("String added successfully",message);
+                }
+                catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+                MonumentBookTickets.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (i==ticketInfoArrayList.size()-1) {
+                            Intent intent = new Intent(MonumentBookTickets.this, TicketQR.class);
+                            intent.putExtra("arrayList",ticketInfoArrayList);
+                            intent.putExtra("fare",fare);
+                            intent.putExtra("date_of_visit",date_of_visit);
+                            intent.putExtra("monumentName",monumentName);
+                            startActivity(intent);
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
 
     private void updateLabel() {
         String myFormat="MM/dd/yy";

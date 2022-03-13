@@ -1,6 +1,7 @@
 package com.example.sihfrontend.user.monument;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabsIntent;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -145,6 +146,16 @@ public class MonumentDescription extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        websiteLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = websiteLink.getText().toString();
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(MonumentDescription.this, Uri.parse(url));
+            }
+        });
 
 
         selectDate.setOnClickListener(new View.OnClickListener() {

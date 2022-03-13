@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +20,19 @@ import android.widget.Toast;
 
 import com.example.sihfrontend.R;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class TicketQR extends AppCompatActivity {
 
@@ -113,12 +124,52 @@ public class TicketQR extends AppCompatActivity {
 
         OkHttpClient client = new OkHttpClient();
 
+        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("monument_name",monumentName)
+                .addFormDataPart("date_of_visit",date_of_visit)
+                .addFormDataPart("no_of_tickets", String.valueOf(ticketInfoArrayList.size()))
+                .addFormDataPart("fare", String.valueOf(fare))
+                .addFormDataPart("indian_child", String.valueOf(indian_child))
+                .addFormDataPart("foreign_child", String.valueOf(foreign_child))
+                .addFormDataPart("foreign_adult", String.valueOf(foreign_adult))
+                .addFormDataPart("males", String.valueOf(males))
+                .addFormDataPart("females", String.valueOf(females))
+                .addFormDataPart("indian_adult", String.valueOf(indian_adult))
+                .build();
 
+        Request requestBody = new Request.Builder()
+                .url("http://ec2-3-86-84-66.compute-1.amazonaws.com:8080/addQRticket")
+                .addHeader("Authorization","Bearer "+token)
+                .post(formBody)
+                .build();
+        client.newCall(requestBody).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
 
-//        RequestBody requestBody = new Request.Builder()
-//                .addHeader("Authorization","Bearer "+token)
-//                .post()
-//                .build();
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String message = jsonObject.getString("message");
+                    String qrbyte = jsonObject.getString("profile_image");
+                    byte[] qrbytearray = Base64.decode(qrbyte,Base64.DEFAULT);
+
+                        Log.d("Success:","bytes.toString()");
+
+                        Log.d("Length",""+qrbytearray.length);
+                        Log.d("In try","..");
+                        Bitmap bmp = BitmapFactory.decodeByteArray(qrbytearray, 0,qrbytearray.length);
+                        imgQR.setImageBitmap(bmp);
+                    Log.d("String added successfully",message);
+                }
+                catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+            }
+        });
 
         //Not calculated bill yet
         //monument_name,fare,no_of_tickets,indian_adult,foreign_adult,indian_child,foreign_child,males,females,date_of_visit
