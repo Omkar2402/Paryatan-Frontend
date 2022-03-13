@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.util.Base64;
 import android.view.View;
@@ -37,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -150,10 +152,20 @@ public class MonumentDescription extends AppCompatActivity {
         websiteLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = websiteLink.getText().toString();
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(MonumentDescription.this, Uri.parse(url));
+                try{
+                    String url = "http://"+websiteLink.getText().toString();
+                    //String url = "http://www.google.com";
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    CustomTabsIntent customTabsIntent = builder.build();
+                    customTabsIntent.launchUrl(MonumentDescription.this, Uri.parse(url));
+
+
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+
             }
         });
 

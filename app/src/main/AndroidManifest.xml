@@ -28,7 +28,12 @@
             android:exported="false" />
         <activity
             android:name=".user.monument.MonumentDescription"
-            android:exported="false" />
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.scytec.datamobile.vd.gui.android.AppPreferenceActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".admin.AdminBankDetails"
             android:exported="true" />
@@ -62,6 +67,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+
     </application>
 
 </manifest>
