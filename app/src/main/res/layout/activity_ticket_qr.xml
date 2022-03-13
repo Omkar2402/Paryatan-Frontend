@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/constraint_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -51,20 +52,32 @@
         app:layout_constraintTop_toBottomOf="@id/tvMonumentNameQR"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnDownloadDetails"
+        app:layout_constraintBottom_toTopOf="@id/imgDownloadBtn"
         android:layout_margin="15dp"
         tools:listitem="@layout/item_ticket_qr"
         tools:itemCount="5"
         />
-    <Button
-        android:id="@+id/btnDownloadDetails"
+    <ImageView
+        android:id="@+id/imgDownloadBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="20dp"
-        android:text="Download Details"
-        android:background="@drawable/custom_button"
-        android:textAllCaps="false"/>
+        android:src="@drawable/ic_baseline_file_download_24"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="100dp"
+        app:layout_constraintRight_toLeftOf="@id/imgShareBtn"
+        />
+    <ImageView
+        android:id="@+id/imgShareBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/ic_baseline_share_24"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="30dp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
