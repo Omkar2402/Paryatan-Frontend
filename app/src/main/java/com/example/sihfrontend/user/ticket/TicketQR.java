@@ -45,7 +45,7 @@ public class TicketQR extends AppCompatActivity {
     private  String date_of_visit;
     private Button downloadDetails;
     private ProgressBar progressBar;
-    ArrayList<ticketInfo>  ticketInfoArrayList;
+    ArrayList<ticketInfo>  ticketInfoArrayList ;
     private  double fare;
 
     @Override
@@ -138,7 +138,7 @@ public class TicketQR extends AppCompatActivity {
                 .build();
 
         Request requestBody = new Request.Builder()
-                .url("http://ec2-3-86-84-66.compute-1.amazonaws.com:8080/addQRticket")
+                .url("http://ec2-44-202-82-75.compute-1.amazonaws.com:8080/addQRticket")
                 .addHeader("Authorization","Bearer "+token)
                 .post(formBody)
                 .build();

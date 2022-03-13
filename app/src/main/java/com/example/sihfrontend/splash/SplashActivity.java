@@ -131,7 +131,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 //the current activity will get finished.
             }
-        }, 2500);
+        }, 3100);
     }
     // Fetch the stored data in onResume()
     // Because this is what will be called
