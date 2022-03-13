@@ -259,28 +259,28 @@ public class MonumentDescription extends AppCompatActivity {
         close_time.setText(intent.getStringExtra("close_time"));
         closedOn.setText("Closed on:"+intent.getStringExtra("closed_day"));
 
-        try{
-            progressBar.setVisibility(View.VISIBLE);
-            fetchVideo();
-            while (wait){
-                Log.d("In wait",".....");
-            }
-            try {
-                if(videoBytes==null){
-                    Toast.makeText(getApplicationContext(),"Video not fetched",Toast.LENGTH_LONG).show();
-                }else{
-                    ctlr = new MediaController(MonumentDescription.this);
-                    ctlr.setMediaPlayer(videoView);
-                    videoView.setMediaController(ctlr);
-                    videoView.requestFocus();
-                    new GetYoutubeFile().start();
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+//        try{
+//            progressBar.setVisibility(View.VISIBLE);
+//            fetchVideo();
+//            while (wait){
+//                Log.d("In wait",".....");
+//            }
+//            try {
+//                if(videoBytes==null){
+//                    Toast.makeText(getApplicationContext(),"Video not fetched",Toast.LENGTH_LONG).show();
+//                }else{
+//                    ctlr = new MediaController(MonumentDescription.this);
+//                    ctlr.setMediaPlayer(videoView);
+//                    videoView.setMediaController(ctlr);
+//                    videoView.requestFocus();
+//                    new GetYoutubeFile().start();
+//                }
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 
     private void fetchVideo() {
