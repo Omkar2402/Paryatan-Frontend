@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                                 .build();
 
                         Request request = new Request.Builder()
-                                .url("http://ec2-3-86-84-66.compute-1.amazonaws.com:8080/verify-email")
+                                .url("http://ec2-44-202-82-75.compute-1.amazonaws.com:8080/verify-email")
                                 .post(formBody)
                                 .build();
 

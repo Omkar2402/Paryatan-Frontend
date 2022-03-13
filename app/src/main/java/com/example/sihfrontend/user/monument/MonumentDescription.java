@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,22 +15,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
+import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.helper.VideoHelper;
 import com.example.sihfrontend.user.ticket.MonumentBookTickets;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,7 +49,7 @@ import okhttp3.Response;
 
 public class MonumentDescription extends AppCompatActivity {
 
-    private VideoView videoView;
+//    private VideoView videoView;
     private TextView name;
     private TextView description;
     private TextView start_time;
@@ -52,7 +58,7 @@ public class MonumentDescription extends AppCompatActivity {
     private TextView websiteLink;
     private Button bookTicket;
     private Button monLocation;
-    private ProgressBar progressBar;
+//    private ProgressBar progressBar;
 
     private Button selectDate;
 
@@ -61,7 +67,20 @@ public class MonumentDescription extends AppCompatActivity {
     private double foreign_adult;
     private double foreign_child;
 
+    private byte[] videoBytes;
+    private  boolean wait = true;
 
+    private MediaController ctlr;
+
+
+    private ProgressBar progressBar;
+    VideoView videoView = null;
+
+    Context context = null;
+    long totalRead = 0;
+    int bytesToRead = 50 * 1024;
+    private int mPlayerPosition;
+    private File mBufferFile;
 
     private OutputStream outputStream;
 
@@ -104,6 +123,9 @@ public class MonumentDescription extends AppCompatActivity {
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
+
+
+
         try {
 
             Intent intent = getIntent();
@@ -113,7 +135,7 @@ public class MonumentDescription extends AppCompatActivity {
             indian_child = intent.getDoubleExtra("indian_child",0.0);
             foreign_adult = intent.getDoubleExtra("foreign_adult",0.0);
             foreign_child = intent.getDoubleExtra("foreign_child",0.0);
-
+            monument_Name = intent.getStringExtra("monumentName");
             name.setText(intent.getStringExtra("monumentName"));
             description.setText(intent.getStringExtra("desc"));
             websiteLink.setText(intent.getStringExtra("link"));
@@ -123,6 +145,7 @@ public class MonumentDescription extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+
 
         selectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +209,29 @@ public class MonumentDescription extends AppCompatActivity {
         start_time.setText(intent.getStringExtra("start_time"));
         close_time.setText(intent.getStringExtra("close_time"));
         closedOn.setText("Closed on:"+intent.getStringExtra("closed_day"));
+
+        try{
+            progressBar.setVisibility(View.VISIBLE);
+            fetchVideo();
+            while (wait){
+                Log.d("In wait",".....");
+            }
+            try {
+                if(videoBytes==null){
+                    Toast.makeText(getApplicationContext(),"Video not fetched",Toast.LENGTH_LONG).show();
+                }else{
+                    ctlr = new MediaController(MonumentDescription.this);
+                    ctlr.setMediaPlayer(videoView);
+                    videoView.setMediaController(ctlr);
+                    videoView.requestFocus();
+                    new GetYoutubeFile().start();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void fetchVideo() {
@@ -199,7 +245,7 @@ public class MonumentDescription extends AppCompatActivity {
 
 
         Request request = new Request.Builder()
-                .url("http://ec2-3-86-84-66.compute-1.amazonaws.com:8080/monument/"+monument_Name)
+                .url("http://ec2-44-202-82-75.compute-1.amazonaws.com:8080/monument/"+monument_Name)
                 .addHeader("Authorization","Bearer "+token)
                 .get()
                 .build();
@@ -217,55 +263,92 @@ public class MonumentDescription extends AppCompatActivity {
                     Log.d("In Response","response");
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String monumentVideo = jsonObject.getString("monumentVideo");
-                    byte[] video = Base64.decode(monumentVideo,Base64.DEFAULT);
+                    videoBytes = Base64.decode(monumentVideo,Base64.DEFAULT);
 
-                    InputStream inputStream = new ByteArrayInputStream(video);
-                    //OutputStream outputStream = new FileOutputStream(String.valueOf(R.raw.sample_video2));
-                    String path = "android.resource://" + getPackageName() + "/" + R.raw.sample_video2;
-                    File  file = new File(path);
-                    if(!file.exists()){
-                        file.createNewFile();
-                    }
-                    outputStream = new FileOutputStream(file);
-                    try {
-
-                        outputStream.write(video);
-//                        File outputFile = File.createTempFile("file", "mp3", getCacheDir());
-//                        outputFile.deleteOnExit();
-//                        FileOutputStream fileoutputstream = new FileOutputStream(String.valueOf(R.raw.sample_video2));
-//                        fileoutputstream.write(video);
-//                        fileoutputstream.close();
-                        Log.d("In try","try");
-
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-//                    byte data[] = new byte[4096];
-//                    int count;
-//                    while ((count = inputStream.read(data)) != -1) {
-//                        Log.d("in while loop","while loop");
-//                        outputStream.write(data, 0, count);
-//                    }
-
-                 }catch (Exception e){
+                    Log.d("Before Video Bytes","");
+                    progressBar.setVisibility(View.GONE);
+                    wait = false;
+                } catch (JSONException e) {
                     e.printStackTrace();
-                    //progressBar.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
+                    wait = false;
+                    Log.d("In JSON Exception",""+e.getMessage());
+                }catch (Exception e){
+                    wait = false;
+                    e.printStackTrace();
+                    Log.d("In Exception",""+e.getMessage());
                 }
-                MonumentDescription.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            String path = "android.resource://" + getPackageName() + "/" + R.raw.sample_video2;
-                            videoView.setVideoPath(path);
-                            videoView.start();
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                });
             }
 
         });
+
+    }
+
+    private class GetYoutubeFile extends Thread {
+        private String mUrl;
+        private String mFile;
+
+        public GetYoutubeFile() {
+
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            try {
+                File bufferFile = null;
+                try {
+                    bufferFile = File.createTempFile("test1", "mp4");
+                    Log.d("Temp file","Written successfully");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                BufferedOutputStream bufferOS = new BufferedOutputStream(
+                        new FileOutputStream(bufferFile));
+
+
+                //InputStream is = getAssets().open("famous.3gp");
+                //BufferedInputStream bis = new BufferedInputStream(is, 2048);
+
+                int numRead;
+                boolean started = false;
+                bufferOS.write(videoBytes);
+                Log.d("buffer os","Written successfully");
+                Log.e("Player", "BufferHIT:StartPlay");
+                setSourceAndStartPlay(bufferFile);
+                started = true;
+
+                mBufferFile = bufferFile;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void setSourceAndStartPlay(File bufferFile) {
+        try {
+
+            mPlayerPosition = videoView.getCurrentPosition();
+            videoView.setVideoPath(bufferFile.getAbsolutePath());
+
+            videoView.start();
+
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onCompletion(MediaPlayer mp) {
 
     }
 }
