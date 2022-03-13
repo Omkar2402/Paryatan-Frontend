@@ -86,7 +86,7 @@ public class MonumentDescription extends AppCompatActivity {
     private File mBufferFile;
 
     private OutputStream outputStream;
-
+    private String location;
 
 
     private String monument_Name;
@@ -145,6 +145,7 @@ public class MonumentDescription extends AppCompatActivity {
             start_time.setText(intent.getStringExtra("start_time"));
             close_time.setText(intent.getStringExtra("close_time"));
             closedOn.setText("Closed on:"+intent.getStringExtra("closed_day"));
+            location=intent.getStringExtra("location");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -170,6 +171,8 @@ public class MonumentDescription extends AppCompatActivity {
         });
 
 
+
+
         selectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,6 +194,22 @@ public class MonumentDescription extends AppCompatActivity {
                     dialog.getDatePicker().setMaxDate(calendar.getTimeInMillis()+(1000*60*60*24*7));// TODO: used to hide future date,month and year
                     dialog.show();
                 }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        monLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Uri gmmIntentUri = Uri.parse("geo:0,0?q="+location);
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);
+                }
+                catch (Exception e)
+                {
                     e.printStackTrace();
                 }
             }

@@ -186,6 +186,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
         monumentExpand.putExtra("video",mInfo.getMonumentVideo());
         monumentExpand.putExtra("name",mInfo.getMonumentName());
         monumentExpand.putExtra("closed_day",mInfo.getClosedDay());
+
         startActivity(monumentExpand);
 
     }
