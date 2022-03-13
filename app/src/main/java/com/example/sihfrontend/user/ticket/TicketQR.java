@@ -60,7 +60,7 @@ public class TicketQR extends AppCompatActivity {
         progressBar = findViewById(R.id.ProgressBarQR);
 //
 //        progressBar.setVisibility(View.VISIBLE);
-        //fetchQRImage();
+
 
         Intent intent = getIntent();
 //        Bundle args = intent.getBundleExtra("bundle");
@@ -86,6 +86,9 @@ public class TicketQR extends AppCompatActivity {
 
         ticketQRAdapter.notifyDataSetChanged();
 
+        progressBar.setVisibility(View.VISIBLE);
+        fetchQRImage();
+
 
         downloadDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,69 +110,82 @@ public class TicketQR extends AppCompatActivity {
     }
 
     private void fetchQRImage() {
-        int males=0,females =0,indian_adult=0,indian_child=0,foreign_adult=0,foreign_child=0;
+        try {
 
-        for(int i=0;i<ticketInfoArrayList.size();i++){
-            if(ticketInfoArrayList.get(i).getGender().equalsIgnoreCase("male")) males++;
-            else females++;
-            if(ticketInfoArrayList.get(i).getAge().equalsIgnoreCase("adult") && ticketInfoArrayList.get(i).getNationality().equalsIgnoreCase("indian")) indian_adult++;
-            else if(ticketInfoArrayList.get(i).getAge().equalsIgnoreCase("child") && ticketInfoArrayList.get(i).getNationality().equalsIgnoreCase("indian")) indian_child++;
-            else if(ticketInfoArrayList.get(i).getAge().equalsIgnoreCase("adult") && ticketInfoArrayList.get(i).getNationality().equalsIgnoreCase("foreign")) foreign_adult++;
-            else foreign_child++;
-        }
+            Log.d("arraylist size",""+ticketInfoArrayList.size());
+            int males = 0, females = 0, indian_adult = 0, indian_child = 0, foreign_adult = 0, foreign_child = 0;
 
-
-        SharedPreferences sh = TicketQR.this.getSharedPreferences("SIH",MODE_PRIVATE);
-        String token = sh.getString("token",null);
-
-        OkHttpClient client = new OkHttpClient();
-
-        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("monument_name",monumentName)
-                .addFormDataPart("date_of_visit",date_of_visit)
-                .addFormDataPart("no_of_tickets", String.valueOf(ticketInfoArrayList.size()))
-                .addFormDataPart("fare", String.valueOf(fare))
-                .addFormDataPart("indian_child", String.valueOf(indian_child))
-                .addFormDataPart("foreign_child", String.valueOf(foreign_child))
-                .addFormDataPart("foreign_adult", String.valueOf(foreign_adult))
-                .addFormDataPart("males", String.valueOf(males))
-                .addFormDataPart("females", String.valueOf(females))
-                .addFormDataPart("indian_adult", String.valueOf(indian_adult))
-                .build();
-
-        Request requestBody = new Request.Builder()
-                .url("http://ec2-3-86-84-66.compute-1.amazonaws.com:8080/addQRticket")
-                .addHeader("Authorization","Bearer "+token)
-                .post(formBody)
-                .build();
-        client.newCall(requestBody).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
+            for (int i = 0; i < ticketInfoArrayList.size(); i++) {
+                if (ticketInfoArrayList.get(i).getGender().equalsIgnoreCase("male")) males++;
+                else females++;
+                if (ticketInfoArrayList.get(i).getAge().equalsIgnoreCase("adult") && ticketInfoArrayList.get(i).getNationality().equalsIgnoreCase("indian"))
+                    indian_adult++;
+                else if (ticketInfoArrayList.get(i).getAge().equalsIgnoreCase("child") && ticketInfoArrayList.get(i).getNationality().equalsIgnoreCase("indian"))
+                    indian_child++;
+                else if (ticketInfoArrayList.get(i).getAge().equalsIgnoreCase("adult") && ticketInfoArrayList.get(i).getNationality().equalsIgnoreCase("foreign"))
+                    foreign_adult++;
+                else foreign_child++;
             }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body().string());
-                    String message = jsonObject.getString("message");
-                    String qrbyte = jsonObject.getString("profile_image");
-                    byte[] qrbytearray = Base64.decode(qrbyte,Base64.DEFAULT);
 
-                        Log.d("Success:","bytes.toString()");
+            SharedPreferences sh = TicketQR.this.getSharedPreferences("SIH", MODE_PRIVATE);
+            String token = sh.getString("token", null);
 
-                        Log.d("Length",""+qrbytearray.length);
-                        Log.d("In try","..");
-                        Bitmap bmp = BitmapFactory.decodeByteArray(qrbytearray, 0,qrbytearray.length);
-                        imgQR.setImageBitmap(bmp);
-                    Log.d("String added successfully",message);
-                }
-                catch (Exception e) {
+            OkHttpClient client = new OkHttpClient();
+            Log.d("arraylist size",""+ticketInfoArrayList.size());
+            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("monument_name", monumentName)
+                    .addFormDataPart("date_of_visit", date_of_visit)
+                    .addFormDataPart("no_of_tickets", ""+ticketInfoArrayList.size())
+                    .addFormDataPart("fare", ""+fare)
+                    .addFormDataPart("indian_child", ""+indian_child)
+                    .addFormDataPart("foreign_child", ""+foreign_child)
+                    .addFormDataPart("foreign_adult", ""+foreign_adult)
+                    .addFormDataPart("males", ""+males)
+                    .addFormDataPart("females", ""+females)
+                    .addFormDataPart("indian_adult",""+indian_adult)
+                    .build();
 
+            Request requestBody = new Request.Builder()
+                    .url("http://ec2-44-202-82-75.compute-1.amazonaws.com:8080/addQRticket")
+                    .addHeader("Authorization", "Bearer " + token)
+                    .post(formBody)
+                    .build();
+
+            client.newCall(requestBody).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                    progressBar.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        String message = jsonObject.getString("message");
+                        String qrbyte = jsonObject.getString("profile_image");
+                        byte[] qrbytearray = Base64.decode(qrbyte, Base64.DEFAULT);
+
+                        Log.d("Success:", "bytes.toString()");
+
+                        Log.d("Length", "" + qrbytearray.length);
+                        Log.d("In try", "..");
+                        Bitmap bmp = BitmapFactory.decodeByteArray(qrbytearray, 0, qrbytearray.length);
+                        imgQR.setImageBitmap(bmp);
+                        Log.d("String added successfully", message);
+                        progressBar.setVisibility(View.GONE);
+                    } catch (Exception e) {
+                        progressBar.setVisibility(View.GONE);
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         //Not calculated bill yet
         //monument_name,fare,no_of_tickets,indian_adult,foreign_adult,indian_child,foreign_child,males,females,date_of_visit

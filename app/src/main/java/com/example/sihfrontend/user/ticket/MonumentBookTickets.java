@@ -201,9 +201,9 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
 
 
                         Log.d("fare",""+fare);
-                        Date dateofvisit = new Date(2022, 04, 03);
+                        //Date dateofvisit = new Date(2022, 04, 03);
 
-                        ticketInfo ticketInfoobj = new ticketInfo(monumentName, dateofvisit, verificationId.getText().toString(), gender, age, nationality, visitorName.getText().toString());
+                        ticketInfo ticketInfoobj = new ticketInfo(monumentName, date_of_visit, verificationId.getText().toString(), gender, age, nationality, visitorName.getText().toString());
                         ticketInfoArrayList.add(ticketInfoobj);
                         //ticket_adapter.updateTicketList(ticketInfoArrayList);
                         ticket_adapter.notifyDataSetChanged();
@@ -258,7 +258,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
 
         RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("monument_name",ticketInfo.getMonumentName())
-                .addFormDataPart("date_of_visit", ""+ticketInfo.getDateOfVisit())
+                .addFormDataPart("date_of_visit", ticketInfo.getDateOfVisit())
                 .addFormDataPart("verification_id",ticketInfo.getVerificationId())
                 .addFormDataPart("gender",ticketInfo.getGender())
                 .addFormDataPart("nationality",ticketInfo.getNationality())
@@ -266,8 +266,9 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
                 .build();
 
         Request requestBody = new Request.Builder()
-                .url("http://ec2-3-86-84-66.compute-1.amazonaws.com:8080/add-ticket")
+                .url("http://ec2-44-202-82-75.compute-1.amazonaws.com:8080/add-ticket")
                 .addHeader("Authorization","Bearer "+token)
+                //.addHeader("Authorization","Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkQGJiYmIuY3AiLCJleHAiOjE2NDcyNTM2MjIsImlhdCI6MTY0NzE2NzIyMn0.Fmpz-5JHGHVT5rUDs2OOPIxlOL5TQrQlnpAPb7oMyRo")
                 .post(formBody)
                 .build();
         client.newCall(requestBody).enqueue(new Callback() {
@@ -281,6 +282,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String message = jsonObject.getString("message");
+
                     Log.d("String added successfully",message);
                 }
                 catch (Exception e) {
