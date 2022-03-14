@@ -166,15 +166,32 @@ public class TicketQR extends AppCompatActivity {
 
     private void openPDF() {
         try {
-            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), date_of_visit+".pdf");
-            Uri path = FileProvider.getUriForFile(TicketQR.this, BuildConfig.APPLICATION_ID + ".provider", file);
-            Log.e("create pdf uri path==>", "" + path);
+            String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/" + date_of_visit+".pdf";
+
+            //File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/" + date_of_visit+".pdf");
+            Log.d("path",path);
+
+
+            Uri uri = Uri.parse(path);
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(path,"application/pdf");
+            intent.setDataAndType(uri,"*/*");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             startActivity(intent);
-            finish();
+//            Intent intent = new Intent(Intent.ACTION_VIEW);
+//
+//            intent.setDataAndType(uri, "*/*");
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(intent);
+//            finish();
+//            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), date_of_visit+".pdf");
+//            Uri path = FileProvider.getUriForFile(TicketQR.this, BuildConfig.APPLICATION_ID + ".provider", file);
+//            Log.e("create pdf uri path==>", "" + path);
+//            Intent intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setDataAndType(path,"application/pdf");
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+//            startActivity(intent);
+//            finish();
         }catch (Exception e){
             e.printStackTrace();
         }

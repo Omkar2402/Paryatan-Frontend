@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sihfrontend">
 
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -7,6 +8,12 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
 
     <application
         android:allowBackup="true"
@@ -17,15 +24,17 @@
         android:theme="@style/Theme.SIHFrontend"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
+
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="APPLICATION_ID.provider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/file_path" />
         </provider>
+
         <activity
             android:name=".helper.VideoHelper"
             android:exported="false">
