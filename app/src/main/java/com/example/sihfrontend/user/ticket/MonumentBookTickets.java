@@ -266,7 +266,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
                 .build();
 
         Request requestBody = new Request.Builder()
-                .url("http://ec2-44-202-82-75.compute-1.amazonaws.com:8080/add-ticket")
+                .url("http://ec2-44-202-108-174.compute-1.amazonaws.com:8080/add-ticket")
                 .addHeader("Authorization","Bearer "+token)
                 //.addHeader("Authorization","Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkQGJiYmIuY3AiLCJleHAiOjE2NDcyNTM2MjIsImlhdCI6MTY0NzE2NzIyMn0.Fmpz-5JHGHVT5rUDs2OOPIxlOL5TQrQlnpAPb7oMyRo")
                 .post(formBody)

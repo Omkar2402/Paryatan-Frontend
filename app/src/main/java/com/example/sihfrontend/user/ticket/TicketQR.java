@@ -377,7 +377,7 @@ public class TicketQR extends AppCompatActivity {
                     .build();
 
             Request requestBody = new Request.Builder()
-                    .url("http://ec2-44-202-82-75.compute-1.amazonaws.com:8080/addQRticket")
+                    .url("http://ec2-44-202-108-174.compute-1.amazonaws.com:8080/addQRticket")
                     .addHeader("Authorization", "Bearer " + token)
                     .post(formBody)
                     .build();
