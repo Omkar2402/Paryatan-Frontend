@@ -249,7 +249,7 @@ public class Test_Image extends AppCompatActivity {
 
         String auth = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlQGFxcXEiLCJleHAiOjE2NDYyNDQyMTEsImlhdCI6MTY0NjE1NzgxMX0.TbGtFhhn-ZO1slnOfLkVS4Enypzzk_fkWi8iNW9_Z50";
         Request request = new Request.Builder()
-                .url("http://ec2-44-202-82-75.compute-1.amazonaws.com:8080/upload-image")
+                .url("http://ec2-44-202-108-174.compute-1.amazonaws.com:8080/upload-image")
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .addHeader("Authorization",auth)

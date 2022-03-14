@@ -239,7 +239,7 @@ public class OTPVerification extends AppCompatActivity {
                     .add("email",email)
                     .build();
             Request request = new Request.Builder()
-                    .url("http://ec2-3-86-84-66.compute-1.amazonaws.com:8080/verify-email")
+                    .url("http://ec2-44-202-108-174.compute-1.amazonaws.com:8080/verify-email")
                     .post(formBody)
                     .build();
 
