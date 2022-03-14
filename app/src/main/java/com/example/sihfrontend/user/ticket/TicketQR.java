@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -35,6 +36,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sihfrontend.BuildConfig;
 import com.example.sihfrontend.R;
 
 import org.json.JSONObject;
@@ -144,6 +146,7 @@ public class TicketQR extends AppCompatActivity {
                     requestPermission();
                 }
                 generatePDF();
+                openPDF();
             }
 
         });
@@ -155,10 +158,28 @@ public class TicketQR extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"Share clicked",Toast.LENGTH_LONG).show();
+
             }
         });
 
     }
+
+    private void openPDF() {
+        try {
+            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), date_of_visit+".pdf");
+            Uri path = FileProvider.getUriForFile(TicketQR.this, BuildConfig.APPLICATION_ID + ".provider", file);
+            Log.e("create pdf uri path==>", "" + path);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(path,"application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            startActivity(intent);
+            finish();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     private void generatePDF() {
         // creating an object variable
         // for our PDF document.
@@ -213,21 +234,22 @@ public class TicketQR extends AppCompatActivity {
         title.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         title.setColor(ContextCompat.getColor(TicketQR.this, R.color.black));
         title.setTextSize(30);
-        canvas.drawText("Visitor Name\tVerification ID\tGender\tAge\tNationality", 10, 540, title);
+        canvas.drawText("Thank you for booking with us!!", 100, 540, title);
         // similarly we are creating another text and in this
         // we are aligning this text to center of our PDF file.
         title.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         title.setColor(ContextCompat.getColor(TicketQR.this, R.color.purple_200));
-        title.setTextSize(25);
-
+        title.setTextSize(27);
+        canvas.drawText("Wish you a very happy,smooth and hassle-free journey!!",100,580,title);
         // below line is used for setting
         // our text to center of PDF.
         //title.setTextAlign(Paint.Align.CENTER);
+        /*
         int x = 10;
         int y = 550;
         for (int i = 0; i<ticketInfoArrayList.size();i++) {
             canvas.drawText(ticketInfoArrayList.get(i).getVisitorName()+"\t\t"+ticketInfoArrayList.get(i).getVerificationId()+"\t\t"+ticketInfoArrayList.get(i).getGender()+"\t\t"+ticketInfoArrayList.get(i).getAge()+"\t\t"+ticketInfoArrayList.get(i).getNationality(), x, y+30*(i+1), title);
-        }
+        }*/
 
 
         // after adding all attributes to our
@@ -289,55 +311,6 @@ public class TicketQR extends AppCompatActivity {
         }
     }
 
-
-
-//    private void createPdfFromView(View view, String fileName, int pageWidth, int pageHeight, int pageNumber) {
-//
-//        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-//        File file = new File(path, fileName.concat(".pdf"));
-//
-//        FileOutputStream fOut = null;
-//        try {
-//            fOut = new FileOutputStream(file);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            file.createNewFile();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if (file.exists()) {
-//            PdfDocument document = new PdfDocument();
-//            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create();
-//            PdfDocument.Page page = document.startPage(pageInfo);
-//
-//            view.draw(page.getCanvas());
-//
-//            document.finishPage(page);
-//
-//            try {
-//                Toast.makeText(this, "Saving...", Toast.LENGTH_SHORT).show();
-//                document.writeTo(fOut);
-//            } catch (IOException e) {
-//                Toast.makeText(this, "Failed...", Toast.LENGTH_SHORT).show();
-//                e.printStackTrace();
-//            }
-//
-//            document.close();
-//
-//            /*Intent intent = new Intent(Intent.ACTION_VIEW);
-//            intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//            startActivity(intent);*/
-//
-//        } else {
-//            //..
-//        }
-//
-//    }
 
     private void fetchQRImage() {
         try {

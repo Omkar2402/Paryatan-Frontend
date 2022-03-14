@@ -17,6 +17,15 @@
         android:theme="@style/Theme.SIHFrontend"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="APPLICATION_ID.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
         <activity
             android:name=".helper.VideoHelper"
             android:exported="false">
@@ -24,7 +33,9 @@
 
         <activity
             android:name=".user.ticket.TicketQR"
-            android:exported="false" />
+            android:exported="false" >
+
+        </activity>
         <activity
             android:name=".user.ticket.MonumentBookTickets"
             android:exported="false" />
