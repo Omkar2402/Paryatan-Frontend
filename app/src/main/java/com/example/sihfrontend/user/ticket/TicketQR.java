@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+import android.app.DownloadManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -165,34 +168,40 @@ public class TicketQR extends AppCompatActivity {
     }
 
     private void openPDF() {
-        try {
-            String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/" + date_of_visit+".pdf";
 
-            //File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/" + date_of_visit+".pdf");
-            Log.d("path",path);
-
-
-            Uri uri = Uri.parse(path);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(uri,"*/*");
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-//            Intent intent = new Intent(Intent.ACTION_VIEW);
+//        try {
+//            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsoluteFile()+"/"+date_of_visit+".pdf");
+//            if (file.exists())
+//            {
+//                Intent intent=new Intent(Intent.ACTION_SENDTO);
+//                Log.d("date_of_visit",date_of_visit);
+//                Uri uri = Uri.fromFile(file);
+//                intent.setDataAndType(uri, "application/pdf");
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //
-//            intent.setDataAndType(uri, "*/*");
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent);
-//            finish();
-//            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), date_of_visit+".pdf");
-//            Uri path = FileProvider.getUriForFile(TicketQR.this, BuildConfig.APPLICATION_ID + ".provider", file);
-//            Log.e("create pdf uri path==>", "" + path);
-//            Intent intent = new Intent(Intent.ACTION_VIEW);
-//            intent.setDataAndType(path,"application/pdf");
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-//            startActivity(intent);
-//            finish();
-        }catch (Exception e){
+//                try
+//                {
+//                    startActivity(intent);
+//                }
+//                catch(ActivityNotFoundException e)
+//                {
+//                    Toast.makeText(TicketQR.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        try {
+            startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
+//            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),date_of_visit+".pdf");
+//            Uri path = Uri.fromFile(file);
+//            Log.d("path",String.valueOf(path));
+//            Intent i=new Intent(Intent.ACTION_VIEW);
+//            i.setDataAndType(path,"*/*");
+//            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            TicketQR.this.startActivity(i);
+        }catch (Exception e) {
             e.printStackTrace();
         }
     }

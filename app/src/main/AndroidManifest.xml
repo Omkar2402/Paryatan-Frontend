@@ -14,6 +14,12 @@
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:mimeType="*/*" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -25,15 +31,7 @@
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_path" />
-        </provider>
+
 
         <activity
             android:name=".helper.VideoHelper"
@@ -90,6 +88,16 @@
             android:name=".MainActivity"
             android:exported="false" />
 
+
+<!--        <provider-->
+<!--            android:name="androidx.core.content.FileProvider"-->
+<!--            android:authorities="com.example.firstproject.provider"-->
+<!--            android:exported="false"-->
+<!--            android:grantUriPermissions="true">-->
+<!--            <meta-data-->
+<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
+<!--                android:resource="@xml/file_path" />-->
+<!--        </provider>-->
 
     </application>
 
