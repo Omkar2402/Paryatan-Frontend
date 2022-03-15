@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -19,6 +20,14 @@ public class AdminInputs extends AppCompatActivity {
 
     // One Preview Image
     ImageView MPreviewImage;
+    EditText inputmonumentname;
+    EditText inputmonumentimg;
+    EditText inputmonumentcity;
+    EditText inputaadharnumber;
+    EditText inputweblink;
+    ImageButton POASelectImage;
+    ImageView POAPreviewImage;
+
 
 
     // constant to compare
