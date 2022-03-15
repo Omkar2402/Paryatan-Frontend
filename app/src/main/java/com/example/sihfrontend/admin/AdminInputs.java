@@ -93,7 +93,7 @@ public class AdminInputs extends AppCompatActivity {
             }
         });
 
-        MPreviewImage.setOnClickListener(new View.OnClickListener() {
+        POASelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 READ_REQUEST_CODE = 100;
@@ -130,8 +130,10 @@ public class AdminInputs extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 100 && resultCode ==Activity.RESULT_OK){
+            Log.d("Uploading POA","...");
             MPOAUri = null;
             if (data != null) {
+
                 MPOAUri = data.getData();
                 Log.i("Uri", "Uri: " + MPOAUri.toString());
                 POAPreviewImage.setImageURI(MPOAUri);
@@ -142,6 +144,7 @@ public class AdminInputs extends AppCompatActivity {
             }
         }
         else if (requestCode == 50 && resultCode == Activity.RESULT_OK) {
+            Log.d("Uploading Monument image","...");
             MImageUri = null;
             if (data != null) {
                 MImageUri = data.getData();
