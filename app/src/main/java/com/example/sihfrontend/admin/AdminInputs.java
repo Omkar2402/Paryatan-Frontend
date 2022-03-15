@@ -161,7 +161,7 @@ public class AdminInputs extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Please enter monument city",Toast.LENGTH_LONG).show();
                 }else if(inputweblink.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Please enter monument website link",Toast.LENGTH_LONG).show();
-                }else if(inputaadharnumber.getText().toString().length()!=12){
+                }else if(inputaadharnumber.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Please enter correct 12 digit Aadhar number",Toast.LENGTH_LONG).show();
                 }else if(POAPreviewImage.getDrawable()==null){
                     Toast.makeText(getApplicationContext(),"Please upload your Power of Attorney for verification",Toast.LENGTH_LONG).show();
@@ -413,6 +413,8 @@ public class AdminInputs extends AppCompatActivity {
                         public void run() {
                             Log.e("In AdminInputs", mMessage);
                             progressBar.setVisibility(View.GONE);
+                            Intent intent = new Intent(AdminInputs.this,AdminBankDetails.class);
+                            startActivity(intent);
                         }
                     });
                 }
