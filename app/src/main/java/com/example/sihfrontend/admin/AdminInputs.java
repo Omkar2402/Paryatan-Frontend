@@ -154,7 +154,7 @@ public class AdminInputs extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(AdminInputs.this,AdminBankDetails.class));
+                startActivity(new Intent(AdminInputs.this,AdminBankDetails.class));
                 if(inputmonumentname.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Please enter monument name",Toast.LENGTH_LONG).show();
                 }else if(inputmonumentcity.getText().toString().isEmpty()){

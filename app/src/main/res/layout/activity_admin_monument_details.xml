@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.AdminMonumentDetails"
+    android:background="@drawable/background_admin">
+
+
+    <TextView
+        android:id="@+id/monument_details_txt"
+        android:paddingTop="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Monuments Details"
+        android:textAlignment="center"
+        android:textColor="@color/orange"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/inputmonumentimg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/inputmonumentimg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+        android:drawableLeft="@drawable/ic_image"
+        android:drawablePadding="10dp"
+
+        android:ems="10"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:text="Upload Monument Video"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/monument_details_txt"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/monument_details_txt"
+        app:layout_constraintTop_toBottomOf="@+id/monument_details_txt" />
+
+    <ImageView
+        android:id="@+id/MPreviewImage"
+        android:layout_width="61dp"
+        android:layout_height="57dp"
+        android:layout_below="@id/VideoUpload"
+
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/monument_details_txt"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/VideoUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toTopOf="@+id/inputmonumentimg"
+        app:srcCompat="@drawable/ic_cloud_upload"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/StartingTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+        android:textSize="18dp"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Starting Time"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toBottomOf="@+id/inputmonumentimg" />
+
+    <TextView
+        android:id="@+id/EndingTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Ending Time"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toBottomOf="@+id/StartingTime" />
+
+
+    <EditText
+        android:id="@+id/MonumentDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Monument Description"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toBottomOf="@+id/EndingTime"/>
+
+    <TextView
+        android:id="@+id/ClosingDays"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+        android:textSize="18dp"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Closing days"
+        android:inputType=""
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toBottomOf="@+id/MonumentDescription"/>
+
+
+    <Button
+        android:id="@+id/btn_next"
+        android:background="@drawable/custom_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ClosingDays" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
