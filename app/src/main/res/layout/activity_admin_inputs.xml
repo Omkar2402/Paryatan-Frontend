@@ -99,6 +99,27 @@
         app:layout_constraintTop_toBottomOf="@+id/inputmonumentimg" />
 
     <EditText
+        android:id="@+id/inputadminnumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Mobile Number"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:maxLength="10"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentcity"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentcity"
+        app:layout_constraintTop_toBottomOf="@+id/inputmonumentcity" />
+
+    <EditText
         android:id="@+id/inputaadharnumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -115,9 +136,9 @@
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:maxLength="12"
-        app:layout_constraintEnd_toEndOf="@+id/inputmonumentcity"
-        app:layout_constraintStart_toStartOf="@+id/inputmonumentcity"
-        app:layout_constraintTop_toBottomOf="@+id/inputmonumentcity" />
+        app:layout_constraintEnd_toEndOf="@+id/inputadminnumber"
+        app:layout_constraintStart_toStartOf="@+id/inputadminnumber"
+        app:layout_constraintTop_toBottomOf="@+id/inputadminnumber" />
 
     <EditText
         android:id="@+id/inputweblink"

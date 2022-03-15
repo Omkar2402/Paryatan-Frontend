@@ -57,6 +57,7 @@ public class AdminInputs extends AppCompatActivity {
     EditText inputmonumentname;
     //TextView inputmonumentimg;
     EditText inputmonumentcity;
+    EditText inputadminnumber;
     EditText inputaadharnumber;
     EditText inputweblink;
     ImageButton POASelectImage;
@@ -92,8 +93,10 @@ public class AdminInputs extends AppCompatActivity {
         MPreviewImage = findViewById(R.id.MPreviewImage);
         inputmonumentname = findViewById(R.id.inputmonumentname);
         inputmonumentcity = findViewById(R.id.inputmonumentcity);
+        inputadminnumber = findViewById(R.id.inputadminnumber);
         inputaadharnumber = findViewById(R.id.inputaadharnumber);
         inputweblink = findViewById(R.id.inputweblink);
+
 
         POAPreviewImage = findViewById(R.id.POAPreviewImage);
         POASelectImage = findViewById(R.id.POASelectImage);
