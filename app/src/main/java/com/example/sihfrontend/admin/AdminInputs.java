@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -69,9 +71,11 @@ public class AdminInputs extends AppCompatActivity {
     RadioButton inputheritage;
     RadioButton inputmuseum;
 
+
+    ProgressBar progressBar;
     Uri MImageUri,MPOAUri;
 
-
+    private  String monument_type=null;
     private static  int READ_REQUEST_CODE;
 
     // constant to compare
@@ -104,30 +108,28 @@ public class AdminInputs extends AppCompatActivity {
         radiogroup = findViewById(R.id.radiogroup);
         inputheritage = findViewById(R.id.inputheritage);
         inputmuseum = findViewById(R.id.inputmuseum);
-
-
-
-
-
-
         POAPreviewImage = findViewById(R.id.POAPreviewImage);
         POASelectImage = findViewById(R.id.POASelectImage);
         btn_next = findViewById(R.id.btn_next);
+        progressBar = findViewById(R.id.admin_progress_bar);
 
+        inputheritage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                monument_type = "heritage";
+                inputmuseum.setChecked(false);
+            }
+        });
+
+        inputmuseum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                monument_type = "museum";
+                inputheritage.setChecked(false);
+            }
+        });
         //Log.e(TAG, imageFile.getName()+" "+mime+" "+uriToFilename(uri));
 
-        // monument_name website monument_image monument_location admin_phone monument_poa admin_aadhar monument_type
-        //   monument_image   monument_poa  monument_type
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("",inputmonumentname.getText().toString())
-                .addFormDataPart("website",inputweblink.getText().toString())
-                .addFormDataPart("monument_location",inputmonumentcity.getText().toString())
-                .addFormDataPart("admin_phone",inputadminnumber.getText().toString())
-                .addFormDataPart("admin_aadhar",inputaadharnumber.getText().toString())
-                .addFormDataPart("profile-image", imageName,
-                        RequestBody.create(MediaType.parse(mime), imageFile))
-                .build();
 
         // handle the Choose Image button to trigger
         // the image chooser function
@@ -166,9 +168,14 @@ public class AdminInputs extends AppCompatActivity {
                 }
                 else if(MPreviewImage.getDrawable()==null){
                     Toast.makeText(getApplicationContext(),"Please  upload your Monument Image for verification",Toast.LENGTH_LONG).show();
-                }else{
-
+                }else if(monument_type==null){
+                    Toast.makeText(getApplicationContext(),"Please select your monument type",Toast.LENGTH_LONG).show();
+                }
+                else{
                     Toast.makeText(getApplicationContext(),"Correct Information",Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.VISIBLE);
+                    uploadImage();
+
                 }
             }
         });
@@ -309,14 +316,19 @@ public class AdminInputs extends AppCompatActivity {
         //Log.e(TAG, imageFile.getName()+" "+mime+" "+uriToFilename(uri));
 
         // monument_name website monument_image monument_location admin_phone monument_poa admin_aadhar monument_type
+        //
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("monument_name",inputmonumentname.getText().toString())
-                .addFormDataPart("",)
-                .addFormDataPart("",)
-                .addFormDataPart("",)
-                .addFormDataPart("profile-image", imageName,
-                        RequestBody.create(MediaType.parse(mime), imageFile))
+                .addFormDataPart("website",inputweblink.getText().toString())
+                .addFormDataPart("monument_location",inputmonumentcity.getText().toString())
+                .addFormDataPart("admin_phone",inputadminnumber.getText().toString())
+                .addFormDataPart("admin_aadhar",inputaadharnumber.getText().toString())
+                .addFormDataPart("monument_type",monument_type)
+                .addFormDataPart("monument_image", monumentImageName,
+                        RequestBody.create(MediaType.parse(monumentImageMime), monumentImageFile))
+                .addFormDataPart("monument_poa", monumentPOAName,
+                        RequestBody.create(MediaType.parse(monumentPOAMime), monumentPOAFile))
                 .build();
 
         final CountingRequestBody.Listener progressListener;
@@ -325,7 +337,7 @@ public class AdminInputs extends AppCompatActivity {
             public void onRequestProgress(long bytesRead, long contentLength) {
                 if (bytesRead >= contentLength) {
                     if (progressBar != null)
-                        Test_Image.this.runOnUiThread(new Runnable() {
+                        AdminInputs.this.runOnUiThread(new Runnable() {
                             public void run() {
                                 progressBar.setVisibility(View.GONE);
                             }
@@ -334,7 +346,7 @@ public class AdminInputs extends AppCompatActivity {
                     if (contentLength > 0) {
                         final int progress = (int) (((double) bytesRead / contentLength) * 100);
                         if (progressBar != null)
-                            Test_Image.this.runOnUiThread(new Runnable() {
+                            AdminInputs.this.runOnUiThread(new Runnable() {
                                 public void run() {
                                     progressBar.setVisibility(View.VISIBLE);
                                     progressBar.setProgress(progress);
@@ -369,39 +381,44 @@ public class AdminInputs extends AppCompatActivity {
                     }
                 })
                 .build();
+        SharedPreferences sh = AdminInputs.this.getSharedPreferences("SIH",MODE_PRIVATE);
+        String token = sh.getString("token",null);
+        Log.d("token",token);
+        //String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhQHMuYyIsImV4cCI6MTY0NzQzODcyOCwiaWF0IjoxNjQ3MzUyMzI4fQ.LSOZkqIrF_hORQH0wlNGk2a2bpWFd5e-w7T-k4qYt7E";
+        if(token!=null){
+            String auth = "Bearer "+token;
+            Request request = new Request.Builder()
+                    .url("http://ec2-44-195-177-209.compute-1.amazonaws.com:8080/admin/verify-monument")
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .addHeader("Authorization",auth)
+                    .post(requestBody)
+                    .build();
 
-        String auth = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlQGFxcXEiLCJleHAiOjE2NDYyNDQyMTEsImlhdCI6MTY0NjE1NzgxMX0.TbGtFhhn-ZO1slnOfLkVS4Enypzzk_fkWi8iNW9_Z50";
-        Request request = new Request.Builder()
-                .url("http://ec2-44-195-177-209.compute-1.amazonaws.com:8080/upload-image")
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .addHeader("Authorization",auth)
-                .post(requestBody)
-                .build();
 
+            imageUploadClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    String mMessage = e.getMessage().toString();
+                    //Toast.maText(ChatScreen.this, "Error uploading file", Toast.LENGTH_LONG).show();
+                    Log.e("failure Response", mMessage);
+                }
 
-        imageUploadClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                String mMessage = e.getMessage().toString();
-                //Toast.maText(ChatScreen.this, "Error uploading file", Toast.LENGTH_LONG).show();
-                Log.e("failure Response", mMessage);
-            }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    final String mMessage = response.body().string();
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String mMessage = response.body().string();
+                    AdminInputs.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.e("In AdminInputs", mMessage);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+                }
+            });
+        }
 
-                Test_Image.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.e(TAG, mMessage);
-                        progressBar.setVisibility(View.GONE);
-                        upload.setVisibility(View.GONE);
-                    }
-                });
-            }
-        });
     }
 
 
