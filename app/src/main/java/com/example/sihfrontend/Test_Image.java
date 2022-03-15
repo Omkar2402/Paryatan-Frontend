@@ -98,7 +98,6 @@ public class Test_Image extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
         intent.setType("image/*");
-
         startActivityForResult(intent, READ_REQUEST_CODE);
 
     }
