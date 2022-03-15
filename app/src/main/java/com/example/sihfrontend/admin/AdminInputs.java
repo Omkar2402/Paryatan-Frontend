@@ -105,7 +105,7 @@ public class AdminInputs extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(AdminInputs.this,AdminBankDetails.class));
+                startActivity(new Intent(AdminInputs.this,AdminBankDetails.class));
             }
         });
 
