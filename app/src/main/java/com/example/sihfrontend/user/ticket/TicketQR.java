@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -376,7 +377,7 @@ public class TicketQR extends AppCompatActivity {
                     .build();
 
             Request requestBody = new Request.Builder()
-                    .url("http://ec2-44-202-108-174.compute-1.amazonaws.com:8080/addQRticket")
+                    .url("http://ec2-44-195-177-209.compute-1.amazonaws.com:8080/addQRticket")
                     .addHeader("Authorization", "Bearer " + token)
                     .post(formBody)
                     .build();

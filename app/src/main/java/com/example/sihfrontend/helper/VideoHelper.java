@@ -88,7 +88,7 @@ public class VideoHelper extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://ec2-44-202-108-174.compute-1.amazonaws.com:8080/monument/Abc6")
+                .url("http://ec2-44-195-177-209.compute-1.amazonaws.com:8080/monument/Abc6")
                 .addHeader("Authorization","Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJleHAiOjE2NDcxNzY2MjMsImlhdCI6MTY0NzA5MDIyM30.HbeVHHrnj2zUrOU2Pwd3i8VBrJTtXKIJGLPnvpMeVlg")
                 .get()
                 .build();
