@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +65,9 @@ public class AdminInputs extends AppCompatActivity {
     ImageButton POASelectImage;
     ImageView POAPreviewImage;
     Button btn_next;
+    RadioGroup radiogroup;
+    RadioButton inputheritage;
+    RadioButton inputmuseum;
 
     Uri MImageUri,MPOAUri;
 
@@ -96,11 +101,33 @@ public class AdminInputs extends AppCompatActivity {
         inputadminnumber = findViewById(R.id.inputadminnumber);
         inputaadharnumber = findViewById(R.id.inputaadharnumber);
         inputweblink = findViewById(R.id.inputweblink);
+        radiogroup = findViewById(R.id.radiogroup);
+        inputheritage = findViewById(R.id.inputheritage);
+        inputmuseum = findViewById(R.id.inputmuseum);
+
+
+
+
 
 
         POAPreviewImage = findViewById(R.id.POAPreviewImage);
         POASelectImage = findViewById(R.id.POASelectImage);
         btn_next = findViewById(R.id.btn_next);
+
+        //Log.e(TAG, imageFile.getName()+" "+mime+" "+uriToFilename(uri));
+
+        // monument_name website monument_image monument_location admin_phone monument_poa admin_aadhar monument_type
+        //   monument_image   monument_poa  monument_type
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("",inputmonumentname.getText().toString())
+                .addFormDataPart("website",inputweblink.getText().toString())
+                .addFormDataPart("monument_location",inputmonumentcity.getText().toString())
+                .addFormDataPart("admin_phone",inputadminnumber.getText().toString())
+                .addFormDataPart("admin_aadhar",inputaadharnumber.getText().toString())
+                .addFormDataPart("profile-image", imageName,
+                        RequestBody.create(MediaType.parse(mime), imageFile))
+                .build();
 
         // handle the Choose Image button to trigger
         // the image chooser function
