@@ -127,7 +127,7 @@ public class AdminMonumentDetails extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AdminMonumentDetails.this);
 
                 // set title
-                builder.setTitle("Select Language");
+                builder.setTitle("Select Days");
 
                 // set dialog non cancelable
                 builder.setCancelable(false);

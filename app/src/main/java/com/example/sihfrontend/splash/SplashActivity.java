@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.MediaController;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.example.sihfrontend.MainActivity;
 import com.example.sihfrontend.R;
@@ -29,19 +32,29 @@ import okhttp3.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_splash);
 
+        VideoView videoView = findViewById(R.id.video_view);
+        try {
+            MediaController mediaController = new MediaController(this);
+            mediaController.setAnchorView(videoView);
+            videoView.setMediaController(mediaController);
+            videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" +
+                    R.raw.splash_video));
+            videoView.start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-
-
-
                 //////////////////////////
                 SharedPreferences sh = SplashActivity.this.getSharedPreferences("SIH", Context.MODE_PRIVATE);
                 String  role = sh.getString("role",null);
