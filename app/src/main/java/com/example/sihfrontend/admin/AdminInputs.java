@@ -197,6 +197,18 @@ public class AdminInputs extends AppCompatActivity {
         startActivityForResult(intent, READ_REQUEST_CODE);
 
     }
+    public void performFileSearch2() {
+
+        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
+        // browser.
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        intent.setType("application/pdf");
+
+        startActivityForResult(intent, READ_REQUEST_CODE);
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

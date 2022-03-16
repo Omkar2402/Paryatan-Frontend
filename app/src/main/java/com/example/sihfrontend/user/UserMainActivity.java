@@ -82,7 +82,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
             String token = sharedPreferences.getString("token",null);
 
             Request request = new Request.Builder()
-                    .url("http://ec2-44-195-177-209.compute-1.amazonaws.com:8080/monuments")
+                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/monuments")
                     .addHeader("Authorization","Bearer "+token)
                     .get()
                     .build();
