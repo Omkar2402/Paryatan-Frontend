@@ -39,6 +39,9 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -425,8 +428,13 @@ public class AdminInputs extends AppCompatActivity {
                         public void run() {
                             Log.e("In AdminInputs", mMessage);
                             progressBar.setVisibility(View.GONE);
-                            Intent intent = new Intent(AdminInputs.this,AdminBankDetails.class);
-                            startActivity(intent);
+
+                            SharedPreferences sh = AdminInputs.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sh.edit();
+                            editor.putString("monument_name",inputmonumentname.getText().toString());
+                            editor.apply();
+//                            Intent intent = new Intent(AdminInputs.this,AdminBankDetails.class);
+//                            startActivity(intent);
                         }
                     });
                 }
@@ -434,6 +442,8 @@ public class AdminInputs extends AppCompatActivity {
         }
 
     }
+
+
 
 
 }

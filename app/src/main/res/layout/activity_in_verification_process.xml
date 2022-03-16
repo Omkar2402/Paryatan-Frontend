@@ -6,11 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".admin.InVerificationProcess">
 
-    <TextView
+    <ProgressBar
+        android:id="@+id/progress_bar_verification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please wait...\nYour monument/museum\nis not yet verified"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your details have not been verified yet...."
         android:textSize="35dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:padding="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
