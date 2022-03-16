@@ -14,9 +14,11 @@
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
+
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <data android:mimeType="*/*" />
         </intent>
     </queries>
@@ -25,24 +27,20 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SIHFrontend"
-        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
-
-
-
+        <activity
+            android:name=".admin.AdminFlagReport"
+            android:exported="true" />
         <activity
             android:name=".helper.VideoHelper"
-            android:exported="false">
-        </activity>
-
+            android:exported="false"></activity>
         <activity
             android:name=".user.ticket.TicketQR"
-            android:exported="false" >
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".user.ticket.MonumentBookTickets"
             android:exported="false" />
@@ -51,6 +49,7 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="com.scytec.datamobile.vd.gui.android.AppPreferenceActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -93,18 +92,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
-
-<!--        <provider-->
-<!--            android:name="androidx.core.content.FileProvider"-->
-<!--            android:authorities="com.example.firstproject.provider"-->
-<!--            android:exported="false"-->
-<!--            android:grantUriPermissions="true">-->
-<!--            <meta-data-->
-<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
-<!--                android:resource="@xml/file_path" />-->
-<!--        </provider>-->
-
     </application>
 
 </manifest>

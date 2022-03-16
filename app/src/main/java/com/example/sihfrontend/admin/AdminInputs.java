@@ -23,14 +23,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sihfrontend.R;
-import com.example.sihfrontend.Test_Image;
 import com.example.sihfrontend.utils.CountingRequestBody;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -39,11 +37,10 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -163,7 +160,7 @@ public class AdminInputs extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Please enter monument city",Toast.LENGTH_LONG).show();
                 }else if(inputweblink.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Please enter monument website link",Toast.LENGTH_LONG).show();
-                }else if(inputaadharnumber.getText().toString().isEmpty()){
+                }else if(inputaadharnumber.getText().toString().isEmpty() || isValidAadharNumber(inputaadharnumber.getText().toString())==false){
                     Toast.makeText(getApplicationContext(),"Please enter correct 12 digit Aadhar number",Toast.LENGTH_LONG).show();
                 }else if(POAPreviewImage.getDrawable()==null){
                     Toast.makeText(getApplicationContext(),"Please upload your Power of Attorney for verification",Toast.LENGTH_LONG).show();
@@ -183,6 +180,28 @@ public class AdminInputs extends AppCompatActivity {
         });
 
 
+    }
+
+    public boolean isValidAadharNumber(String str) {
+        String regex = "^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$";
+
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+
+        // If the string is empty
+        // return false
+        if (str == null) {
+            return false;
+        }
+
+        // Pattern class contains matcher() method
+        // to find matching between given string
+        // and regular expression.
+        Matcher m = p.matcher(str);
+
+        // Return if the string
+        // matched the ReGex
+        return m.matches();
     }
 
 

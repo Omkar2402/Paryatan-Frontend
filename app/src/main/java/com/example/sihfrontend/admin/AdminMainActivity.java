@@ -1,10 +1,13 @@
 package com.example.sihfrontend.admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,7 +19,6 @@ public class AdminMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_admin_main);
 
         SharedPreferences sh = AdminMainActivity.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
@@ -34,5 +36,20 @@ public class AdminMainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.report_user,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int item_id = item.getItemId();
+        if (item_id==R.id.reportuser) {
+            startActivity(new Intent(AdminMainActivity.this,AdminFlagReport.class));
+        }
+        return true;
     }
 }
