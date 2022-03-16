@@ -25,9 +25,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
 public class InVerificationProcess extends AppCompatActivity {
 
     ProgressBar progressBar;
+
+    String isVerify = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +45,15 @@ public class InVerificationProcess extends AppCompatActivity {
             SharedPreferences sh = InVerificationProcess.this.getSharedPreferences("SIH",MODE_PRIVATE);
             SharedPreferences sh2 = InVerificationProcess.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
             String token = sh.getString("token",null);
-            String monument_name = sh.getString("monument_name",null);
+            Log.d("token",token);
+            String monument_name = sh2.getString("monument_name",null);
+            Log.d("monument_name",monument_name);
             OkHttpClient client = new OkHttpClient();
             RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("monument_name",monument_name)
                     .build();
             Request request = new Request.Builder()
-                    .url("http://ec2-44-195-177-209.compute-1.amazonaws.com:8080/isVerified")
+                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/isVerified")
                     .addHeader("Authorization","Bearer "+token)
                     .post(formBody)
                     .build();
@@ -61,7 +66,7 @@ public class InVerificationProcess extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    String isVerify=null;
+                    //String isVerify=null;
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().string());
                         isVerify = jsonObject.getString("message");
@@ -69,11 +74,12 @@ public class InVerificationProcess extends AppCompatActivity {
                         e.printStackTrace();
                         progressBar.setVisibility(View.GONE);
                     }
-                    String finalIsVerify = isVerify;
+//                    String finalIsVerify = isVerify;
+//                    Log.d("final is verify");
                     InVerificationProcess.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(finalIsVerify.equalsIgnoreCase("true")){
+                            if(isVerify.equalsIgnoreCase("true")){
                                 startActivity(new Intent(InVerificationProcess.this,AdminBankDetails.class));
                                 Log.d("Monument Verified","jhcsjdghv");
 

@@ -79,6 +79,9 @@
             android:name=".admin.AdminMonumentDetails"
             android:exported="false" />
         <activity
+            android:name=".admin.InVerificationProcess"
+            android:exported="false" />
+        <activity
             android:name=".splash.SplashActivity"
             android:exported="true">
             <intent-filter>

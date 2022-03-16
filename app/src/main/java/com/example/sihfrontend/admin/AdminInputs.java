@@ -157,7 +157,6 @@ public class AdminInputs extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdminInputs.this,AdminBankDetails.class));
                 if(inputmonumentname.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Please enter monument name",Toast.LENGTH_LONG).show();
                 }else if(inputmonumentcity.getText().toString().isEmpty()){
@@ -433,6 +432,8 @@ public class AdminInputs extends AppCompatActivity {
                             SharedPreferences.Editor editor = sh.edit();
                             editor.putString("monument_name",inputmonumentname.getText().toString());
                             editor.apply();
+                            Intent intent = new Intent(AdminInputs.this,InVerificationProcess.class);
+                            startActivity(intent);
 //                            Intent intent = new Intent(AdminInputs.this,AdminBankDetails.class);
 //                            startActivity(intent);
                         }

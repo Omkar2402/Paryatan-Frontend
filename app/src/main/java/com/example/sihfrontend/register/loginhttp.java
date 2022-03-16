@@ -125,7 +125,7 @@ public class loginhttp {
                     .addFormDataPart("email",email)
                     .addFormDataPart("password",password)
                     .addFormDataPart("role",role)
-                    .addFormDataPart("profile-image", "img_name", RequestBody.create(MediaType.parse("image/*"), String.valueOf(R.drawable.splash_gif)))
+                    .addFormDataPart("profile-image", "img_name", RequestBody.create(MediaType.parse("image/*"), String.valueOf(R.drawable.hawamahal)))
 //                                .addFormDataPart("profile-image",email+".jpg",
 //                                        RequestBody.create(MediaType.parse("image/*"), file))
                     .build();

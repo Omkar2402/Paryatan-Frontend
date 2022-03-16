@@ -83,7 +83,7 @@ public class AdminBankDetails extends AppCompatActivity {
                     .addFormDataPart("branch_name",branchname.getText().toString())
                     .build();
             Request request = new Request.Builder()
-                    .url("http://ec2-44-195-177-209.compute-1.amazonaws.com:8080/admin/accountDetails")
+                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/admin/accountDetails")
                     .addHeader("Authorization","Bearer "+token)
                     .post(formBody)
                     .build();
@@ -104,6 +104,12 @@ public class AdminBankDetails extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    AdminBankDetails.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(AdminBankDetails.this,AdminMonumentDetails.class));
+                        }
+                    });
 
                 }
             });
