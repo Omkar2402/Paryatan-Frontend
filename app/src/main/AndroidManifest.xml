@@ -32,15 +32,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SIHFrontend"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".admin.AdminFlagReport"
             android:exported="true" />
         <activity
             android:name=".helper.VideoHelper"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".user.ticket.TicketQR"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".user.ticket.MonumentBookTickets"
             android:exported="false" />
@@ -92,6 +93,12 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".admin.TicketScanner"
+            android:exported="false"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

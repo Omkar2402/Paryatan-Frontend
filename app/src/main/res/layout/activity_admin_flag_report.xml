@@ -110,7 +110,7 @@
         android:layout_height="57dp"
         android:layout_below="@id/ProofSelectImage"
 
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="92dp"
         app:layout_constraintEnd_toEndOf="@+id/user_ids"
         app:layout_constraintTop_toBottomOf="@+id/user_ids" />
 
@@ -158,7 +158,7 @@
         android:layout_height="57dp"
         android:layout_below="@id/ProofSelectImage"
 
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="92dp"
         app:layout_constraintStart_toStartOf="@+id/user_ids"
         app:layout_constraintTop_toBottomOf="@+id/user_ids" />
 
@@ -174,16 +174,28 @@
         tools:ignore="VectorDrawableCompat" />
 
     <Button
+        android:id="@+id/selectdateofvisit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Date of Visit"
+        app:layout_constraintLeft_toLeftOf="@+id/user_ids"
+        app:layout_constraintTop_toBottomOf="@+id/user_ids" />
+
+
+    <Button
         android:id="@+id/btn_report"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/custom_button"
         android:text="Report"
         app:layout_constraintEnd_toEndOf="@+id/user_ids"
         app:layout_constraintStart_toStartOf="@+id/user_ids"
         app:layout_constraintTop_toBottomOf="@+id/user_ids"
         tools:ignore="MissingConstraints" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,10 +14,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.user.monument.MonumentDescription;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class AdminFlagReport extends AppCompatActivity {
 
@@ -27,6 +34,7 @@ public class AdminFlagReport extends AppCompatActivity {
     ImageButton IDSelectImage;
     ImageView IDPreviewImage;
     Button btn_report;
+    Button selectdateofvisit;
 
     Uri ProofImageUri,UserPhotoUri,IDUri;
 
@@ -44,6 +52,7 @@ public class AdminFlagReport extends AppCompatActivity {
         IDSelectImage = findViewById(R.id.IDSelectImage);
         IDPreviewImage = findViewById(R.id.IDPreviewImage);
         btn_report = findViewById(R.id.btn_report);
+        selectdateofvisit = findViewById(R.id.selectdateofvisit);
 
 
         ProofSelectImage.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +76,32 @@ public class AdminFlagReport extends AppCompatActivity {
             public void onClick(View v) {
                 READ_REQUEST_CODE=150;
                 performFileSearch();
+            }
+        });
+
+        selectdateofvisit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    final Calendar calendar = Calendar.getInstance();
+                    DatePickerDialog dialog = new DatePickerDialog(AdminFlagReport.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker arg0, int year, int month, int day_of_month) {
+                            calendar.set(Calendar.YEAR, year);
+                            calendar.set(Calendar.MONTH, (month));
+                            calendar.set(Calendar.DAY_OF_MONTH, day_of_month);
+                            String myFormat = "dd/MM/yyyy";
+                            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+                            selectdateofvisit.setText(sdf.format(calendar.getTime()));
+                        }
+                    },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                    dialog.getDatePicker().setMinDate(calendar.getTimeInMillis());// TODO: used to hide previous date,month and year
+                    calendar.add(Calendar.YEAR, 0);
+                    dialog.getDatePicker().setMaxDate(calendar.getTimeInMillis()+(1000*60*60*24*7));// TODO: used to hide future date,month and year
+                    dialog.show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
