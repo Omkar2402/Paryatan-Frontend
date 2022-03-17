@@ -84,7 +84,7 @@ public class OTPVerification extends AppCompatActivity {
             public void onClick(View v) {
                 if(otpBox1.getText().toString().isEmpty() || otpBox2.getText().toString().isEmpty() || otpBox3.getText().toString().isEmpty() || otpBox4.getText().toString().isEmpty() || otpBox5.getText().toString().isEmpty() || otpBox6.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Please enter 6 digit otp",Toast.LENGTH_SHORT).show();
-                }else{
+                } else{
                     String entered_otp = otpBox1.getText().toString()+otpBox2.getText().toString()+otpBox3.getText().toString()+otpBox4.getText().toString()+otpBox5.getText().toString()+otpBox6.getText().toString();
                     if(otp.equals(entered_otp)){
 

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.sihfrontend.MainActivity;
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.user.monument.MonumentDescription;
 import com.example.sihfrontend.user.monument.MonumentInterface;
@@ -23,6 +24,7 @@ import com.example.sihfrontend.user.monument.monumentInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class UserMainActivity extends AppCompatActivity implements MonumentInterface {
@@ -51,7 +54,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
 
         monumentInfoArrayList = new ArrayList<>();
 
-
+        checkredcount();
         fetchData();
 
 
@@ -60,7 +63,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
 //        }
 
         Log.d("Fetch Data","after" );
-         monument_adapter = new monumentAdapter(UserMainActivity.this, monumentInfoArrayList,this) {
+        monument_adapter = new monumentAdapter(UserMainActivity.this, monumentInfoArrayList,this) {
 
         };
         recyclerView.setAdapter(monument_adapter);
@@ -188,6 +191,79 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
         monumentExpand.putExtra("closed_day",mInfo.getClosedDay());
 
         startActivity(monumentExpand);
+
+    }
+
+    private void checkredcount() {
+        try {
+            OkHttpClient client = new OkHttpClient();
+
+            SharedPreferences sharedPreferences = UserMainActivity.this.getSharedPreferences("SIH",Context.MODE_PRIVATE);
+            String token = sharedPreferences.getString("token",null);
+            Log.d("token",token);
+
+            Request request = new Request.Builder()
+                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/user/check-flag-count")
+                    .addHeader("Authorization","Bearer "+token)
+                    .get()
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                    progressBar.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        String message = jsonObject.getString("message");
+                        Log.d("message",message);
+                        if (message.charAt(0)=='F') {
+                            if (message.equalsIgnoreCase("Flag count:0")) {
+                                Log.d("Clean user","...");
+                            }
+                            else   {
+                                UserMainActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(UserMainActivity.this,"Please be aware you have got 1 red flag",Toast.LENGTH_LONG).show();
+                                        Log.d("One red flag","...");
+                                    }
+                                });
+
+                            }
+
+                        }
+                        else {
+                            UserMainActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    SharedPreferences preferences = UserMainActivity.this.getSharedPreferences("SIH", MODE_PRIVATE);
+                                    preferences.edit().remove("role").commit();
+                                    preferences.edit().remove("token").commit();
+                                    Toast.makeText(getApplicationContext(), "Your account has been blocked due to malpractice", Toast.LENGTH_SHORT).show();
+                                    Log.d("Blocked","...");
+                                    startActivity(new Intent(UserMainActivity.this, MainActivity.class));
+
+                                }
+                            });
+
+                        }
+                        Log.d("message",message);
+                        //progressBar.setVisibility(View.GONE);
+                    }catch (Exception e) {
+                        //progressBar.setVisibility(View.GONE);
+                        e.printStackTrace();
+                        Log.d("catch","...");
+                    }
+
+                }
+            });
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

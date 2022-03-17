@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -35,6 +36,7 @@ public class AdminFlagReport extends AppCompatActivity {
     ImageView IDPreviewImage;
     Button btn_report;
     Button selectdateofvisit;
+    EditText reportemailid;
 
     Uri ProofImageUri,UserPhotoUri,IDUri;
 
@@ -53,6 +55,7 @@ public class AdminFlagReport extends AppCompatActivity {
         IDPreviewImage = findViewById(R.id.IDPreviewImage);
         btn_report = findViewById(R.id.btn_report);
         selectdateofvisit = findViewById(R.id.selectdateofvisit);
+        reportemailid = findViewById(R.id.reportemailid);
 
 
         ProofSelectImage.setOnClickListener(new View.OnClickListener() {
