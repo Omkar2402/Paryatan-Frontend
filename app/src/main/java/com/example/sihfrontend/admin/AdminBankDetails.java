@@ -64,7 +64,12 @@ public class AdminBankDetails extends AppCompatActivity {
                     Toast.makeText(AdminBankDetails.this, "Enter Branch Name", Toast.LENGTH_SHORT).show();
                 }else{
 
+
                     storeBankDetails(token);
+
+                    storeBankDetails(token);
+//                    isVerified(token);
+
                 }
             }
         });

@@ -450,6 +450,7 @@ public class AdminInputs extends AppCompatActivity {
                             SharedPreferences sh = AdminInputs.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();
                             editor.putString("monument_name",inputmonumentname.getText().toString());
+                            editor.putString("monument_location",inputmonumentcity.getText().toString());
                             editor.apply();
                             Intent intent = new Intent(AdminInputs.this,InVerificationProcess.class);
                             startActivity(intent);
