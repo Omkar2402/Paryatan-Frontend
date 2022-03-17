@@ -104,16 +104,17 @@ public class MainActivity extends AppCompatActivity {
                                     MainActivity.this.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            if(otp!=null){
+                                            if (otp.equals("null")) {
+                                                Toast.makeText(getApplicationContext(), "This email id has been blocked due to fake booking of tickets...", Toast.LENGTH_SHORT).show();
+                                            }
+                                            else if(otp!=null){
                                                 Intent verifyIntent = new Intent(getApplicationContext(), OTPVerification.class);
                                                 verifyIntent.putExtra("email",email.getText().toString());
                                                 verifyIntent.putExtra("otp",otp);
                                                 startActivity(verifyIntent);
 
                                             }
-                                            else if (otp==null) {
-                                                Toast.makeText(getApplicationContext(), "This email id has been blocked due to fake booking of tickets...", Toast.LENGTH_SHORT).show();
-                                            }
+
                                             else{
                                                 Toast.makeText(MainActivity.this,"OTP not sent",Toast.LENGTH_SHORT).show();
                                             }
