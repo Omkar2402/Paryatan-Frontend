@@ -131,6 +131,90 @@
         app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
         app:layout_constraintTop_toBottomOf="@+id/EndingTime"/>
 
+    <EditText
+        android:id="@+id/fareindianadult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Fare Indian Adult"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toBottomOf="@+id/MonumentDescription"/>
+
+    <EditText
+        android:id="@+id/fareindianchild"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Fare Indian Adult"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toBottomOf="@+id/fareindianadult"/>
+
+    <EditText
+        android:id="@+id/fareforeignadult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Fare Indian Adult"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toBottomOf="@+id/fareindianchild"/>
+
+    <EditText
+        android:id="@+id/fareforeignchild"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_bg"
+
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Fare Indian Adult"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
+        app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
+        app:layout_constraintTop_toBottomOf="@+id/fareforeignadult"/>
+
     <TextView
         android:id="@+id/ClosingDays"
         android:layout_width="0dp"
@@ -150,19 +234,28 @@
         android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
         app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
-        app:layout_constraintTop_toBottomOf="@+id/MonumentDescription"/>
+        app:layout_constraintTop_toBottomOf="@+id/fareforeignchild"/>
 
 
     <Button
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_submit"
         android:background="@drawable/custom_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Next"
+        android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ClosingDays" />
+
+    <ProgressBar
+        android:id="@+id/submitprogressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

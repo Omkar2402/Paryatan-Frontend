@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -35,6 +36,9 @@ public class AdminMonumentDetails extends AppCompatActivity {
     private TextView textViewResponse;
     static final int PICK_IMAGE_REQUEST = 1;
     String filePath;
+
+    ProgressBar submitprogressbar;
+    Button btn_submit;
 
     TextView StartingTime, EndingTime, ClosingDays, inputmonumentvid;
     TimePickerDialog PickerDialog;
@@ -70,6 +74,8 @@ public class AdminMonumentDetails extends AppCompatActivity {
         StartingTime = findViewById(R.id.StartingTime);
         EndingTime = findViewById(R.id.EndingTime);
         ClosingDays= findViewById(R.id.ClosingDays);
+        submitprogressbar = findViewById(R.id.submitprogressbar);
+        btn_submit = findViewById(R.id.btn_submit);
 
         selectedDays = new boolean[DaysArray.length];
 
@@ -195,6 +201,13 @@ public class AdminMonumentDetails extends AppCompatActivity {
                 });
                 // show dialog
                 builder.show();
+            }
+        });
+
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitprogressbar.setVisibility(View.VISIBLE);
             }
         });
     }
