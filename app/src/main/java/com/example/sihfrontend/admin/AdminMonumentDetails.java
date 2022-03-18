@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +27,11 @@ import android.net.Uri;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class AdminMonumentDetails extends AppCompatActivity {
 
@@ -68,17 +74,12 @@ public class AdminMonumentDetails extends AppCompatActivity {
                 imageBrowse();
             }
         });
-
-
-
         StartingTime = findViewById(R.id.StartingTime);
         EndingTime = findViewById(R.id.EndingTime);
         ClosingDays= findViewById(R.id.ClosingDays);
         submitprogressbar = findViewById(R.id.submitprogressbar);
         btn_submit = findViewById(R.id.btn_submit);
-
         selectedDays = new boolean[DaysArray.length];
-
         StartingTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,8 +124,6 @@ public class AdminMonumentDetails extends AppCompatActivity {
                 PickerDialog.show();
             }
         });
-
-
         ClosingDays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,15 +202,39 @@ public class AdminMonumentDetails extends AppCompatActivity {
                 builder.show();
             }
         });
-
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submitprogressbar.setVisibility(View.VISIBLE);
+                addMonumentDetails();
             }
         });
     }
 
+    private void addMonumentDetails(){
+        SharedPreferences sh = AdminMonumentDetails.this.getSharedPreferences("SIH",MODE_PRIVATE);
+        String token = sh.getString("token",null);
+        SharedPreferences sh1 = AdminMonumentDetails.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
+        String monument_name = sh1.getString("monument_name",null);
+        OkHttpClient client = new OkHttpClient();
+        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("monument_name",monument_name)
+                .addFormDataPart("monument_preview", inputmonumentvid.getText().toString())
+                .addFormDataPart("opening_time",bankname.getText().toString())
+                .addFormDataPart("closing_time",accholdername.getText().toString())
+                .addFormDataPart("indian_adult",branchname.getText().toString())
+                .addFormDataPart("indian_child",branchname.getText().toString())
+                .addFormDataPart("foreign_adult",branchname.getText().toString())
+                .addFormDataPart("foreign_child",branchname.getText().toString())
+                .addFormDataPart("closed_day",branchname.getText().toString())
+                .addFormDataPart("description",branchname.getText().toString())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/admin/add-monument")
+                .addHeader("Authorization","Bearer "+token)
+                .post(formBody)
+                .build();
+    }
 
     private void imageBrowse() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
