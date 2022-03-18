@@ -172,6 +172,11 @@ public class AdminInputs extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Correct Information",Toast.LENGTH_LONG).show();
+                    SharedPreferences sh = AdminInputs.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sh.edit();
+                    editor.putString("monument_name",inputmonumentname.getText().toString());
+                    editor.putString("monument_location",inputmonumentcity.getText().toString());
+                    editor.apply();
                     progressBar.setVisibility(View.VISIBLE);
                     uploadImage();
 
@@ -387,7 +392,12 @@ public class AdminInputs extends AppCompatActivity {
                             });
 
                         if(progress >= 100){
-                            progressBar.setVisibility(View.GONE);
+                            AdminInputs.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            });
                         }
                         Log.e("uploadProgress called", progress+" ");
                     }
@@ -422,8 +432,6 @@ public class AdminInputs extends AppCompatActivity {
             String auth = "Bearer "+token;
             Request request = new Request.Builder()
                     .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/admin/verify-monument")
-                    .header("Accept", "application/json")
-                    .header("Content-Type", "application/json")
                     .addHeader("Authorization",auth)
                     .post(requestBody)
                     .build();
@@ -446,12 +454,6 @@ public class AdminInputs extends AppCompatActivity {
                         public void run() {
                             Log.e("In AdminInputs", mMessage);
                             progressBar.setVisibility(View.GONE);
-
-                            SharedPreferences sh = AdminInputs.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sh.edit();
-                            editor.putString("monument_name",inputmonumentname.getText().toString());
-                            editor.putString("monument_location",inputmonumentcity.getText().toString());
-                            editor.apply();
                             Intent intent = new Intent(AdminInputs.this,InVerificationProcess.class);
                             startActivity(intent);
 //                            Intent intent = new Intent(AdminInputs.this,AdminBankDetails.class);
