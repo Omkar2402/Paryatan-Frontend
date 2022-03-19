@@ -50,6 +50,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -426,12 +427,12 @@ public class AdminMonumentDetails extends AppCompatActivity {
             SharedPreferences sh1 = AdminMonumentDetails.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
             String monument_name = sh1.getString("monument_name",null);
 
-            OkHttpClient client = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(1000, TimeUnit.MILLISECONDS).build();
 //            Log.d("Monument name","monument_name");
 //            Log.d("token",token);
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("monument_name",monument_name)
+                    .addFormDataPart("monument_name","efefe")
                     .addFormDataPart("opening_time",StartingTime.getText().toString())
                     .addFormDataPart("closing_time",EndingTime.getText().toString())
                     .addFormDataPart("indian_adult",indian_adult.getText().toString())
@@ -444,7 +445,7 @@ public class AdminMonumentDetails extends AppCompatActivity {
                             RequestBody.create(MediaType.parse("video/mp4"), data))
                     .build();
 
-            String auth = "Bearer "+token;
+            String auth = "Bearer "+"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhMmNnZGZAZyIsImV4cCI6MTY0Nzc3MTE3OCwiaWF0IjoxNjQ3Njg0Nzc4fQ.ylqt6y85ukdiW2Ozp81qsGAbCMIH1b1A4Ly3-vnAuSc";
             Request request = new Request.Builder()
                     .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/admin/add-monument")
                     .addHeader("Authorization",auth)
