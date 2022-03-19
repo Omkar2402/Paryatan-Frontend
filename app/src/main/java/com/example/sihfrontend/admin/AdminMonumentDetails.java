@@ -2,6 +2,7 @@ package com.example.sihfrontend.admin;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -14,6 +15,7 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -70,6 +72,12 @@ public class AdminMonumentDetails extends AppCompatActivity {
     private EditText indian_adult,indian_child,foreign_adult,foreign_child,monument_description;
     String filePath;
     String monument_name;
+
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     Uri uri;
 
@@ -235,8 +243,10 @@ public class AdminMonumentDetails extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                verifyStoragePermissions(AdminMonumentDetails.this);
                 submitprogressbar.setVisibility(View.VISIBLE);
                 uploadVideo();
+
                 //addMonumentDetails();
             }
         });
@@ -398,7 +408,7 @@ public class AdminMonumentDetails extends AppCompatActivity {
 //            String videoName = videoFile.getName();
 //            Log.d("videoName",videoName);
             //Log.e(TAG, imageFile.getName()+" "+mime+" "+uriToFilename(uri));
-            InputStream stream = getContentResolver().openInputStream(uri);
+            InputStream stream = getContentResolver().openInputStream(uris);
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
             int nRead;
@@ -416,9 +426,10 @@ public class AdminMonumentDetails extends AppCompatActivity {
 
             OkHttpClient client = new OkHttpClient();
             Log.d("Monument name",monument_name);
+            Log.d("token",token);
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("monument_name",monument_name)
+                    .addFormDataPart("monument_name","efefe")
                     .addFormDataPart("opening_time",StartingTime.getText().toString())
                     .addFormDataPart("closing_time",EndingTime.getText().toString())
                     .addFormDataPart("indian_adult",indian_adult.getText().toString())
@@ -434,7 +445,7 @@ public class AdminMonumentDetails extends AppCompatActivity {
             String auth = "Bearer "+token;
             Request request = new Request.Builder()
                     .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/admin/add-monument")
-                    .addHeader("Authorization",auth)
+                    .addHeader("Authorization","Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhMmNnZGZAZyIsImV4cCI6MTY0Nzc3MTE3OCwiaWF0IjoxNjQ3Njg0Nzc4fQ.ylqt6y85ukdiW2Ozp81qsGAbCMIH1b1A4Ly3-vnAuSc")
                     .post(requestBody)
                     .build();
 
@@ -473,6 +484,19 @@ public class AdminMonumentDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 
 

@@ -12,9 +12,11 @@ import android.widget.TextView;
 import com.example.sihfrontend.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,6 +30,8 @@ public class AdminHomeActivity extends AppCompatActivity {
     TextView predictedNumber;
     Button openScanner,confirm;
     int rain = 0;
+
+    HashSet<String> holiday_dates = new HashSet<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +43,56 @@ public class AdminHomeActivity extends AppCompatActivity {
         predictedNumber = findViewById(R.id.tvAHpredictedNumber);
         openScanner = findViewById(R.id.btnAHopenScanner);
         confirm = findViewById(R.id.btnAHconfirm);
-        rain = isRain();
+        //rain = isRain();
         Log.d("Rain", String.valueOf(rain));
+
+        fetchfestivals();
     }
 
 //    public int isHoliday(){
 //
 //    }
 //
+    public void fetchfestivals() {
+        try {
+            OkHttpClient client = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url("https://holidays-by-api-ninjas.p.rapidapi.com/v1/holidays?country=in&year=2022")
+                    .get()
+                    .addHeader("x-rapidapi-host", "holidays-by-api-ninjas.p.rapidapi.com")
+                    .addHeader("x-rapidapi-key", "30588d3752mshf0c872044c237c8p11fc5cjsn681d618b2020")
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response.body().string());
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            String date = jsonObject.getString("date");
+                            holiday_dates.add(date);
+                        }
+                        Log.d("holiday_dates_size",""+holiday_dates.size());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     public int isRain(){
 
         SharedPreferences sh = AdminHomeActivity.this.getSharedPreferences("Admin_Monument", MODE_PRIVATE);
