@@ -432,7 +432,7 @@ public class AdminMonumentDetails extends AppCompatActivity {
 //            Log.d("token",token);
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("monument_name","efefe")
+                    .addFormDataPart("monument_name",monument_name)
                     .addFormDataPart("opening_time",StartingTime.getText().toString())
                     .addFormDataPart("closing_time",EndingTime.getText().toString())
                     .addFormDataPart("indian_adult",indian_adult.getText().toString())
@@ -445,7 +445,7 @@ public class AdminMonumentDetails extends AppCompatActivity {
                             RequestBody.create(MediaType.parse("video/mp4"), data))
                     .build();
 
-            String auth = "Bearer "+"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhMmNnZGZAZyIsImV4cCI6MTY0Nzc3MTE3OCwiaWF0IjoxNjQ3Njg0Nzc4fQ.ylqt6y85ukdiW2Ozp81qsGAbCMIH1b1A4Ly3-vnAuSc";
+            String auth = "Bearer "+token;
             Request request = new Request.Builder()
                     .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/admin/add-monument")
                     .addHeader("Authorization",auth)
@@ -475,7 +475,7 @@ public class AdminMonumentDetails extends AppCompatActivity {
                     AdminMonumentDetails.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Log.e("message", mMessage);
+                            Log.d("message", mMessage);
                             submitprogressbar.setVisibility(View.GONE);
                             startActivity(new Intent(AdminMonumentDetails.this,AdminHomeActivity.class));
                         }
