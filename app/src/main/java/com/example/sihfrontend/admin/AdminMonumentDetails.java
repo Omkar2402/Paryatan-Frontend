@@ -408,7 +408,9 @@ public class AdminMonumentDetails extends AppCompatActivity {
 //            String videoName = videoFile.getName();
 //            Log.d("videoName",videoName);
             //Log.e(TAG, imageFile.getName()+" "+mime+" "+uriToFilename(uri));
-            InputStream stream = getContentResolver().openInputStream(uris);
+            Log.d("Before InputStream","....");
+            InputStream stream = getContentResolver().openInputStream(uri);
+            Log.d("After InputStream","....");
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
             int nRead;
@@ -425,11 +427,11 @@ public class AdminMonumentDetails extends AppCompatActivity {
             String monument_name = sh1.getString("monument_name",null);
 
             OkHttpClient client = new OkHttpClient();
-            Log.d("Monument name",monument_name);
-            Log.d("token",token);
+//            Log.d("Monument name","monument_name");
+//            Log.d("token",token);
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("monument_name","efefe")
+                    .addFormDataPart("monument_name",monument_name)
                     .addFormDataPart("opening_time",StartingTime.getText().toString())
                     .addFormDataPart("closing_time",EndingTime.getText().toString())
                     .addFormDataPart("indian_adult",indian_adult.getText().toString())
@@ -445,7 +447,7 @@ public class AdminMonumentDetails extends AppCompatActivity {
             String auth = "Bearer "+token;
             Request request = new Request.Builder()
                     .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/admin/add-monument")
-                    .addHeader("Authorization","Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhMmNnZGZAZyIsImV4cCI6MTY0Nzc3MTE3OCwiaWF0IjoxNjQ3Njg0Nzc4fQ.ylqt6y85ukdiW2Ozp81qsGAbCMIH1b1A4Ly3-vnAuSc")
+                    .addHeader("Authorization",auth)
                     .post(requestBody)
                     .build();
 
