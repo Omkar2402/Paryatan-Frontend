@@ -60,7 +60,12 @@ public class InVerificationProcess extends AppCompatActivity {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    progressBar.setVisibility(View.GONE);
+                    InVerificationProcess.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
                     e.printStackTrace();
                 }
 

@@ -39,6 +39,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -423,6 +424,7 @@ public class AdminInputs extends AppCompatActivity {
 
                     }
                 })
+                .connectTimeout(1000, TimeUnit.MILLISECONDS)
                 .build();
         SharedPreferences sh = AdminInputs.this.getSharedPreferences("SIH",MODE_PRIVATE);
         String token = sh.getString("token",null);

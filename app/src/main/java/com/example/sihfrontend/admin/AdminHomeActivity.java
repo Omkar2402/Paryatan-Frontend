@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.sihfrontend.R;
@@ -16,12 +18,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class AdminHomeActivity extends AppCompatActivity {
@@ -29,30 +36,84 @@ public class AdminHomeActivity extends AppCompatActivity {
     TextView ticketInfo;
     TextView predictedNumber;
     Button openScanner,confirm;
+    ProgressBar progressBar;
     int rain = 0;
 
     HashSet<String> holiday_dates = new HashSet<>();
+    Calendar today = Calendar.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
 
         ticketInfo = findViewById(R.id.tvAHScannedTicketInfo);
+        progressBar = findViewById(R.id.progressbarvisitor);
+        progressBar.setVisibility(View.VISIBLE);
         ticketInfo.setMovementMethod(new ScrollingMovementMethod());
 
         predictedNumber = findViewById(R.id.tvAHpredictedNumber);
         openScanner = findViewById(R.id.btnAHopenScanner);
         confirm = findViewById(R.id.btnAHconfirm);
-        //rain = isRain();
-        Log.d("Rain", String.valueOf(rain));
+        today.set(Calendar.HOUR_OF_DAY, 0);
 
-        fetchfestivals();
+        Log.d("Date", String.valueOf(today.getTime()));
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = df.format(today.getTime());
+        Log.e("Date",formattedDate);
+        rain = isRain();
     }
 
-//    public int isHoliday(){
-//
-//    }
-//
+    private void predictVisitors() {
+        try{
+            int festival;
+            if(holiday_dates.contains(today.getTime()))
+                festival=1;
+            else
+                festival=0;
+            OkHttpClient client=new OkHttpClient();
+            Log.d("Festival", String.valueOf(festival));
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("date", String.valueOf(today.getTime()))
+                    .addFormDataPart("festival", String.valueOf(festival))
+                    .addFormDataPart("rain", String.valueOf(rain))
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url("https://app-predictvisitors.herokuapp.com/predict")
+                    .post(requestBody)
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        Log.d("Response", String.valueOf(response));
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        String predict_visitor = jsonObject.getString("no_of_visitors");
+                        AdminHomeActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.GONE);
+                                predictedNumber.setText(predict_visitor);
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public void fetchfestivals() {
         try {
             OkHttpClient client = new OkHttpClient();
@@ -80,6 +141,12 @@ public class AdminHomeActivity extends AppCompatActivity {
                             holiday_dates.add(date);
                         }
                         Log.d("holiday_dates_size",""+holiday_dates.size());
+                        AdminHomeActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                predictVisitors();
+                            }
+                        });
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -125,6 +192,13 @@ public class AdminHomeActivity extends AppCompatActivity {
                         else{
                             rain = 1;
                         }
+                        AdminHomeActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.e("Rain", String.valueOf(rain));
+                                fetchfestivals();
+                            }
+                        });
                     }catch (Exception e){
                         e.printStackTrace();
                     }
