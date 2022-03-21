@@ -36,10 +36,7 @@
         <activity
 
             android:name=".admin.AdminFlagReport"
-            android:exported="true" >
-
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".admin.AdminHomeActivity"
             android:exported="false">
@@ -69,14 +66,15 @@
             android:exported="true" />
         <activity
             android:name=".admin.AdminMainActivity"
-            android:exported="true">
-
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".user.UserMainActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".Test_Image"
             android:exported="false" />
@@ -105,15 +103,6 @@
             android:name=".MainActivity"
             android:exported="false" />
 
-        <activity
-            android:name=".UserProfile"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
         <activity
             android:name=".admin.TicketScanner"
             android:exported="false"
