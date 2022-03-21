@@ -53,7 +53,7 @@ public class InVerificationProcess extends AppCompatActivity {
                     .addFormDataPart("monument_name",monument_name)
                     .build();
             Request request = new Request.Builder()
-                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/isVerified")
+                    .url(getString(R.string.api)+"/isVerified")
                     .addHeader("Authorization","Bearer "+token)
                     .post(formBody)
                     .build();

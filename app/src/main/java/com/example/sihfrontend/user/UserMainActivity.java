@@ -88,7 +88,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
             String token = sharedPreferences.getString("token",null);
 
             Request request = new Request.Builder()
-                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/monuments")
+                    .url(getString(R.string.api)+"/monuments")
                     .addHeader("Authorization","Bearer "+token)
                     .get()
                     .build();
@@ -215,7 +215,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
             Log.d("token",token);
 
             Request request = new Request.Builder()
-                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/user/check-flag-count")
+                    .url(getString(R.string.api)+"/user/check-flag-count")
                     .addHeader("Authorization","Bearer "+token)
                     .get()
                     .build();

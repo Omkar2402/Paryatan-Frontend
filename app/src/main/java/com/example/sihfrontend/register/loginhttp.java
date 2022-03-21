@@ -19,6 +19,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import com.example.sihfrontend.R;
 
 public class loginhttp {
 
@@ -37,7 +38,7 @@ public class loginhttp {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/upload-image")
+                    .url((R.string.api)+"/upload-image")
                     .addHeader("Authorization",auth)
                     .post(formBody)
                     .build();
@@ -78,7 +79,7 @@ public class loginhttp {
                     .add("role",role)
                     .build();
             Request request = new Request.Builder()
-                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/login")
+                    .url("http://192.168.1.29:8080/login")
                     .addHeader("Authorization", auth)
                     .post(requestBody)
                     .build();
@@ -130,7 +131,7 @@ public class loginhttp {
 //                                        RequestBody.create(MediaType.parse("image/*"), file))
                     .build();
             Request request = new Request.Builder()
-                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/register")
+                    .url("http://192.168.1.29:8080/register")
                     .post(formBody)
                     .build();
 

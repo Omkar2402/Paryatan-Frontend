@@ -7,4 +7,5 @@
         <item>User</item>
         <item>Admin</item>
     </string-array>
+    <string name="api">http://192.168.1.29:8080</string>
 </resources>

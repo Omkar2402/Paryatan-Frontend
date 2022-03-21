@@ -433,7 +433,7 @@ public class AdminInputs extends AppCompatActivity {
         if(token!=null){
             String auth = "Bearer "+token;
             Request request = new Request.Builder()
-                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/admin/verify-monument")
+                    .url(getString(R.string.api)+"/admin/verify-monument")
                     .addHeader("Authorization",auth)
                     .post(requestBody)
                     .build();

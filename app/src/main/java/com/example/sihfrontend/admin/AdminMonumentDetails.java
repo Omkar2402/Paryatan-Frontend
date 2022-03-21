@@ -447,7 +447,7 @@ public class AdminMonumentDetails extends AppCompatActivity {
 
             String auth = "Bearer "+token;
             Request request = new Request.Builder()
-                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/admin/add-monument")
+                    .url(getString(R.string.api)+"/admin/add-monument")
                     .addHeader("Authorization",auth)
                     .post(requestBody)
                     .build();
@@ -477,6 +477,10 @@ public class AdminMonumentDetails extends AppCompatActivity {
                         public void run() {
                             Log.d("message", mMessage);
                             submitprogressbar.setVisibility(View.GONE);
+                            SharedPreferences sharedPreferences = AdminMonumentDetails.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("Information","saved");
+                            editor.apply();
                             startActivity(new Intent(AdminMonumentDetails.this,AdminHomeActivity.class));
                         }
                     });

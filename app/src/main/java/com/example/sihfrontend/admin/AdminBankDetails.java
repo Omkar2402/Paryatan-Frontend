@@ -84,7 +84,7 @@ public class AdminBankDetails extends AppCompatActivity {
                     .addFormDataPart("branch_name",branchname.getText().toString())
                     .build();
             Request request = new Request.Builder()
-                    .url("http://ec2-18-233-60-31.compute-1.amazonaws.com:8080/admin/accountDetails")
+                    .url(getString(R.string.api)+"/admin/accountDetails")
                     .addHeader("Authorization","Bearer "+token)
                     .post(formBody)
                     .build();

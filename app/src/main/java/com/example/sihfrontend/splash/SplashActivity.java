@@ -65,7 +65,7 @@ public class SplashActivity extends AppCompatActivity {
                 try{
                     OkHttpClient client=new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("http://ec2-18-233-60-31.compute-1.amazonaws.com/refresh-token")
+                            .url(getString(R.string.api)+"/refresh-token")
                             .addHeader("Authorization", "Bearer "+token)
                             .addHeader("isRefreshToken", "true")
                             .get()
@@ -129,9 +129,20 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }else{
-                        Intent intent = new Intent(SplashActivity.this, AdminMainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        SharedPreferences sharedPreferences = SplashActivity.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
+                        String Information = sharedPreferences.getString("Information",null);
+                        Log.d("Information",Information);
+                        if (Information!=null) {
+                            Intent intent = new Intent(SplashActivity.this, AdminHomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Intent intent = new Intent(SplashActivity.this, AdminMainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
                     }
                 }else{
                     Intent splashIntent=new Intent(SplashActivity.this, MainActivity.class);
