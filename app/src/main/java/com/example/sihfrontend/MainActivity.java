@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         //Map<String,String> map = new HashMap<>();
                         //map.put("email",email.getText().toString());
 
-                        OkHttpClient client = new OkHttpClient();
+                        OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5000, TimeUnit.MILLISECONDS).build();
                         RequestBody formBody = new FormBody.Builder()
                                 .add("email", email.getText().toString())
                                 .build();
