@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,6 +31,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.Timeout;
 
 public class AdminHomeActivity extends AppCompatActivity {
 
@@ -71,7 +73,7 @@ public class AdminHomeActivity extends AppCompatActivity {
                 festival=1;
             else
                 festival=0;
-            OkHttpClient client=new OkHttpClient();
+            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(1000, TimeUnit.MILLISECONDS).build();
             Log.d("Festival", String.valueOf(festival));
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
@@ -102,6 +104,7 @@ public class AdminHomeActivity extends AppCompatActivity {
                             public void run() {
                                 progressBar.setVisibility(View.GONE);
                                 predictedNumber.setText(predict_visitor);
+                                Log.d("predict",predict_visitor);
                             }
                         });
                     } catch (JSONException e) {
@@ -116,7 +119,7 @@ public class AdminHomeActivity extends AppCompatActivity {
     }
     public void fetchfestivals() {
         try {
-            OkHttpClient client = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(1000, TimeUnit.MILLISECONDS).build();
 
             Request request = new Request.Builder()
                     .url("https://holidays-by-api-ninjas.p.rapidapi.com/v1/holidays?country=in&year=2022")
@@ -164,11 +167,13 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         SharedPreferences sh = AdminHomeActivity.this.getSharedPreferences("Admin_Monument", MODE_PRIVATE);
         String city = sh.getString("monument_location",null);
+        Log.d("city",""+city);
+        city = "agra";
         if(city != null){
-            OkHttpClient client = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(1000, TimeUnit.MILLISECONDS).build();
 
             Request request = new Request.Builder()
-                    .url("https://community-open-weather-map.p.rapidapi.com/find?q=washington%20dc&cnt=1&mode=null&lon=0&type=link%2C%20accurate&lat=0&units=imperial%2C%20metric")
+                    .url("https://community-open-weather-map.p.rapidapi.com/find?q="+city+"&cnt=1&mode=null&lon=0&type=link%2C%20accurate&lat=0&units=imperial%2C%20metric")
                     .get()
                     .addHeader("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
                     .addHeader("x-rapidapi-key", "83d7734bd0msheded835799722b7p18c40bjsn8fd5a7c72da2")
@@ -184,8 +189,11 @@ public class AdminHomeActivity extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().string());
+                        Log.d("JSONObject",""+jsonObject.toString());
                         JSONArray jsonArray = jsonObject.getJSONArray("list");
-                        JSONObject rainObj = jsonArray.getJSONObject(0).getJSONObject("rain");
+                        Log.d("JsonArray",""+jsonArray);
+                        String rainObj = jsonArray.getJSONObject(0).getString("rain");
+                        Log.d("rainObj",""+rainObj.toString());
                         if(rainObj == null){
                             rain = 0;
                         }
