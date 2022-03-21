@@ -2,7 +2,10 @@ package com.example.sihfrontend;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -12,8 +15,13 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -26,6 +34,10 @@ public class UserProfile extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 5164654;
     private Bitmap bitmap;
     private Uri filePath;
+    ProgressBar progress_bar;
+    ImageButton edit_name;
+    TextView tv_name;
+    final Context context = this;
     static final int PICK_IMAGE_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +45,59 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         add_Profile=findViewById(R.id.Add_Profile);
+        progress_bar = findViewById(R.id.progress_bar);
         profile=findViewById(R.id.profile);
+        edit_name = findViewById(R.id.edit_name);
+        tv_name = findViewById(R.id.tv_name);
+
         profile.setImageDrawable(getResources().getDrawable(R.drawable.ic_user));
         add_Profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showFileChooser();
+
+
             }
         });
+        edit_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater layoutInflater = LayoutInflater.from(context);
+
+                View promptView = layoutInflater.inflate(R.layout.dialogbox, null);
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+                // set dialogbox.xml to be the layout file of the alertdialog builder
+                alertDialogBuilder.setView(promptView);
+
+                final EditText input = (EditText) promptView.findViewById(R.id.new_name);
+
+                // setup a dialog window
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // get user input and set it to result
+                                tv_name.setText(input.getText());
+                            }
+                        })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create an alert dialog
+                AlertDialog alertD = alertDialogBuilder.create();
+
+                alertD.show();
+
+            }
+        });
+
+
 
 
 

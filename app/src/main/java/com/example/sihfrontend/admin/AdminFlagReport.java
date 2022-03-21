@@ -108,6 +108,13 @@ public class AdminFlagReport extends AppCompatActivity {
             }
         });
 
+        btn_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
 
     }

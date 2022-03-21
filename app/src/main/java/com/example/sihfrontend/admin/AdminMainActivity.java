@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.UserProfile;
 
 public class AdminMainActivity extends AppCompatActivity {
 
@@ -49,6 +50,9 @@ public class AdminMainActivity extends AppCompatActivity {
         int item_id = item.getItemId();
         if (item_id==R.id.reportuser) {
             startActivity(new Intent(AdminMainActivity.this,AdminFlagReport.class));
+        }
+        else if (item_id==R.id.user_profile) {
+            startActivity(new Intent(AdminMainActivity.this, UserProfile.class));
         }
         return true;
     }

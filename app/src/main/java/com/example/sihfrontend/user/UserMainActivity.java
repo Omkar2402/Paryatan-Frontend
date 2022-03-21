@@ -1,5 +1,6 @@
 package com.example.sihfrontend.user;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,12 +12,14 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.sihfrontend.MainActivity;
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.UserProfile;
 import com.example.sihfrontend.user.monument.MonumentDescription;
 import com.example.sihfrontend.user.monument.MonumentInterface;
 import com.example.sihfrontend.user.monument.monumentAdapter;
@@ -168,6 +171,15 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_item,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int item_id = item.getItemId();
+        if (item_id==R.id.profile) {
+            startActivity(new Intent(UserMainActivity.this, UserProfile.class));
+        }
         return true;
     }
 
