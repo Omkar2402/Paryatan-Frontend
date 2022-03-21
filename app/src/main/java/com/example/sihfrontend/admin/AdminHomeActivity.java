@@ -1,17 +1,22 @@
 package com.example.sihfrontend.admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.UserProfile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +50,24 @@ public class AdminHomeActivity extends AppCompatActivity {
     Calendar today = Calendar.getInstance();
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.report_user,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int item_id = item.getItemId();
+        if (item_id==R.id.reportuser) {
+            startActivity(new Intent(AdminHomeActivity.this,AdminFlagReport.class));
+        }
+        else if (item_id==R.id.user_profile) {
+            startActivity(new Intent(AdminHomeActivity.this, UserProfile.class));
+        }
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
@@ -64,6 +87,8 @@ public class AdminHomeActivity extends AppCompatActivity {
         String formattedDate = df.format(today.getTime());
         Log.e("Date",formattedDate);
         rain = isRain();
+
+
     }
 
     private void predictVisitors() {
@@ -73,7 +98,7 @@ public class AdminHomeActivity extends AppCompatActivity {
                 festival=1;
             else
                 festival=0;
-            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(1000, TimeUnit.MILLISECONDS).build();
+            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(10000, TimeUnit.MILLISECONDS).build();
             Log.d("Festival", String.valueOf(festival));
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
@@ -119,7 +144,7 @@ public class AdminHomeActivity extends AppCompatActivity {
     }
     public void fetchfestivals() {
         try {
-            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(1000, TimeUnit.MILLISECONDS).build();
+            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(10000, TimeUnit.MILLISECONDS).build();
 
             Request request = new Request.Builder()
                     .url("https://holidays-by-api-ninjas.p.rapidapi.com/v1/holidays?country=in&year=2022")
@@ -170,7 +195,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         Log.d("city",""+city);
         city = "agra";
         if(city != null){
-            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(1000, TimeUnit.MILLISECONDS).build();
+            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(10000, TimeUnit.MILLISECONDS).build();
 
             Request request = new Request.Builder()
                     .url("https://community-open-weather-map.p.rapidapi.com/find?q="+city+"&cnt=1&mode=null&lon=0&type=link%2C%20accurate&lat=0&units=imperial%2C%20metric")

@@ -131,7 +131,7 @@ public class SplashActivity extends AppCompatActivity {
                     }else{
                         SharedPreferences sharedPreferences = SplashActivity.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
                         String Information = sharedPreferences.getString("Information",null);
-                        Log.d("Information",Information);
+                        Log.d("Information",""+Information);
                         if (Information!=null) {
                             Intent intent = new Intent(SplashActivity.this, AdminHomeActivity.class);
                             startActivity(intent);

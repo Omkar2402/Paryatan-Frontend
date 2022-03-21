@@ -49,6 +49,7 @@ public class AdminBankDetails extends AppCompatActivity {
         next = findViewById(R.id.btn_next);
         SharedPreferences sharedPreferences = AdminBankDetails.this.getSharedPreferences("SIH", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token",null);
+        Log.d("token",token);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

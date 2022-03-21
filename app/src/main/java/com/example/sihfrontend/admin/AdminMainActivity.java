@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,7 @@ public class AdminMainActivity extends AppCompatActivity {
 
         SharedPreferences sh = AdminMainActivity.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
         String monument_name = sh.getString("monument_name",null);
+        Log.d("monument_name",""+monument_name);
         if(monument_name!=null){
             startActivity(new Intent(AdminMainActivity.this,InVerificationProcess.class));
         }

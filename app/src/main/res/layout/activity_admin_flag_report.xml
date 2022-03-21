@@ -193,7 +193,7 @@
         app:layout_constraintEnd_toEndOf="@+id/user_ids"
         app:layout_constraintStart_toStartOf="@+id/user_ids"
         app:layout_constraintTop_toBottomOf="@+id/user_ids"
-        tools:ignore="MissingConstraints" />
+         />
 
     <ProgressBar
         android:id="@+id/flag_report_progress_bar"

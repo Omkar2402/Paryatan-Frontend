@@ -102,6 +102,7 @@ public class AdminFlagReport extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
+                Log.d("progressbar","...");
                 uploadImage();
             }
         });
@@ -313,6 +314,7 @@ public class AdminFlagReport extends AppCompatActivity {
         //
         SharedPreferences sh = AdminFlagReport.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
         String monument_name = sh.getString("monument_name",null);
+        Log.d("monumentname",monument_name);
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
