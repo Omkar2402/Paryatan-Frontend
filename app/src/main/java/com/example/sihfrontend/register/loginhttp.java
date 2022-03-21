@@ -38,7 +38,7 @@ public class loginhttp {
                     .build();
 
             Request request = new Request.Builder()
-                    .url((R.string.api)+"/upload-image")
+                    .url("http://192.168.1.29:8080/upload-image")
                     .addHeader("Authorization",auth)
                     .post(formBody)
                     .build();
