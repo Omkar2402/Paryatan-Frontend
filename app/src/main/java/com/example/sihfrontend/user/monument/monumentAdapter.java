@@ -28,6 +28,12 @@ public  class monumentAdapter extends RecyclerView.Adapter<monumentAdapter.Viewh
         this.monumentInfoArrayList = courseModelArrayList;
         this.monumentInterface = monumentInterface;
     }
+   
+    public void filterList(ArrayList<monumentInfo> filterllist) {
+      
+        monumentInfoArrayList = filterllist;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
