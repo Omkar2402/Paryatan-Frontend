@@ -14,11 +14,16 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.sihfrontend.MainActivity;
+import com.example.sihfrontend.OTPVerification;
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.admin.AdminHomeActivity;
 import com.example.sihfrontend.admin.AdminMainActivity;
 import com.example.sihfrontend.helper.VideoHelper;
+import com.example.sihfrontend.register.RegisterActivity;
 import com.example.sihfrontend.user.UserMainActivity;
+import com.example.sihfrontend.user.monument.MonumentDescription;
+import com.example.sihfrontend.user.ticket.MonumentBookTickets;
+import com.example.sihfrontend.user.ticket.TicketQR;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -145,7 +150,7 @@ public class SplashActivity extends AppCompatActivity {
 
                     }
                 }else{
-                    Intent splashIntent=new Intent(SplashActivity.this, MainActivity.class);
+                    Intent splashIntent=new Intent(SplashActivity.this, TicketQR.class);
                     //Intent is used to switch from one activity to another.
 //                Intent splashIntent = new Intent(SplashActivity.this, Test_Image.class);
                     startActivity(splashIntent);

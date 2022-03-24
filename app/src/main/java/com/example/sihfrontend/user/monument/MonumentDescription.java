@@ -94,6 +94,7 @@ public class MonumentDescription extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monument_description);
+        getSupportActionBar().hide();
         videoView = findViewById(R.id.videomonumentVideo);
         name = findViewById(R.id.tvMonumentName);
         description = findViewById(R.id.tvDescription);

@@ -21,18 +21,19 @@
         android:id="@+id/etName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:background="@drawable/custom_edit_text"
-        android:padding="10dp"
         android:drawableLeft="@drawable/ic_baseline_person_24"
-        android:hint="John Joe"
-        />
+        android:fontFamily="@font/open_sans"
+        android:hint="Name"
+        android:padding="10dp"
+        android:textColorHint="#4C4B4B"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.051"
+        app:layout_constraintWidth_percent="0.8" />
+
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="0dp"
@@ -43,10 +44,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.8"
         app:layout_constraintVertical_bias="0.075"
-        android:background="@drawable/custom_edit_text"
         android:padding="10dp"
+        android:fontFamily="@font/open_sans"
+        android:textSize="16dp"
         android:drawableLeft="@drawable/ic_baseline_lock_24"
-        android:hint="********"
+        android:hint="Password"
+        android:textColorHint="#4C4B4B"
         android:inputType="textPassword"
         />
     <EditText
@@ -55,14 +58,16 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etPassword"
+        android:fontFamily="@font/open_sans"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.8"
+        android:textSize="16dp"
         app:layout_constraintVertical_bias="0.075"
-        android:background="@drawable/custom_edit_text"
         android:padding="10dp"
         android:drawableLeft="@drawable/ic_baseline_lock_24"
-        android:hint="********"
+        android:hint="Re-enter Password"
+        android:textColorHint="#4C4B4B"
         android:inputType="textPassword"
         />
 
@@ -71,61 +76,83 @@
         android:id="@+id/txtFile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etConfirmPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.4"
-        app:layout_constraintVertical_bias="0.15"
-        app:layout_constraintHorizontal_bias="0.11"
-        android:text="Select role:"
-        android:textStyle="bold"
+        android:fontFamily="@font/open_sans"
         android:padding="10dp"
-        android:textAllCaps="true"
-        />
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:text="Select role:"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etConfirmPassword"
+        app:layout_constraintVertical_bias="0.054"
+        app:layout_constraintWidth_percent="0.4" />
+
+    <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etConfirmPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="1"
         android:padding="10dp"
-        android:layout_marginRight="10dp">
-        <RadioButton android:id="@+id/radio_user"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etConfirmPassword"
+        app:layout_constraintVertical_bias="0.179"
+        app:layout_constraintWidth_percent="0.5">
+
+
+        <RadioButton
+            android:id="@+id/radio_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="User"
-            android:layout_marginRight="5dp"
-            android:textStyle="bold"
-            android:textAllCaps="true"/>
-        <RadioButton android:id="@+id/radio_admin"
-            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:fontFamily="@font/open_sans"
+            tools:layout_editor_absoluteX="51dp"
+            tools:layout_editor_absoluteY="384dp" />
+
+        <RadioButton
+            android:id="@+id/radio_admin"
+            android:layout_width="105dp"
             android:layout_height="wrap_content"
-            android:text="Admin"
             android:layout_marginLeft="10dp"
-            android:textAllCaps="true"
-            android:textStyle="bold"/>
+            android:fontFamily="@font/open_sans"
+            android:text="Admin"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            tools:layout_editor_absoluteX="165dp"
+            tools:layout_editor_absoluteY="382dp" />
     </RadioGroup>
 
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/radio_group"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.4"
-        app:layout_constraintVertical_bias="0.2"
-        android:background="@drawable/custom_button"
-        android:text="SIGN UP"
-        android:textStyle="bold"
+        android:backgroundTint="@color/white"
         android:padding="10dp"
-        />
+        android:text="SIGN UP"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/open_sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radio_group"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="0.4" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/img_bkgrnd"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

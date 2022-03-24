@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.sihfrontend.R;
@@ -45,7 +47,9 @@ public class RegisterActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Login"));
         tabLayout.addTab(tabLayout.newTab().setText("Sign up"));
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL); //spread above tabs so to acquire entire space
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        //spread above tabs so to acquire entire space
+
 
         final RegisterAdapter registerAdapter = new RegisterAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),this);
 
@@ -60,9 +64,30 @@ public class RegisterActivity extends AppCompatActivity {
         tabLayout.setAlpha(v);
 
         tabLayout.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        LoginTabFragment fragmentA = new LoginTabFragment();
+        SignUpTabFragment fragmentB = new SignUpTabFragment();
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.add(R.id.view_pager, fragmentA,null);
+//
+//        ft.commit();
+        tabLayout.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(RegisterActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                if (tabLayout.getSelectedTabPosition() == 0) {
+                    // change edittext value
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.view_pager, fragmentA,null);
 
-
+                    ft.commit();
+                } else {
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.view_pager, fragmentB,null);
+                    ft.commit();
+                }
+            }
+        });
 
     }
 

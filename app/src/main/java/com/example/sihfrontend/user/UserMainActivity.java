@@ -52,7 +52,6 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_main);
-
         recyclerView = findViewById(R.id.recycler_view);
         progressBar = findViewById(R.id.progressBarMon);
 

@@ -119,7 +119,6 @@ public class TicketQR extends AppCompatActivity {
 
         Log.d("Ticket Info arrayList",""+ticketInfoArrayList.toString());
         ticketQRAdapter = new TicketQRAdapter(TicketQR.this,ticketInfoArrayList){
-
         };
 
 

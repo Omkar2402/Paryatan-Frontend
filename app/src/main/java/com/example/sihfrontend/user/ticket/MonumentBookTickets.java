@@ -78,6 +78,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monument_book_tickets);
+        getSupportActionBar().hide();
         Intent in  = getIntent();
         monumentName = in.getStringExtra("monumentName");
         verificationId = findViewById(R.id.etAadharNumber);

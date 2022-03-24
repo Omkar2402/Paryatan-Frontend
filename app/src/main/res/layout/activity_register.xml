@@ -49,8 +49,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="#353535"
+            app:tabIndicatorColor="@color/white"
             app:layout_constraintVertical_bias="0"
             android:background="@drawable/view_background"
+            app:tabTextAppearance="@style/tab_text"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

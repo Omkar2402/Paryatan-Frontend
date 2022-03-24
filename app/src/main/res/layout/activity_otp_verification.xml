@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:overScrollMode="never"
     android:scrollbars="none"
-    android:background="#ABCDEF"
+    android:background="#FFFFFF"
     tools:context=".OTPVerification">
 
     <LinearLayout
@@ -16,30 +16,31 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:text="OTP Verification"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold">
 
-        </TextView>
-
-        <TextView
+            android:id="@+id/tvemail_verif"
+            android:layout_marginTop="148dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
-            android:gravity="center"
-            android:text="Please enter sent OTP"
-            android:textColor="#808080"
-            android:textSize="14sp"
-            android:textStyle="bold">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:fontFamily="@font/open_sans"
+            android:gravity="top"
+            android:lineHeight="82sp"
+            android:text="Enter OTP"
+            android:textColor="#3E3E3E"
+            android:textSize="27dp" />
+
+        <TextView
+            android:id="@+id/we_need_to_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:text="We have sent a 6-digit code to:"
+            android:textSize="16dp"
+            android:textColor="#646464"
+            android:fontFamily="@font/open_sans">
 
         </TextView>
 
@@ -53,6 +54,7 @@
             android:layout_marginEnd="30dp"
             android:layout_marginRight="30dp"
             android:gravity="center"
+            android:fontFamily="@font/open_sans"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold">
@@ -81,7 +83,9 @@
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                tools:ignore="LabelFor">
+                android:fontFamily="@font/open_sans"
+                tools:ignore="LabelFor"
+                android:backgroundTint="#FBD8B0">
 
             </EditText>
 
@@ -100,7 +104,9 @@
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                tools:ignore="LabelFor">
+                android:fontFamily="@font/open_sans"
+                tools:ignore="LabelFor"
+                android:backgroundTint="#FBD8B0">
 
             </EditText>
 
@@ -117,9 +123,11 @@
                 android:inputType="number"
                 android:maxLength="1"
                 android:textColor="@color/black"
+                android:fontFamily="@font/open_sans"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                tools:ignore="LabelFor">
+                tools:ignore="LabelFor"
+                android:backgroundTint="#FBD8B0">
 
             </EditText>
 
@@ -138,6 +146,8 @@
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:backgroundTint="#FBD8B0"
+                android:fontFamily="@font/open_sans"
                 tools:ignore="LabelFor">
 
             </EditText>
@@ -154,9 +164,11 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
+                android:backgroundTint="#FBD8B0"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/open_sans"
                 tools:ignore="LabelFor">
 
             </EditText>
@@ -171,11 +183,13 @@
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
+                android:backgroundTint="#FBD8B0"
                 android:inputType="number"
                 android:maxLength="1"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/open_sans"
                 tools:ignore="LabelFor">
 
             </EditText>
@@ -185,42 +199,60 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:gravity="center"
+
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/didn_t_receive_the_otp"
-                android:textColor="@color/grey"
+                android:text="OTP valid for"
+                android:layout_marginLeft="50dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/open_sans"
                 android:textSize="14sp">
 
             </TextView>
 
+
+
+            <TextView
+                android:id="@+id/tvCountdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="8dp"
+                android:text="00:00"
+                android:textColor="#212121"
+                android:textSize="15sp"
+                android:fontFamily="@font/open_sans"
+                android:textStyle="bold">
+
+            </TextView>
             <TextView
                 android:id="@+id/tvresend_otp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="@string/resend_otp"
+                android:text="\t\tResend OTP"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:visibility="invisible"
                 android:textStyle="bold">
 
             </TextView>
-
             <TextView
-                android:id="@+id/tvCountdown"
+                android:id="@+id/tvresend_otp1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="00:00"
-                android:textColor="#212121"
+                android:textColor="@android:color/holo_red_dark"
                 android:textSize="15sp"
+                android:text="\t\t\t\t\t\tt\t"
+                android:visibility="invisible"
                 android:textStyle="bold">
 
             </TextView>
@@ -229,18 +261,26 @@
 
         <Button
             android:id="@+id/btnSubmitOtp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="50dp"
+            android:backgroundTint="#FBD8B0"
+            android:fontFamily="@font/open_sans"
             android:text="SUBMIT"
-            android:layout_margin="30dp"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:background="@drawable/custom_button">
+            android:textSize="18dp"
+            android:textStyle="bold">
 
         </Button>
 
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/img_bkgrnd" />
 
     </LinearLayout>
+
+
 
 </ScrollView>

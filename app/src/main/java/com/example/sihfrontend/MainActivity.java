@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
 
-        email = findViewById(R.id.etInputMail);
+        email = findViewById(R.id.etemailAddress);
         verify = findViewById(R.id.btnVerifyEmail);
 
         email.setTranslationX(800);
@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Verify Email",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Email sent please check",Toast.LENGTH_SHORT).show();
                 if(email.getText().toString().isEmpty()){
-                    Toast.makeText(MainActivity.this,"Please enter your email!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Please enter your email",Toast.LENGTH_SHORT).show();
                 }else{
                     //Intent verifyIntent = new Intent(MainActivity.this, VerifyEmail.class);
                     try {
