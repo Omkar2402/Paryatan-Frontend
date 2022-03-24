@@ -28,10 +28,14 @@ public  class monumentAdapter extends RecyclerView.Adapter<monumentAdapter.Viewh
         this.monumentInfoArrayList = courseModelArrayList;
         this.monumentInterface = monumentInterface;
     }
-   
+
+    // method for filtering our recyclerview items.
     public void filterList(ArrayList<monumentInfo> filterllist) {
-      
+        // below line is to add our filtered
+        // list in our course array list.
         monumentInfoArrayList = filterllist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
         notifyDataSetChanged();
     }
 
@@ -72,7 +76,7 @@ public  class monumentAdapter extends RecyclerView.Adapter<monumentAdapter.Viewh
 //        holder.monumentimg.setImageResource(model.getMonumentImage());
     }
 
-//    public static void updateMonuments(ArrayList<monumentInfo> new_arrayList){
+    //    public static void updateMonuments(ArrayList<monumentInfo> new_arrayList){
 //        Log.d("In updatemonument","....");
 //        Log.d("new_arraylist",""+new_arrayList.size());
 //        monumentInfoArrayList.clear();

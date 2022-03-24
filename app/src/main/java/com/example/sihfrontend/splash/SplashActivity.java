@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,6 +45,9 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_splash);
+
+        Color.parseColor("#e6f9ff");
+        Log.d("Color", String.valueOf(Color.parseColor("#e6f9ff")));
 
         VideoView videoView = findViewById(R.id.video_view);
         try {
@@ -150,7 +154,7 @@ public class SplashActivity extends AppCompatActivity {
 
                     }
                 }else{
-                    Intent splashIntent=new Intent(SplashActivity.this, TicketQR.class);
+                    Intent splashIntent=new Intent(SplashActivity.this, MainActivity.class);
                     //Intent is used to switch from one activity to another.
 //                Intent splashIntent = new Intent(SplashActivity.this, Test_Image.class);
                     startActivity(splashIntent);

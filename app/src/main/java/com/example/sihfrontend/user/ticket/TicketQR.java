@@ -115,9 +115,9 @@ public class TicketQR extends AppCompatActivity {
         fare = intent.getDoubleExtra("fare",0.0);
         date_of_visit = intent.getStringExtra("date_of_visit");
 
-        Toast.makeText(getApplicationContext(),"ArrayList len:"+ticketInfoArrayList.size(),Toast.LENGTH_LONG);
+        //Toast.makeText(getApplicationContext(),"ArrayList len:"+""+ticketInfoArrayList.size(),Toast.LENGTH_LONG).show();
 
-        Log.d("Ticket Info arrayList",""+ticketInfoArrayList.toString());
+        //Log.d("Ticket Info arrayList",""+ticketInfoArrayList.toString());
         ticketQRAdapter = new TicketQRAdapter(TicketQR.this,ticketInfoArrayList){
         };
 

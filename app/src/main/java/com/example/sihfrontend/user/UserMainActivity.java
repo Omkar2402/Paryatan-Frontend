@@ -1,6 +1,5 @@
 package com.example.sihfrontend.user;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +51,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_main);
+
         recyclerView = findViewById(R.id.recycler_view);
         progressBar = findViewById(R.id.progressBarMon);
 
@@ -171,13 +171,13 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       getMenuInflater().inflate(R.menu.menu_item,menu);
+        getMenuInflater().inflate(R.menu.menu_item,menu);
 
         // below line is to get our inflater
         //MenuInflater inflater = getMenuInflater();
 
         // inside inflater we are inflating our menu file.
-       // inflater.inflate(R.menu.menu_item, menu);
+        // inflater.inflate(R.menu.menu_item, menu);
 
         // below line is to get our menu item.
         MenuItem searchItem = menu.findItem(R.id.actionSearch);
@@ -202,6 +202,30 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
         });
 
         return true;
+    }
+
+    private void filter(String text) {
+        // creating a new array list to filter our data.
+        ArrayList<monumentInfo> filteredlist = new ArrayList<>();
+
+        // running a for loop to compare elements.
+        for (monumentInfo item : monumentInfoArrayList) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getMonumentName().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist.add(item);
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+            monument_adapter.filterList(filteredlist);
+        }
     }
 
     @Override
@@ -242,7 +266,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
 
             SharedPreferences sharedPreferences = UserMainActivity.this.getSharedPreferences("SIH",Context.MODE_PRIVATE);
             String token = sharedPreferences.getString("token",null);
-            Log.d("token",token);
+            Log.d("token",""+token);
 
             Request request = new Request.Builder()
                     .url(getString(R.string.api)+"/user/check-flag-count")
