@@ -155,7 +155,7 @@ public class MonumentDescription extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    String url = "http://"+websiteLink.getText().toString();
+                    String url = websiteLink.getText().toString();
                     //String url = "http://www.google.com";
                     CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                     CustomTabsIntent customTabsIntent = builder.build();
