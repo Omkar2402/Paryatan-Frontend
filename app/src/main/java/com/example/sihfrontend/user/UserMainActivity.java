@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sihfrontend.MainActivity;
@@ -47,6 +48,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
     private ArrayList<monumentInfo> monumentInfoArrayList;
     private ProgressBar progressBar;
     private  monumentAdapter monument_adapter;
+    private TextView textName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +56,10 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
 
         recyclerView = findViewById(R.id.recycler_view);
         progressBar = findViewById(R.id.progressBarMon);
-
-
+        textName = findViewById(R.id.tvhello);
+        SharedPreferences sh = UserMainActivity.this.getSharedPreferences("SIH",MODE_PRIVATE);
+        String name = sh.getString("name",null);
+        textName.setText("Hello "+name);
         monumentInfoArrayList = new ArrayList<>();
 
         checkredcount();
