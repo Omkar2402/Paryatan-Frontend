@@ -54,8 +54,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/etTicketName"
-        app:layout_constraintLeft_toRightOf="@id/tvage"
-        />
+        app:layout_constraintLeft_toRightOf="@id/tvage">
+
     <RadioButton
         android:id="@+id/rdoTicketAdult"
         android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
         android:text="Adult (13 years and above)"
         android:textSize="14dp"
         app:layout_constraintStart_toEndOf="@+id/tvage"
-        app:layout_constraintTop_toBottomOf="@+id/etTicketName" />
+        app:layout_constraintTop_toBottomOf="@+id/etTicketName" ></RadioButton>
 
     <RadioButton
         android:id="@+id/rdoTicketChild"
@@ -82,9 +82,9 @@
         app:layout_constraintTop_toBottomOf="@id/rdoTicketAdult"
         app:layout_constraintStart_toStartOf="@id/rdoTicketAdult"
         tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="107dp" />
+        tools:layout_editor_absoluteY="107dp" ></RadioButton>
 
-
+    </RadioGroup>
 
 
 
@@ -99,7 +99,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/open_sans"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rdoTicketChild"
+        app:layout_constraintTop_toBottomOf="@id/rdoTicketAge"
 
         />
 
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         app:layout_constraintLeft_toRightOf="@id/tvTicketGender"
-        app:layout_constraintTop_toBottomOf="@id/rdoTicketChild"
+        app:layout_constraintTop_toBottomOf="@id/rdoTicketAge"
         android:orientation="horizontal"
         android:layout_marginTop="10dp">
         <RadioButton
@@ -144,7 +144,6 @@
         android:fontFamily="@font/open_sans"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTicketGender"
-
         />
 
     <RadioGroup
