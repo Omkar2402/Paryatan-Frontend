@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                             //Map<String,String> map = new HashMap<>();
                             //map.put("email",email.getText().toString());
 
-                            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(50000, TimeUnit.MILLISECONDS).build();
+                            OkHttpClient client = new OkHttpClient.Builder().connectTimeout(500000, TimeUnit.MILLISECONDS).build();
                             RequestBody formBody = new FormBody.Builder()
                                     .add("email", email.getText().toString())
                                     .build();

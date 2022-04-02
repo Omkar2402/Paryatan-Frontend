@@ -308,7 +308,8 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
 
     private void payMoney() {
         try{
-            int amount = (int)Math.round(fare);
+            int amount = (int)Math.round(fare)*100;
+            Log.d("amount",""+amount);
 
             Checkout checkout = new Checkout();
 

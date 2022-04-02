@@ -44,6 +44,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
+
         setContentView(R.layout.activity_splash);
 
         Color.parseColor("#e6f9ff");
@@ -51,9 +52,9 @@ public class SplashActivity extends AppCompatActivity {
 
         VideoView videoView = findViewById(R.id.video_view);
         try {
-            MediaController mediaController = new MediaController(this);
-            mediaController.setAnchorView(videoView);
-            videoView.setMediaController(mediaController);
+//            MediaController mediaController = new MediaController(this);
+//            mediaController.setAnchorView(videoView);
+//            videoView.setMediaController(mediaController);
             videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" +
                     R.raw.splash_video));
             videoView.start();

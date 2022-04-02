@@ -407,7 +407,12 @@ public class TicketQR extends AppCompatActivity {
                         Log.d("String added successfully", message);
                         progressBar.setVisibility(View.GONE);
                     } catch (Exception e) {
-                        progressBar.setVisibility(View.GONE);
+                        TicketQR.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        });
                         e.printStackTrace();
                     }
                 }
