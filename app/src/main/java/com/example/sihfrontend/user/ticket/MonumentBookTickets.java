@@ -20,6 +20,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.sihfrontend.R;
+import com.example.sihfrontend.payment.PaymentActivity;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 
 import org.json.JSONObject;
 
@@ -42,7 +45,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MonumentBookTickets extends AppCompatActivity implements ticketInterface{
+public class MonumentBookTickets extends AppCompatActivity implements ticketInterface, PaymentResultListener {
     private ArrayList<ticketInfo> ticketInfoArrayList;
     private RecyclerView recyclerView;
     private Calendar calendar;
@@ -294,18 +297,54 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
                     @Override
                     public void run() {
                         if (i==ticketInfoArrayList.size()-1) {
-                            Intent intent = new Intent(MonumentBookTickets.this, TicketQR.class);
-                            intent.putExtra("arrayList",ticketInfoArrayList);
-                            intent.putExtra("fare",fare);
-                            intent.putExtra("date_of_visit",date_of_visit);
-                            intent.putExtra("monumentName",monumentName);
-                            startActivity(intent);
+                            payMoney();
                         }
                     }
                 });
 
             }
         });
+    }
+
+    private void payMoney() {
+        try{
+            int amount = (int)Math.round(fare);
+
+            Checkout checkout = new Checkout();
+
+            checkout.setKeyID("rzp_live_dSG7KmGC5Ox5tS");
+
+            checkout.setImage(R.drawable.heritage_logo);
+
+            JSONObject object = new JSONObject();
+
+            // to put name
+            object.put("name", "GOD");
+
+            // put description
+            object.put("description", "Test payment");
+
+            // to set theme color
+            object.put("theme.color", "");
+
+            // put the currency
+            object.put("currency", "INR");
+
+            // put amount
+            object.put("amount", amount);
+
+            // put mobile number
+            object.put("prefill.contact", "8237345685");
+
+            // put email
+            object.put("prefill.email", "shivamvermasv380@gmail.com");
+
+            // open razorpay to checkout activity
+            checkout.open(MonumentBookTickets.this, object);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -354,5 +393,21 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
         proceed.setText("PROCEED("+fare+")");
         //ticket_adapter.updateTicketList(ticketInfoArrayList);
         ticket_adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+        Toast.makeText(getApplicationContext(),"Payment is successfull",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(MonumentBookTickets.this, TicketQR.class);
+        intent.putExtra("arrayList",ticketInfoArrayList);
+        intent.putExtra("fare",fare);
+        intent.putExtra("date_of_visit",date_of_visit);
+        intent.putExtra("monumentName",monumentName);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Toast.makeText(getApplicationContext(),"Payment failed",Toast.LENGTH_LONG).show();
     }
 }
