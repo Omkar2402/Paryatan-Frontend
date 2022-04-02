@@ -332,6 +332,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
             object.put("currency", "INR");
 
             // put amount
+            amount = 100;
             object.put("amount", amount);
 
             // put mobile number
@@ -405,6 +406,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
         intent.putExtra("date_of_visit",date_of_visit);
         intent.putExtra("monumentName",monumentName);
         startActivity(intent);
+        finish();
     }
 
     @Override
