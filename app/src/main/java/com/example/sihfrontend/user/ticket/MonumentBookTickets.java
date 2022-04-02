@@ -313,7 +313,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
 
             Checkout checkout = new Checkout();
 
-            checkout.setKeyID("rzp_live_dSG7KmGC5Ox5tS");
+            checkout.setKeyID("rzp_test_0wcyKJbJkPa02o");
 
             checkout.setImage(R.drawable.heritage_logo);
 
@@ -332,7 +332,7 @@ public class MonumentBookTickets extends AppCompatActivity implements ticketInte
             object.put("currency", "INR");
 
             // put amount
-            amount = 100;
+            //amount = 100;
             object.put("amount", amount);
 
             // put mobile number
