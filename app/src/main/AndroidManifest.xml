@@ -33,10 +33,6 @@
         android:theme="@style/Theme.SIHFrontend"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".payment.PaymentActivity"
-            android:exported="true" >
-        </activity>
-        <activity
             android:name=".admin.AdminFlagReport"
             android:exported="true" />
         <activity
