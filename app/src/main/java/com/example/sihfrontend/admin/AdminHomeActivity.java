@@ -51,7 +51,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.report_user,menu);
+        getMenuInflater().inflate(R.menu.menu_item,menu);
         return true;
     }
 

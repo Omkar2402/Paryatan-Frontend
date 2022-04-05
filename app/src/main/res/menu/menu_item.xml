@@ -13,11 +13,10 @@
         android:title="Home">
         <menu>
             <item
-                android:id="@+id/profile"
+                android:id="@+id/user_profile"
                 android:icon="@drawable/ic_person_blue"
                 android:title="My Profile"
                 app:showAsAction="never">
-
             </item>
 
             <item
@@ -27,6 +26,21 @@
                 app:showAsAction="never">
 
             </item>
+
+            <item
+                android:id="@+id/video_livestream"
+                android:icon="@drawable/ic_exit_to_app_blue"
+                android:title="Go Live"
+                app:showAsAction="never">
+            </item>
+            <item
+                android:id="@+id/reportuser"
+                android:icon="@drawable/ic_report"
+                android:title="Report User"
+                app:showAsAction="never">
+
+            </item>
+
         </menu>
 
 

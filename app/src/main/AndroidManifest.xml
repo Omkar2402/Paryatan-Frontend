@@ -59,19 +59,15 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".streaming.LiveStreamMain"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            android:exported="false" >
         </activity>
         <activity
             android:name=".admin.AdminFlagReport"
             android:exported="true" />
         <activity
             android:name=".admin.AdminHomeActivity"
-            android:exported="false" />
+            android:exported="false" >
+        </activity>
         <activity
             android:name=".helper.VideoHelper"
             android:exported="false" />
@@ -92,7 +88,12 @@
             android:exported="true" />
         <activity
             android:name=".admin.AdminMainActivity"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".user.UserMainActivity"
             android:exported="false" />
@@ -114,7 +115,6 @@
         <activity
             android:name=".splash.SplashActivity"
             android:exported="false">
-
         </activity>
         <activity
             android:name=".MainActivity"
@@ -133,6 +133,7 @@
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
+
     </application>
 
 </manifest>

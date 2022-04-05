@@ -14,6 +14,8 @@ import android.widget.Button;
 
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.UserProfile;
+import com.example.sihfrontend.register.RegisterActivity;
+import com.example.sihfrontend.streaming.LiveStreamMain;
 
 public class AdminMainActivity extends AppCompatActivity {
 
@@ -43,9 +45,10 @@ public class AdminMainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.report_user,menu);
+        getMenuInflater().inflate(R.menu.menu_item,menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -55,6 +58,11 @@ public class AdminMainActivity extends AppCompatActivity {
         }
         else if (item_id==R.id.user_profile) {
             startActivity(new Intent(AdminMainActivity.this, UserProfile.class));
+        }
+        else if(item_id == R.id.video_livestream){
+            startActivity(new Intent(AdminMainActivity.this, LiveStreamMain.class));
+        }else if(item_id == R.id.logout){
+            startActivity(new Intent(AdminMainActivity.this, RegisterActivity.class));
         }
         return true;
     }

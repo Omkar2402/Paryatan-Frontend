@@ -18,6 +18,7 @@ import com.example.sihfrontend.R;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class LiveStreamMain extends AppCompatActivity {
     private static final String APPLICATION_ID = "17LguohzblGi0utJGc2qtw";
@@ -78,6 +79,7 @@ public class LiveStreamMain extends AppCompatActivity {
         }
         @Override
         public void onCameraError(CameraError cameraError) {
+            Toast.makeText(getApplicationContext(),""+cameraError.toString(),Toast.LENGTH_LONG).show();
         }
         @Override
         public void onChatMessage(String s) {
