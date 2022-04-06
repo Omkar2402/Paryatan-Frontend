@@ -72,7 +72,11 @@
         <activity
             android:name=".streaming.ViewStream"
             android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".streaming.LiveStreamMain"
@@ -109,6 +113,7 @@
         <activity
             android:name=".admin.AdminMainActivity"
             android:exported="false">
+
         </activity>
         <activity
             android:name=".user.UserMainActivity"
