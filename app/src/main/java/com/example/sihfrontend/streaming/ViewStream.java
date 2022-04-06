@@ -55,6 +55,7 @@ public class ViewStream extends AppCompatActivity {
                     browser.getSettings().setJavaScriptEnabled(true);
                     browser.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                     browser.loadUrl(url);
+                    button.setVisibility(View.GONE);
 //                    startActivity(browserIntent);
 //                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
 //                    CustomTabsIntent customTabsIntent = builder.build();
