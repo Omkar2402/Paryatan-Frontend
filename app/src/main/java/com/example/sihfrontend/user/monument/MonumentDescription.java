@@ -2,6 +2,8 @@ package com.example.sihfrontend.user.monument;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -25,8 +27,12 @@ import android.widget.VideoView;
 
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.helper.VideoHelper;
+import com.example.sihfrontend.user.UserMainActivity;
+import com.example.sihfrontend.user.reviews.ReviewsAdapter;
+import com.example.sihfrontend.user.reviews.ReviewsInfo;
 import com.example.sihfrontend.user.ticket.MonumentBookTickets;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,8 +52,10 @@ import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MonumentDescription extends AppCompatActivity {
@@ -61,15 +69,17 @@ public class MonumentDescription extends AppCompatActivity {
     private TextView websiteLink;
     private Button bookTicket;
     private Button monLocation;
+    private RecyclerView reviewRecyclerView;
 //    private ProgressBar progressBar;
 
     private Button selectDate;
+    private ArrayList<ReviewsInfo> reviewsInfoArrayList= new ArrayList<>();
 
     private double indian_adult ;
     private double indian_child;
     private double foreign_adult;
     private double foreign_child;
-
+    private ReviewsAdapter reviewsAdapter;
     private byte[] videoBytes;
     private  boolean wait = true;
 
@@ -106,6 +116,8 @@ public class MonumentDescription extends AppCompatActivity {
         monLocation = findViewById(R.id.btnMonumentLocation);
         progressBar = findViewById(R.id.progressBarVideo);
         selectDate = findViewById(R.id.btnTicketDate);
+        reviewRecyclerView = findViewById(R.id.reviewsRecyclerView);
+
 
 //        try{
 //            Log.d("Fare", String.valueOf(fare));
@@ -150,7 +162,12 @@ public class MonumentDescription extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-
+        fetchReviews();
+        reviewsAdapter = new ReviewsAdapter(MonumentDescription.this, reviewsInfoArrayList) {
+        };
+        reviewRecyclerView.setAdapter(reviewsAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MonumentDescription.this,LinearLayoutManager.HORIZONTAL,false);
+        reviewRecyclerView.setLayoutManager(linearLayoutManager);
         websiteLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -400,5 +417,54 @@ public class MonumentDescription extends AppCompatActivity {
 
     public void onCompletion(MediaPlayer mp) {
 
+    }
+
+    public void fetchReviews(){
+        OkHttpClient client = new OkHttpClient();
+        SharedPreferences sh = MonumentDescription.this.getSharedPreferences("SIH",MODE_PRIVATE);
+        String token = sh.getString("token",null);
+        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("monument_name",monument_Name)
+                .build();
+        Request request = new Request.Builder()
+                .url(getString(R.string.api)+"/review/monument")
+                .addHeader("Authorization","Bearer "+token)
+                .post(formBody)
+                .build();
+        Log.d("Before Response",token);
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("In failure","..");
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    Log.d("In response","..");
+                    JSONArray jsonArray = new JSONArray(response.body().string());
+//                    String message = json.getString("message");
+                    for(int i=0;i<jsonArray.length();i++){
+                        String name = jsonArray.getJSONObject(i).getString("userName");
+                        String date = jsonArray.getJSONObject(i).getString("date_of_visit");
+                        float rating = Float.parseFloat(jsonArray.getJSONObject(i).getString("userRating"));
+                        String review = jsonArray.getJSONObject(i).getString("userReview");
+                        ReviewsInfo obj = new ReviewsInfo(name,rating,date,review);
+                        reviewsInfoArrayList.add(obj);
+                        Log.d("Name",name);
+                    }
+                    MonumentDescription.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            reviewsAdapter.notifyDataSetChanged();
+                        }
+                    });
+                } catch (JSONException e) {
+                    Log.d("In catch","");
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

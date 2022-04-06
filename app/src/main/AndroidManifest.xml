@@ -97,8 +97,9 @@
             android:exported="false" />
         <activity
             android:name=".admin.TicketScanner"
-            android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:exported="true">
+
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

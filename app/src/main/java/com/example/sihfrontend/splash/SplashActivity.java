@@ -19,6 +19,7 @@ import com.example.sihfrontend.OTPVerification;
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.admin.AdminHomeActivity;
 import com.example.sihfrontend.admin.AdminMainActivity;
+import com.example.sihfrontend.admin.TicketScanner;
 import com.example.sihfrontend.helper.VideoHelper;
 import com.example.sihfrontend.register.RegisterActivity;
 import com.example.sihfrontend.user.UserMainActivity;
@@ -57,12 +58,12 @@ public class SplashActivity extends AppCompatActivity {
 //            videoView.setMediaController(mediaController);
             videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" +
                     R.raw.splash_video));
+
+
             videoView.start();
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -105,7 +106,6 @@ public class SplashActivity extends AppCompatActivity {
                                     editor.apply();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
-
                                 }
                                 String finalMessage = message;
                                 SplashActivity.this.runOnUiThread(new Runnable() {
@@ -132,8 +132,6 @@ public class SplashActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if(role!=null && token!=null){
-
-
                     if(role.equals("user")){
                         Intent intent = new Intent(SplashActivity.this, UserMainActivity.class);
                         startActivity(intent);
@@ -152,7 +150,6 @@ public class SplashActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
-
                     }
                 }else{
                     Intent splashIntent=new Intent(SplashActivity.this, MainActivity.class);

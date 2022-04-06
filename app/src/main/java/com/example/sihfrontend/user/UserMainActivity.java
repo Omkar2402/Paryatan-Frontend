@@ -281,7 +281,12 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();
-                    progressBar.setVisibility(View.GONE);
+                    UserMainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
                 }
 
                 @Override
