@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.UserProfile;
 import com.example.sihfrontend.register.RegisterActivity;
+import com.example.sihfrontend.streaming.ApplicationInput;
 import com.example.sihfrontend.streaming.LiveStreamMain;
 
 public class AdminMainActivity extends AppCompatActivity {
@@ -60,7 +61,20 @@ public class AdminMainActivity extends AppCompatActivity {
             startActivity(new Intent(AdminMainActivity.this, UserProfile.class));
         }
         else if(item_id == R.id.video_livestream){
-            startActivity(new Intent(AdminMainActivity.this, LiveStreamMain.class));
+            try{
+                SharedPreferences sharedPreferences = AdminMainActivity.this.getSharedPreferences("LiveStream",MODE_PRIVATE);
+                String APPLICATION_ID = sharedPreferences.getString("APPLICATION_ID",null);
+                String resource_uri = sharedPreferences.getString("RESOURCE_URI",null);
+                if(APPLICATION_ID==null || resource_uri==null){
+                    startActivity(new Intent(AdminMainActivity.this, ApplicationInput.class));
+                }else{
+                    startActivity(new Intent(AdminMainActivity.this, LiveStreamMain.class));
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         }else if(item_id == R.id.logout){
             startActivity(new Intent(AdminMainActivity.this, RegisterActivity.class));
         }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,9 +32,10 @@ public class LiveStreamMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_stream_main);
-
+        SharedPreferences sharedPreferences = LiveStreamMain.this.getSharedPreferences("LiveStream",MODE_PRIVATE);
+        String APP = sharedPreferences.getString("APPLICATION_ID",null);
         mPreviewSurface = findViewById(R.id.PreviewSurfaceView);
-        mBroadcaster = new Broadcaster(this, APPLICATION_ID1, mBroadcasterObserver);
+        mBroadcaster = new Broadcaster(this, APP, mBroadcasterObserver);
         mBroadcaster.setRotation(getWindowManager().getDefaultDisplay().getRotation());
 
         mBroadcastButton = findViewById(R.id.BroadcastButton);

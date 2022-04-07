@@ -3,6 +3,7 @@
     <string name="private_app_id">25b7e56c7f544bab8d9912b2b6d8b7d9</string>
     <string name="didn_t_receive_the_otp">Didn\'t receive the otp?</string>
     <string name="resend_otp">RESEND OTP</string>
+    <string name="bambuser"><a href="https://dashboard.bambuser.com/developer">https://dashboard.bambuser.com/developer</a></string>
     <string-array name="adminoruser">
         <item>"Select Profile"</item>
         <item>User</item>
