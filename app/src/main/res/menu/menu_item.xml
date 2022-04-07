@@ -40,9 +40,13 @@
                 app:showAsAction="never">
 
             </item>
-
+            <item
+                android:id="@+id/join_live"
+                android:icon="@drawable/ic_baseline_live_tv_24"
+                android:title="Join Live Streams"
+                app:showAsAction="never">
+            </item>
         </menu>
-
 
     </item>
 </menu>

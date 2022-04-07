@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.sihfrontend.MainActivity;
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.UserProfile;
+import com.example.sihfrontend.streaming.onlinetickets.UpcomingStreams;
 import com.example.sihfrontend.user.monument.MonumentDescription;
 import com.example.sihfrontend.user.monument.MonumentInterface;
 import com.example.sihfrontend.user.monument.monumentAdapter;
@@ -77,9 +78,6 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
         recyclerView.setAdapter(monument_adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(UserMainActivity.this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-
-
 
 
     }
@@ -237,6 +235,8 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
         int item_id = item.getItemId();
         if (item_id==R.id.profile) {
             startActivity(new Intent(UserMainActivity.this, UserProfile.class));
+        }else if(item_id == R.id.join_live){
+            startActivity(new Intent(UserMainActivity.this, UpcomingStreams.class));
         }
         return true;
     }

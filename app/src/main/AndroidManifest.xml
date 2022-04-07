@@ -70,28 +70,22 @@
         android:theme="@style/Theme.SIHFrontend"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".streaming.onlinetickets.UpcomingStreams"
+            android:exported="true" />
+        <activity
             android:name=".streaming.ViewStream"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".streaming.LiveStreamMain"
-            android:exported="false">
-
-
-
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".admin.AdminFlagReport"
             android:exported="true" />
         <activity
             android:name=".admin.AdminHomeActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".helper.VideoHelper"
             android:exported="false" />
@@ -112,12 +106,15 @@
             android:exported="true" />
         <activity
             android:name=".admin.AdminMainActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".user.UserMainActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Test_Image"
             android:exported="false" />
@@ -135,7 +132,7 @@
             android:exported="false" />
         <activity
             android:name=".splash.SplashActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
