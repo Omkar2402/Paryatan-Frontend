@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 public class LiveStreamMain extends AppCompatActivity {
     private static final String APPLICATION_ID = "17LguohzblGi0utJGc2qtw";
-
+    private static final String APPLICATION_ID1 = "nD1vom8zCP5Mdy63g2TRaQ";
     SurfaceView mPreviewSurface;
     Broadcaster mBroadcaster;
     Button mBroadcastButton;
@@ -33,7 +33,7 @@ public class LiveStreamMain extends AppCompatActivity {
         setContentView(R.layout.activity_live_stream_main);
 
         mPreviewSurface = findViewById(R.id.PreviewSurfaceView);
-        mBroadcaster = new Broadcaster(this, APPLICATION_ID, mBroadcasterObserver);
+        mBroadcaster = new Broadcaster(this, APPLICATION_ID1, mBroadcasterObserver);
         mBroadcaster.setRotation(getWindowManager().getDefaultDisplay().getRotation());
 
         mBroadcastButton = findViewById(R.id.BroadcastButton);
