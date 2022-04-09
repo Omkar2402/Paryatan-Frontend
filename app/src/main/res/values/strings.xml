@@ -9,5 +9,5 @@
         <item>User</item>
         <item>Admin</item>
     </string-array>
-    <string name="api">http://10.0.2.2:8080</string>
+    <string name="api">http://ec2-54-209-209-158.compute-1.amazonaws.com:8080</string>
 </resources>

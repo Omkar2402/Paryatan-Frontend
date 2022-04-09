@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.UserProfile;
+import com.example.sihfrontend.streaming.ApplicationInput;
+import com.example.sihfrontend.streaming.LiveStreamMain;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,6 +65,16 @@ public class AdminHomeActivity extends AppCompatActivity {
         }
         else if (item_id==R.id.user_profile) {
             startActivity(new Intent(AdminHomeActivity.this, UserProfile.class));
+        }else if(item_id == R.id.video_livestream){
+            SharedPreferences sharedPreferences = AdminHomeActivity.this.getSharedPreferences("LiveStream",MODE_PRIVATE);
+            String APPLICATION_ID = sharedPreferences.getString("APPLICATION_ID",null);
+            String resource_uri = sharedPreferences.getString("RESOURCE_URI",null);
+            if(APPLICATION_ID==null || resource_uri==null){
+                startActivity(new Intent(AdminHomeActivity.this, ApplicationInput.class));
+            }else{
+                startActivity(new Intent(AdminHomeActivity.this, LiveStreamMain.class));
+            }
+
         }
         return true;
     }

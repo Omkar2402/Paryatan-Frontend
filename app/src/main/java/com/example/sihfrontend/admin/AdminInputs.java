@@ -424,7 +424,7 @@ public class AdminInputs extends AppCompatActivity {
 
                     }
                 })
-                .connectTimeout(1000, TimeUnit.MILLISECONDS)
+                .connectTimeout(100000, TimeUnit.MILLISECONDS)
                 .build();
         SharedPreferences sh = AdminInputs.this.getSharedPreferences("SIH",MODE_PRIVATE);
         String token = sh.getString("token",null);

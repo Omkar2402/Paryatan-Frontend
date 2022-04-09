@@ -109,7 +109,7 @@ public class AdminBankDetails extends AppCompatActivity {
                     AdminBankDetails.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            startActivity(new Intent(AdminBankDetails.this,AdminMonumentDetails.class));
+                            startActivity(new Intent(AdminBankDetails.this,AdminHomeActivity.class));
                         }
                     });
 

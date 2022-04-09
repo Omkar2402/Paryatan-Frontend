@@ -40,10 +40,15 @@
         <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/activity_register.xml" value="0.20697463768115942" />
         <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/activity_splash.xml" value="0.15471698113207547" />
         <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/activity_ticket_qr.xml" value="0.29583333333333334" />
+        <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/activity_upcoming_streams.xml" value="0.176" />
         <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/activity_user_main.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/activity_user_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/activity_view_all_streams.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/activity_view_stream.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/dialogbox.xml" value="0.67" />
-        <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/item_monument.xml" value="0.1265625" />
+        <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/item_monument.xml" value="0.264" />
+        <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/item_stream.xml" value="0.4" />
+        <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/item_ticket_list.xml" value="0.23854166666666668" />
         <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/layout/network_security_config.xml" value="0.315625" />
         <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/menu/report_user.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/khare/omkar/SIH/SIH-Frontend/app/src/main/res/xml/file_path.xml" value="0.1546875" />
@@ -56,7 +61,6 @@
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_admin_home.xml" value="0.18659420289855072" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_admin_inputs.xml" value="0.18659420289855072" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_admin_main.xml" value="0.2604166666666667" />
-        <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_application_input.xml" value="0.264" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_monument_book_tickets.xml" value="0.264" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_monument_description.xml" value="0.4" />
@@ -67,12 +71,9 @@
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_test.xml" value="0.128125" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_test_image.xml" value="0.23107569721115537" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_ticket_qr.xml" value="0.264" />
-        <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_upcoming_streams.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_user_main.xml" value="0.159375" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_verify_email.xml" value="0.2" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_video_helper.xml" value="0.19166666666666668" />
-        <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/activity_view_stream.xml" value="0.176" />
-        <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/item_stream.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/item_ticket_list.xml" value="0.536" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/item_ticket_qr.xml" value="0.2" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/SIHFrontend/app/src/main/res/layout/login_tab_fragment.xml" value="0.264" />

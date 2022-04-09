@@ -18,6 +18,16 @@ import com.example.sihfrontend.user.monument.MonumentDescription;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class ApplicationInput extends AppCompatActivity {
 
     TextView link;
@@ -55,13 +65,44 @@ public class ApplicationInput extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Please fill all the details",Toast.LENGTH_LONG).show();
                 else{
                     try {
-                        SharedPreferences sharedPreferences = getSharedPreferences("LiveStream",MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("APPLICATION_ID",applicationId.getText().toString());
-                        editor.putString("RESOURCE_URI",playerLink.getText().toString());
-                        editor.apply();
-                        startActivity(new Intent(ApplicationInput.this,LiveStreamMain.class));
-                        finish();
+                        SharedPreferences sh = ApplicationInput.this.getSharedPreferences("Admin_Monument",MODE_PRIVATE);
+                        String monument_name = sh.getString("monument_name",null);
+                        SharedPreferences sh1 = ApplicationInput.this.getSharedPreferences("SIH",MODE_PRIVATE);
+                        String token = sh1.getString("token",null);
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                .addFormDataPart("MonumentName",monument_name)
+                                .addFormDataPart("application_id",applicationId.getText().toString())
+                                .addFormDataPart("PlayerLink",playerLink.getText().toString())
+                                .build();
+                        Request request = new Request.Builder()
+                                .url(getString(R.string.api)+"/add-bambuser-account")
+                                .addHeader("Authorization","Bearer "+token)
+                                .post(formBody)
+                                .build();
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                ApplicationInput.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        SharedPreferences sharedPreferences = getSharedPreferences("LiveStream",MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("APPLICATION_ID",applicationId.getText().toString());
+                                        editor.putString("RESOURCE_URI",playerLink.getText().toString());
+                                        editor.apply();
+                                        startActivity(new Intent(ApplicationInput.this,LiveStreamMain.class));
+                                        finish();
+                                    }
+                                });
+                            }
+                        });
+
                     }catch (Exception e){
                         e.printStackTrace();
                     }

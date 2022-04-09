@@ -38,7 +38,7 @@ public class loginhttp {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://10.0.2.2:8080/upload-image")
+                    .url("http://ec2-54-209-209-158.compute-1.amazonaws.com:8080/upload-image")
                     .addHeader("Authorization",auth)
                     .post(formBody)
                     .build();
@@ -79,7 +79,7 @@ public class loginhttp {
                     .add("role",role)
                     .build();
             Request request = new Request.Builder()
-                    .url("http://10.0.2.2:8080/login")
+                    .url("http://ec2-54-209-209-158.compute-1.amazonaws.com:8080/login")
                     .addHeader("Authorization", auth)
                     .post(requestBody)
                     .build();
@@ -131,7 +131,7 @@ public class loginhttp {
 //                                        RequestBody.create(MediaType.parse("image/*"), file))
                     .build();
             Request request = new Request.Builder()
-                    .url("http://10.0.2.2:8080/register")
+                    .url("http://ec2-54-209-209-158.compute-1.amazonaws.com:8080/register")
                     .post(formBody)
                     .build();
 
