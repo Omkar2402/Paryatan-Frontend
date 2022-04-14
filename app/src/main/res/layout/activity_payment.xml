@@ -9,6 +9,7 @@
     <!--EditText text to enter amount-->
     <EditText
         android:id="@+id/idEdtAmount"
+        android:fontFamily="@font/open_sans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -24,6 +25,9 @@
         android:layout_below="@id/idEdtAmount"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/open_sans"
+        android:backgroundTint="#F8B466"
+        android:textColor="@color/black"
         android:text="Pay using RazorPay"
         android:textAllCaps="false" />
 

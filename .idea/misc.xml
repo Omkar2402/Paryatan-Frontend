@@ -11,11 +11,14 @@
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.195" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.195" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/drawable/view_background.xml" value="0.195" />
+        <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_admin_bank_details.xml" value="0.10989583333333333" />
+        <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_admin_flag_report.xml" value="0.1" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_admin_home.xml" value="0.15579710144927536" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_admin_inputs.xml" value="0.15579710144927536" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_admin_main.xml" value="0.264" />
+        <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_admin_monument_details.xml" value="0.2" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_main.xml" value="0.1334853090172239" />
-        <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_monument_book_tickets.xml" value="0.264" />
+        <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_monument_book_tickets.xml" value="0.2" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_monument_description.xml" value="0.128" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_otp_verification.xml" value="0.1334853090172239" />
         <entry key="..\:/SIH/SIHFrontend/app/src/main/res/layout/activity_payment.xml" value="0.2" />

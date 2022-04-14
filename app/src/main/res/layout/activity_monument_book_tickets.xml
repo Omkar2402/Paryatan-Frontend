@@ -68,7 +68,7 @@
         android:text="Adult (13 years and above)"
         android:textSize="14dp"
         app:layout_constraintStart_toEndOf="@+id/tvage"
-        app:layout_constraintTop_toBottomOf="@+id/etTicketName" ></RadioButton>
+        app:layout_constraintTop_toBottomOf="@+id/etTicketName" />
 
     <RadioButton
         android:id="@+id/rdoTicketChild"
@@ -77,12 +77,13 @@
         android:layout_height="wrap_content"
         android:text="Child (0-12 years)"
         android:paddingLeft="10dp"
+        android:layout_marginLeft="30dp"
         android:textSize="14dp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/rdoTicketAdult"
         app:layout_constraintStart_toStartOf="@id/rdoTicketAdult"
         tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="107dp" ></RadioButton>
+        tools:layout_editor_absoluteY="107dp" />
 
     </RadioGroup>
 
@@ -199,7 +200,7 @@
         app:layout_constraintTop_toBottomOf="@id/etAadharNumber"
         app:layout_constraintLeft_toLeftOf="parent"
         android:backgroundTint="@color/white"
-        android:textColor="#FBD8B0"
+        android:textColor="#F8B466"
         android:drawableLeft="@drawable/ic_baseline_add_24"
         android:textSize="14dp"
         android:layout_margin="20dp"

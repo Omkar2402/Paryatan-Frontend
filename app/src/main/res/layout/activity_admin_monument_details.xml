@@ -5,20 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".admin.AdminMonumentDetails"
-    android:background="@drawable/background_admin">
+    android:backgroundTint="@color/white">
 
 
     <TextView
         android:id="@+id/monument_details_txt"
-        android:paddingTop="28dp"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/open_sans"
         android:text="Monuments Details"
         android:textAlignment="center"
-        android:textColor="@color/orange"
-        android:textSize="36sp"
+        android:textColor="#F8B466"
+        android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/inputmonumentimg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -29,54 +31,49 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/input_bg"
-        android:drawableLeft="@drawable/ic_image"
         android:drawablePadding="10dp"
-
-        android:ems="10"
-        android:paddingLeft="20dp"
         android:paddingTop="10dp"
+        android:fontFamily="@font/open_sans"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
         android:text="Upload Monument Video"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
+        android:backgroundTint="@color/black"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/monument_details_txt"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/monument_details_txt"
         app:layout_constraintTop_toBottomOf="@+id/monument_details_txt" />
 
-    <ImageView
-        android:id="@+id/MPreviewImage"
-        android:layout_width="61dp"
-        android:layout_height="57dp"
-        android:layout_below="@id/VideoUpload"
+<!--    <ImageView-->
+<!--        android:id="@+id/MPreviewImage"-->
+<!--        android:layout_width="61dp"-->
+<!--        android:layout_height="57dp"-->
+<!--        android:layout_below="@id/VideoUpload"-->
 
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/monument_details_txt"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--        android:layout_marginTop="16dp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/monument_details_txt"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ImageButton
         android:id="@+id/VideoUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="@+id/inputmonumentimg"
         app:layout_constraintTop_toTopOf="@+id/inputmonumentimg"
         app:srcCompat="@drawable/ic_cloud_upload"
         tools:ignore="VectorDrawableCompat" />
 
-    <TextView
+    <EditText
         android:id="@+id/StartingTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/input_bg"
         android:textSize="18dp"
         android:drawablePadding="10dp"
         android:ems="10"
+        android:fontFamily="@font/open_sans"
         android:hint="Starting Time"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -88,15 +85,13 @@
         app:layout_constraintStart_toStartOf="@+id/inputmonumentimg"
         app:layout_constraintTop_toBottomOf="@+id/inputmonumentimg" />
 
-    <TextView
+    <EditText
         android:id="@+id/EndingTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/input_bg"
-
+        android:fontFamily="@font/open_sans"
         android:drawablePadding="10dp"
-        android:ems="10"
         android:hint="Ending Time"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -115,10 +110,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/input_bg"
-
+        android:fontFamily="@font/open_sans"
         android:drawablePadding="10dp"
-        android:ems="10"
         android:hint="Monument Description"
         android:inputType="text"
         android:paddingLeft="20dp"
@@ -136,10 +129,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/input_bg"
-
-        android:drawablePadding="10dp"
-        android:ems="10"
+        android:fontFamily="@font/open_sans"
         android:hint="Fare Indian Adult"
         android:inputType="number"
         android:paddingLeft="20dp"
@@ -157,8 +147,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/input_bg"
-
+        android:fontFamily="@font/open_sans"
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Fare Indian Child"
@@ -178,8 +167,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/input_bg"
-
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Fare Foreign Adult"
@@ -199,8 +186,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/input_bg"
-
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Fare Foreign Child"
@@ -220,7 +205,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/input_bg"
         android:textSize="18dp"
         android:drawablePadding="10dp"
         android:ems="10"
@@ -239,11 +223,12 @@
 
     <Button
         android:id="@+id/btn_submit"
-        android:background="@drawable/custom_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Submit"
+        android:textColor="@color/black"
+        android:backgroundTint="#FBD8B0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ClosingDays" />
