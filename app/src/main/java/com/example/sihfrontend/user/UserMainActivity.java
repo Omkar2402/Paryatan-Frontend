@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -22,7 +21,7 @@ import android.widget.Toast;
 import com.example.sihfrontend.MainActivity;
 import com.example.sihfrontend.R;
 import com.example.sihfrontend.UserProfile;
-import com.example.sihfrontend.streaming.onlinetickets.UpcomingStreams;
+import com.example.sihfrontend.streaming.getStreams.ViewAllStreams;
 import com.example.sihfrontend.user.monument.MonumentDescription;
 import com.example.sihfrontend.user.monument.MonumentInterface;
 import com.example.sihfrontend.user.monument.monumentAdapter;
@@ -39,7 +38,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class UserMainActivity extends AppCompatActivity implements MonumentInterface {
@@ -236,7 +234,7 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
         if (item_id==R.id.profile) {
             startActivity(new Intent(UserMainActivity.this, UserProfile.class));
         }else if(item_id == R.id.join_live){
-            startActivity(new Intent(UserMainActivity.this, UpcomingStreams.class));
+            startActivity(new Intent(UserMainActivity.this, ViewAllStreams.class));
         }
         return true;
     }
@@ -281,7 +279,13 @@ public class UserMainActivity extends AppCompatActivity implements MonumentInter
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();
-                    progressBar.setVisibility(View.GONE);
+                    UserMainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+
                 }
 
                 @Override

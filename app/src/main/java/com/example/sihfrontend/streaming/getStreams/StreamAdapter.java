@@ -26,7 +26,7 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.Viewholder
     public StreamInterface streamInterface;
 
     // Constructor
-    public void monumentAdapter(Context context, ArrayList<StreamDetails> courseModelArrayList, StreamInterface streamInterface) {
+    public  StreamAdapter(Context context, ArrayList<StreamDetails> courseModelArrayList, StreamInterface streamInterface) {
         this.context = context;
         this.streamInfoArrayList = courseModelArrayList;
         this.streamInterface = streamInterface;
@@ -46,78 +46,61 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.Viewholder
     @Override
     public StreamAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // to inflate the layout for each item of recycler view.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_monument, parent, false);
-        com.example.sihfrontend.user.monument.monumentAdapter.Viewholder viewholder = new com.example.sihfrontend.user.monument.monumentAdapter.Viewholder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_stream, parent, false);
+        Viewholder viewholder = new Viewholder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monumentInterface.onCardClicked(monumentInfoArrayList.get(viewholder.getAdapterPosition()));
+//                StreamInterface.onCardClicked(streamInfoArrayList.get(viewholder.getAdapterPosition()));
+                  streamInterface.onCardClicked(streamInfoArrayList.get(viewholder.getAdapterPosition()));
             }
         });
-        return new com.example.sihfrontend.user.monument.monumentAdapter.Viewholder(view);
+        return new Viewholder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.example.sihfrontend.user.monument.monumentAdapter.Viewholder holder, int position) {
-        // to set data to textview and imageview of each card layout
-        monumentInfo model = monumentInfoArrayList.get(position);
+    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
+
+        StreamDetails model = streamInfoArrayList.get(position);
         try{
-            Log.d("Success:","bytes.toString()");
-            byte[] bytes = model.getMonumentImage();
-            Log.d("Length",""+bytes.length);
-            Log.d("In try","..");
-            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            holder.monumentimg.setImageBitmap(bmp);
+            holder.tvMonumentName.setText(model.getMonument_name());
+            holder.tvTime.setText(model.getTime());
+            holder.tvDate.setText(model.getDate());
 
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
-
-        holder.monumentname.setText(model.getMonumentName());
 //        holder.monumentimg.setImageResource(model.getMonumentImage());
+
     }
 
-    //    public static void updateMonuments(ArrayList<monumentInfo> new_arrayList){
-//        Log.d("In updatemonument","....");
-//        Log.d("new_arraylist",""+new_arrayList.size());
-//        monumentInfoArrayList.clear();
-//        Log.d("arraylist",""+monumentInfoArrayList.size());
-//        for(int i=0;i<new_arrayList.size();i++){
-//            monumentInfoArrayList.add(new_arrayList.get(i));
-//        }
-//        //monumentInfoArrayList.addAll(new_arrayList);
-//        Log.d("arrayList",""+monumentInfoArrayList.size());
-//        monumentAdapter obj = new monumentAdapter(new_arrayList);
-//        obj.notifyDataSetChanged();
-//
-//    }
     @Override
     public int getItemCount() {
         // this method is used for showing number
         // of card items in recycler view.
-        return monumentInfoArrayList.size();
+        return streamInfoArrayList.size();
     }
 
 
     // View holder class for initializing of
     // your views such as TextView and Imageview.
     public class Viewholder extends RecyclerView.ViewHolder {
-        private ImageView monumentimg;
-        private TextView monumentname;
+        private TextView tvDate;
+        private TextView tvTime;
+        private TextView tvMonumentName;
 
 
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
-            monumentimg = itemView.findViewById(R.id.imgMonumentImage);
-            monumentname = itemView.findViewById(R.id.txtMonumentName);
+            tvDate = itemView.findViewById(R.id.tvDate);
+            tvTime = itemView.findViewById(R.id.tvTime);
+            tvMonumentName = itemView.findViewById(R.id.tvMonumentName);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    monumentInterface.onCardClicked(monumentInfoArrayList.get(getAdapterPosition()));
+                    streamInterface.onCardClicked(streamInfoArrayList.get(getAdapterPosition()));
                 }
             });
         }

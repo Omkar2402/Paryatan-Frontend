@@ -10,6 +10,11 @@ public class StreamDetails {
     public StreamDetails() {
     }
 
+    public StreamDetails(String monument_name, String date, String time) {
+        this.monument_name = monument_name;
+        this.date = date;
+        this.time = time;
+    }
     public StreamDetails(String monument_name, String date, String time, String resource_uri) {
         this.monument_name = monument_name;
         this.date = date;

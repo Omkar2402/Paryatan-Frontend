@@ -101,8 +101,10 @@ public class SplashActivity extends AppCompatActivity {
                                     String token = jsonObject.getString("token");
                                     Log.d("message:",message);
                                     Log.d("token:",token);
+                                    editor.remove("token").commit();
                                     editor.putString("token",token);
                                     editor.apply();
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
 

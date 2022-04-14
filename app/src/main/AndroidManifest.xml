@@ -70,17 +70,17 @@
         android:theme="@style/Theme.SIHFrontend"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".streaming.getStreams.JoinLive"
+            android:exported="true" />
+        <activity
             android:name=".streaming.getStreams.ViewAllStreams"
             android:exported="true" />
         <activity
             android:name=".streaming.ApplicationInput"
             android:exported="false" />
         <activity
-            android:name=".streaming.onlinetickets.UpcomingStreams"
-            android:exported="true" />
-        <activity
             android:name=".streaming.ViewStream"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".streaming.LiveStreamMain"
             android:exported="false" />
@@ -110,10 +110,10 @@
             android:exported="true" />
         <activity
             android:name=".admin.AdminMainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".user.UserMainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Test_Image"
             android:exported="false" />
