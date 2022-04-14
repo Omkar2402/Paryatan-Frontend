@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -131,15 +133,26 @@ public class ViewAllStreams extends AppCompatActivity implements StreamInterface
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String resourceuri = jsonObject.getString("message");
-                    ViewAllStreams.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(ViewAllStreams.this, ViewStream.class);
-                            intent.putExtra("resourceuri",resourceuri);
-                            intent.putExtra("monument name",streamInfo.getMonument_name());
-                            startActivity(intent);
-                        }
-                    });
+
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
+                    Log.d("Date",""+dtf.format(now));
+                    String datetime = dtf.format(now);
+                    String current_date = datetime.substring(0,4)+"-"+datetime.substring(5,7)+"-"+datetime.substring(0,4)+datetime.substring(8,10);
+                    if(current_date.equals(streamInfo.getDate())){
+                        ViewAllStreams.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(ViewAllStreams.this, ViewStream.class);
+                                intent.putExtra("resourceuri",resourceuri);
+                                intent.putExtra("monument name",streamInfo.getMonument_name());
+                                startActivity(intent);
+                            }
+                        });
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Online show has not started yet or has ended....",Toast.LENGTH_LONG).show();
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
