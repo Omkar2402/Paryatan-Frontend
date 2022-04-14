@@ -138,7 +138,8 @@ public class ViewAllStreams extends AppCompatActivity implements StreamInterface
                     LocalDateTime now = LocalDateTime.now();
                     Log.d("Date",""+dtf.format(now));
                     String datetime = dtf.format(now);
-                    String current_date = datetime.substring(0,4)+"-"+datetime.substring(5,7)+"-"+datetime.substring(0,4)+datetime.substring(8,10);
+                    String current_date = datetime.substring(0,4)+"-"+datetime.substring(5,7)+"-"+datetime.substring(8,10);
+                    Log.d("current_date",current_date);
                     if(current_date.equals(streamInfo.getDate())){
                         ViewAllStreams.this.runOnUiThread(new Runnable() {
                             @Override
@@ -150,7 +151,13 @@ public class ViewAllStreams extends AppCompatActivity implements StreamInterface
                             }
                         });
                     }else{
-                        Toast.makeText(getApplicationContext(),"Online show has not started yet or has ended....",Toast.LENGTH_LONG).show();
+                        ViewAllStreams.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(),"Online show has not started yet or has ended....",Toast.LENGTH_LONG).show();
+                            }
+                        });
+
                     }
 
                 } catch (JSONException e) {
